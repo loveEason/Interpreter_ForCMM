@@ -30,5 +30,4 @@ HEADERS += \
 
 DISTFILES += \
     console.lex \
-    grammar.txt \
     ../build-untitled-Desktop_Qt_5_7_0_MinGW_32bit-Debug/grammar.txt

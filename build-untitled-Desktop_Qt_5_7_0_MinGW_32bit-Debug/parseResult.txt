@@ -1,79 +1,48 @@
 第1步
-当前分析栈:0x7df7a8 0x7df850 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序> 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<程序> -> <程序块>
 
 第2步
-当前分析栈:0x7df7a8 0x7df9a0 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序块> 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<程序块> -> <声明语句闭包> <程序块闭包>
 
 第3步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfd28 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<声明语句闭包> -> <声明语句> <声明语句闭包>
 
 第4步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dfeb0 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> <声明语句> 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<声明语句> -> <声明> ;
 
 第5步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e0000 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> ; <声明> 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<声明> -> <类型> <变量> <赋初值>
 
 第6步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 0x7e0150 0x7e01f8 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> ; <赋初值> <变量> <类型> 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<类型> -> int
 
 第7步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 0x7e0150 0x7e02a0 
-剩余输入串:int ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> ; <赋初值> <变量> int 
+剩余输入串:int ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 Match :int
 
 第8步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 0x7e0150 
-剩余输入串:ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> ; <赋初值> <变量> 
+剩余输入串:ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<变量> -> <标识符> <数组下标>
 
 第9步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 0x7e0348 0x7e03f0 
-剩余输入串:ID ; # 
+当前分析栈:# <程序块闭包> <声明语句闭包> ; <赋初值> <数组下标> <标识符> 
+剩余输入串:ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
 推导所用产生式:<标识符> -> ID
 
 第10步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 0x7e0348 0x7e0498 
-剩余输入串:ID ; # 
-Match :ID
-
-第11步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 0x7e0348 
-剩余输入串:; # 
-推导所用产生式:<数组下标> -> $
-
-第12步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 0x7e00a8 
-剩余输入串:; # 
-推导所用产生式:<赋初值> -> $
-
-第13步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 0x7dff58 
-剩余输入串:; # 
-Match :;
-
-第14步
-当前分析栈:0x7df7a8 0x7dfc48 0x7dfe08 
-剩余输入串:# 
-推导所用产生式:<声明语句闭包> -> $
-
-第15步
-当前分析栈:0x7df7a8 0x7dfc48 
-剩余输入串:# 
-推导所用产生式:<程序块闭包> -> $
-
-第16步
-当前分析栈:0x7df7a8 
-剩余输入串:# 
-当前程序语法分析成功！
+当前分析栈:# <程序块闭包> <声明语句闭包> ; <赋初值> <数组下标> ID 
+剩余输入串:ID = INT_VALUE ; int ID = INT_VALUE ; if ( ID > INT_VALUE ) { ID += ID ; ID -- ; } real ID = FLOAT_VALUE ; int ID [ ] = { INT_VALUE , INT_VALUE , INT_VALUE , INT_VALUE } ; for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { ID += ID ; } while ( ID > INT_VALUE ) { ID -- ; } # 
