@@ -1,0 +1,19 @@
+    int i=5;
+    int sum=0;  //这是单行注释
+    if(i>0) {
+        sum+=i;
+        i--;
+    }
+    real j=100.5;
+//    real k=50d;   //这会出错
+    /*
+    这是多行
+    注释
+    */
+    int array[] = {1,2,3,4};
+    for(int i=0;i<10;i++) {
+        j += i;
+    }
+    while(j>0) {
+        j--;
+    }

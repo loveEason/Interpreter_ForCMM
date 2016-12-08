@@ -59,6 +59,8 @@ void saveProduction(string grammar_name) {
     while (!grammar_file.eof()) {
         productionSum++;
         grammar_file.getline(perProduction, MAX);
+        if(perProduction[0] == ' ' || perProduction[0] == '\t' || perProduction[0] == '\n' || perProduction[0] == '\0')
+            continue;
         totalProductions[productionSum-1] = perProduction;
         pos = strstr(perProduction, "->");  //求出"->"的位置
         productionRight.replace(productionRight.begin(), productionRight.end(), pos + 3);   //取出产生式右部
@@ -291,7 +293,7 @@ void buildPredictionTable() {
 //输出分析栈的内容
 void showAnalysisStack(myStack *analysisStack) {
     for (int i = 0; i < analysisStack->n; ++i) {
-        parse_file << analysisStack->item[i] << " ";
+        parse_file << analysisStack->item[i]->content << " ";
     }
     parse_file<<endl;
 }
@@ -361,6 +363,7 @@ void analyse() {
         //如果分析栈和输入串都只剩余#,说明分析成功
         if (analysisStkTop->content == "#" && remainTokenTop->tokenStr == "#") {
             parse_file<<"当前程序语法分析成功！"<<endl;
+            cout<<"Parse Successfully!"<<endl;
             break;
         } else if (noneTerminalSymbols.find(analysisStkTop->content) != noneTerminalSymbols.end()) {      //如果分析栈的栈顶是非终结符
             //如果剩余输入符号串的栈顶是终结符并且在预测分析表中有对应的产生式
@@ -397,25 +400,30 @@ void analyse() {
             } else if (terminalSymbols.find(remainTokenTop->tokenStr) == terminalSymbols.end()) {
                 //当前输入串栈顶不是终结符
                 parse_file<<"Error.Line at"<<remainTokenTop->line<<", token:"<<remainTokenTop->tokenStr<<" is not terminator."<<endl<<endl;
+                cout<<"Parse Fail!"<<endl;
                 break;
             } else {
                 //在预测分析表中找不到相关产生式
                 parse_file<<"Error.Current token can't be parsed:"<<"Line at "<<remainTokenTop->line<<"  "<<remainTokenTop->tokenStr<<endl<<endl;
+                cout<<"Parse Fail!"<<endl;
                 break;
             }
         } else if (terminalSymbols.find(analysisStkTop->content) != terminalSymbols.end()) {            //如果分析栈的栈顶是终结符
             if (analysisStkTop->content == remainTokenTop->tokenStr) {
                 //匹配,将此终结符的相关信息通过栈中元素存入树中
                 //然后分析栈弹出
-                analysisStkTop->line = remainTokenTop->line;
                 analysisStkTop->type = remainTokenTop->type;
                 analysisStkTop->tokenStr = remainTokenTop->tokenStr;
+                analysisStkTop->value = remainTokenTop->content;
+                analysisStkTop->line = remainTokenTop->line;
                 analysisStack->pop();
                 //让p指向剩余输入串下一个token,以使下次取出新栈顶
                 preTop = remainTokenTop;
                 parse_file << "Match :" << remainTokenTop->tokenStr << endl << endl;
             } else {
                 parse_file<<"Error. Failed to match:"<<" Line at "<<remainTokenTop->line<<"."<<remainTokenTop->tokenStr<<endl<<endl;
+                cout<<"Parse Fail!"<<endl;
+                break;
             }
         }
     }

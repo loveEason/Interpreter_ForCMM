@@ -3,14 +3,12 @@
 <for循环块>
 <while循环>
 <while循环块>
-<一元表达式>
-<前缀表达式>
+<内部赋值>
 <参数>
 <参数列表>
 <参数闭包>
 <变量>
 <右值>
-<后缀表达式>
 <否则语句>
 <因子>
 <因式>
@@ -22,8 +20,10 @@
 <复合程序块>
 <多个数据>
 <字符串>
+<常量>
 <数字>
-<数字闭包>
+<数据>
+<数据闭包>
 <数组下标>
 <条件语句>
 <条件语句块>
@@ -68,6 +68,7 @@ $
 <
 <=
 <>
+<字符串
 =
 ==
 >
@@ -92,6 +93,7 @@ write
 
 
 ————————————————————————Grammer tokens' first sets are as follow————————————————————————
+           : {$}
          # : {#}
          $ : {$}
          % : {%}
@@ -117,14 +119,12 @@ write
 <for循环块> : {(}
 <while循环> : {while}
 <while循环块> : {(}
-<一元表达式> : {++,--,ID}
-<前缀表达式> : {++,--}
-  <参数> : {FLOAT_VALUE,ID,INT_VALUE,string}
-<参数列表> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<内部赋值> : {++,--,ID}
+  <参数> : {<字符串,FLOAT_VALUE,ID,INT_VALUE}
+<参数列表> : {<字符串,FLOAT_VALUE,ID,INT_VALUE}
 <参数闭包> : {$,,}
   <变量> : {ID}
-  <右值> : {$,%,(,*,+,++,-,--,/,FLOAT_VALUE,ID,INT_VALUE,{}
-<后缀表达式> : {ID}
+  <右值> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE,{}
 <否则语句> : {$,else}
   <因子> : {$,%,(,*,/,FLOAT_VALUE,ID,INT_VALUE}
   <因式> : {$,(,FLOAT_VALUE,ID,INT_VALUE}
@@ -134,10 +134,13 @@ write
 <声明语句或赋值语句> : {++,--,ID,int,real}
 <声明语句闭包> : {$,int,real}
 <复合程序块> : {{}
-<多个数据> : {FLOAT_VALUE,INT_VALUE}
+<多个数据> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<字符串 : {<字符串}
 <字符串> : {string}
+  <常量> : {FLOAT_VALUE,INT_VALUE,string}
   <数字> : {FLOAT_VALUE,INT_VALUE}
-<数字闭包> : {$,,}
+  <数据> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<数据闭包> : {$,,}
 <数组下标> : {$,[}
 <条件语句> : {if}
 <条件语句块> : {(}
@@ -150,11 +153,11 @@ write
 <程序块闭包> : {$,++,--,ID,for,if,read,while,write}
   <类型> : {int,real}
 <自增减运算符> : {++,--}
-<表达式> : {$,%,(,*,+,++,-,--,/,FLOAT_VALUE,ID,INT_VALUE}
+<表达式> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
   <赋值> : {%=,*=,++,+=,--,-=,/=,=}
 <赋值语句> : {++,--,ID}
 <赋初值> : {$,=}
-<逻辑表达式> : {%,(,*,+,++,-,--,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<逻辑表达式> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
 <逻辑运算符> : {<,<=,<>,==,>,>=}
      <项> : {$,+,-}
          = : {=}
@@ -203,19 +206,16 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <数字> -> FLOAT_VALUE : {FLOAT_VALUE}
 <赋初值> -> = <右值> : {=}
     <赋初值> -> $ : {$}
-<右值> -> <表达式> : {$,%,(,*,+,++,-,--,/,FLOAT_VALUE,ID,INT_VALUE}
+<右值> -> <表达式> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
 <右值> -> { <多个数据> } : {{}
-<多个数据> -> <数字> <数字闭包> : {FLOAT_VALUE,INT_VALUE}
-<数字闭包> -> , <数字> <数字闭包> : {,}
- <数字闭包> -> $ : {$}
-<表达式> -> <一元表达式> : {++,--,ID}
+<多个数据> -> <数据> <数据闭包> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<数据闭包> -> , <数据> <数据闭包> : {,}
+ <数据闭包> -> $ : {$}
+<数据> -> <常量> : {FLOAT_VALUE,INT_VALUE,string}
+<数据> -> <变量> : {ID}
+<常量> -> <数字> : {FLOAT_VALUE,INT_VALUE}
+<常量> -> <字符串> : {string}
 <表达式> -> <因子> <项> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
-<一元表达式> -> <前缀表达式> : {++,--}
-<一元表达式> -> <后缀表达式> : {ID}
-<前缀表达式> -> <自增减运算符> <变量> : {++,--}
-<后缀表达式> -> <变量> <自增减运算符> : {ID}
-<自增减运算符> -> ++ : {++}
-<自增减运算符> -> -- : {--}
 <因子> -> <因式> <因式递归> : {$,%,(,*,/,FLOAT_VALUE,ID,INT_VALUE}
 <因式递归> -> * <因式> <因式递归> : {*}
 <因式递归> -> / <因式> <因式递归> : {/}
@@ -239,17 +239,21 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <赋值> -> *= <右值> : {*=}
 <赋值> -> /= <右值> : {/=}
 <赋值> -> %= <右值> : {%=}
+<自增减运算符> -> ++ : {++}
+<自增减运算符> -> -- : {--}
 <for循环> -> for <for循环块> : {for}
-<for循环块> -> ( <声明语句或赋值语句> <逻辑表达式> ; <一元表达式> ) <复合程序块> : {(}
+<for循环块> -> ( <声明语句或赋值语句> <逻辑表达式> ; <内部赋值> ) <复合程序块> : {(}
 <声明语句或赋值语句> -> <声明语句> : {int,real}
 <声明语句或赋值语句> -> <赋值语句> : {++,--,ID}
-<逻辑表达式> -> <表达式> <逻辑运算符> <表达式> : {%,(,*,+,++,-,--,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<逻辑表达式> -> <表达式> <逻辑运算符> <表达式> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
 <逻辑运算符> -> < : {<}
 <逻辑运算符> -> <= : {<=}
 <逻辑运算符> -> > : {>}
 <逻辑运算符> -> >= : {>=}
 <逻辑运算符> -> <> : {<>}
 <逻辑运算符> -> == : {==}
+<内部赋值> -> <自增减运算符> <变量> : {++,--}
+<内部赋值> -> <变量> <赋值> : {ID}
 <while循环> -> while <while循环块> : {while}
 <while循环块> -> ( <逻辑表达式> ) <复合程序块> : {(}
 <条件语句> -> if <条件语句块> : {if}
@@ -260,61 +264,62 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <特殊函数调用> -> <标准函数> ( <参数列表> ) : {read,write}
 <标准函数> -> read : {read}
 <标准函数> -> write : {write}
-<参数列表> -> <参数> <参数闭包> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<参数列表> -> <参数> <参数闭包> : {<字符串,FLOAT_VALUE,ID,INT_VALUE}
 <参数闭包> -> , <参数> <参数闭包> : {,}
  <参数闭包> -> $ : {$}
 <参数> -> <标识符> : {ID}
 <参数> -> <数字> : {FLOAT_VALUE,INT_VALUE}
-<参数> -> <字符串> : {string}
+<参数> -> <字符串 : {<字符串}
 <字符串> -> string : {string}
 <复合程序块> -> { <程序块> } : {{}
+                     : {$}
 
 
 
 ————————————————————————Non-teminals' follow sets are as follow————————————————————————
-         <for循环> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
+                     : {         <for循环> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
       <for循环块> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
        <while循环> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
     <while循环块> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
-   <一元表达式> : {),;,<,<=,<>,==,>,>=}
-   <前缀表达式> : {),;,<,<=,<>,==,>,>=}
+      <内部赋值> : {)}
             <参数> : {),,}
       <参数列表> : {)}
       <参数闭包> : {)}
-            <变量> : {%,%=,),*,*=,+,++,+=,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,]}
-            <右值> : {;}
-   <后缀表达式> : {),;,<,<=,<>,==,>,>=}
+            <变量> : {%,%=,),*,*=,+,++,+=,,,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,],}}
+            <右值> : {),;}
       <否则语句> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
             <因子> : {),+,-,;,<,<=,<>,==,>,>=}
             <因式> : {%,),*,+,-,/,;,<,<=,<>,==,>,>=,]}
       <因式递归> : {),+,-,;,<,<=,<>,==,>,>=}
             <声明> : {;}
       <声明语句> : {#,%,(,*,+,++,-,--,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
-<声明语句或赋值语句> : {%,(,*,+,++,-,--,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<声明语句或赋值语句> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
 <声明语句闭包> : {#,++,--,ID,for,if,read,while,write,}}
    <复合程序块> : {#,++,--,;,ID,else,for,if,int,read,real,while,write,}}
       <多个数据> : {}}
-         <字符串> : {),,}
+         <字符串> : {,,}}
+            <常量> : {,,}}
             <数字> : {%,),*,+,,,-,/,;,<,<=,<>,==,>,>=,],}}
-      <数字闭包> : {}}
-      <数组下标> : {%,%=,),*,*=,+,++,+=,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,]}
+            <数据> : {,,}}
+      <数据闭包> : {}}
+      <数组下标> : {%,%=,),*,*=,+,++,+=,,,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,],}}
       <条件语句> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
    <条件语句块> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
       <标准函数> : {(}
-         <标识符> : {%,%=,),*,*=,+,++,+=,,,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,[,]}
+         <标识符> : {%,%=,),*,*=,+,++,+=,,,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,[,],}}
       <特殊函数> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
 <特殊函数调用> : {;}
             <程序> : {#}
          <程序块> : {#,}}
    <程序块闭包> : {#,}}
             <类型> : {ID}
-<自增减运算符> : {),;,<,<=,<>,==,>,>=,ID}
+<自增减运算符> : {),;,ID}
          <表达式> : {),;,<,<=,<>,==,>,>=}
-            <赋值> : {;}
+            <赋值> : {),;}
       <赋值语句> : {#,%,(,*,+,++,-,--,/,;,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
          <赋初值> : {;}
    <逻辑表达式> : {),;}
-   <逻辑运算符> : {%,(,),*,+,++,-,--,/,;,FLOAT_VALUE,ID,INT_VALUE}
+   <逻辑运算符> : {%,(,),*,+,-,/,;,FLOAT_VALUE,ID,INT_VALUE}
                <项> : {),;,<,<=,<>,==,>,>=}
 
 
@@ -333,7 +338,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <变量> -> <标识符> <数组下标> : {ID}
    <标识符> -> ID : {ID}
 <数组下标> -> [ <因式> ] : {[}
- <数组下标> -> $ : {%,%=,),*,*=,+,++,+=,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,]}
+ <数组下标> -> $ : {%,%=,),*,*=,+,++,+=,,,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,],}}
 <因式> -> ( <表达式> ) : {(}
 <因式> -> <变量> : {ID}
 <因式> -> <数字> : {FLOAT_VALUE,INT_VALUE}
@@ -342,19 +347,16 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <数字> -> FLOAT_VALUE : {FLOAT_VALUE}
 <赋初值> -> = <右值> : {=}
     <赋初值> -> $ : {;}
-<右值> -> <表达式> : {%,(,*,+,++,-,--,/,;,FLOAT_VALUE,ID,INT_VALUE}
+<右值> -> <表达式> : {%,(,),*,+,-,/,;,FLOAT_VALUE,ID,INT_VALUE}
 <右值> -> { <多个数据> } : {{}
-<多个数据> -> <数字> <数字闭包> : {FLOAT_VALUE,INT_VALUE}
-<数字闭包> -> , <数字> <数字闭包> : {,}
- <数字闭包> -> $ : {}}
-<表达式> -> <一元表达式> : {++,--,ID}
+<多个数据> -> <数据> <数据闭包> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<数据闭包> -> , <数据> <数据闭包> : {,}
+ <数据闭包> -> $ : {}}
+<数据> -> <常量> : {FLOAT_VALUE,INT_VALUE,string}
+<数据> -> <变量> : {ID}
+<常量> -> <数字> : {FLOAT_VALUE,INT_VALUE}
+<常量> -> <字符串> : {string}
 <表达式> -> <因子> <项> : {%,(,),*,+,-,/,;,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
-<一元表达式> -> <前缀表达式> : {++,--}
-<一元表达式> -> <后缀表达式> : {ID}
-<前缀表达式> -> <自增减运算符> <变量> : {++,--}
-<后缀表达式> -> <变量> <自增减运算符> : {ID}
-<自增减运算符> -> ++ : {++}
-<自增减运算符> -> -- : {--}
 <因子> -> <因式> <因式递归> : {%,(,),*,+,-,/,;,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
 <因式递归> -> * <因式> <因式递归> : {*}
 <因式递归> -> / <因式> <因式递归> : {/}
@@ -378,17 +380,21 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <赋值> -> *= <右值> : {*=}
 <赋值> -> /= <右值> : {/=}
 <赋值> -> %= <右值> : {%=}
+<自增减运算符> -> ++ : {++}
+<自增减运算符> -> -- : {--}
 <for循环> -> for <for循环块> : {for}
-<for循环块> -> ( <声明语句或赋值语句> <逻辑表达式> ; <一元表达式> ) <复合程序块> : {(}
+<for循环块> -> ( <声明语句或赋值语句> <逻辑表达式> ; <内部赋值> ) <复合程序块> : {(}
 <声明语句或赋值语句> -> <声明语句> : {int,real}
 <声明语句或赋值语句> -> <赋值语句> : {++,--,ID}
-<逻辑表达式> -> <表达式> <逻辑运算符> <表达式> : {%,(,*,+,++,-,--,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<逻辑表达式> -> <表达式> <逻辑运算符> <表达式> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
 <逻辑运算符> -> < : {<}
 <逻辑运算符> -> <= : {<=}
 <逻辑运算符> -> > : {>}
 <逻辑运算符> -> >= : {>=}
 <逻辑运算符> -> <> : {<>}
 <逻辑运算符> -> == : {==}
+<内部赋值> -> <自增减运算符> <变量> : {++,--}
+<内部赋值> -> <变量> <赋值> : {ID}
 <while循环> -> while <while循环块> : {while}
 <while循环块> -> ( <逻辑表达式> ) <复合程序块> : {(}
 <条件语句> -> if <条件语句块> : {if}
@@ -399,12 +405,12 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <特殊函数调用> -> <标准函数> ( <参数列表> ) : {read,write}
 <标准函数> -> read : {read}
 <标准函数> -> write : {write}
-<参数列表> -> <参数> <参数闭包> : {FLOAT_VALUE,ID,INT_VALUE,string}
+<参数列表> -> <参数> <参数闭包> : {<字符串,FLOAT_VALUE,ID,INT_VALUE}
 <参数闭包> -> , <参数> <参数闭包> : {,}
  <参数闭包> -> $ : {)}
 <参数> -> <标识符> : {ID}
 <参数> -> <数字> : {FLOAT_VALUE,INT_VALUE}
-<参数> -> <字符串> : {string}
+<参数> -> <字符串 : {<字符串}
 <字符串> -> string : {string}
 <复合程序块> -> { <程序块> } : {{}
 
@@ -412,39 +418,35 @@ FLOAT_VALUE : {FLOAT_VALUE}
 
 ————————————————————————Prodiction-analyzing table is as follow————————————————————————
 <for循环> encounters for,using deducer:<for循环> -> for <for循环块>
-<for循环块> encounters (,using deducer:<for循环块> -> ( <声明语句或赋值语句> <逻辑表达式> ; <一元表达式> ) <复合程序块>
+<for循环块> encounters (,using deducer:<for循环块> -> ( <声明语句或赋值语句> <逻辑表达式> ; <内部赋值> ) <复合程序块>
 <while循环> encounters while,using deducer:<while循环> -> while <while循环块>
 <while循环块> encounters (,using deducer:<while循环块> -> ( <逻辑表达式> ) <复合程序块>
-<一元表达式> encounters ++,using deducer:<一元表达式> -> <前缀表达式>
-<一元表达式> encounters --,using deducer:<一元表达式> -> <前缀表达式>
-<一元表达式> encounters ID,using deducer:<一元表达式> -> <后缀表达式>
-<前缀表达式> encounters ++,using deducer:<前缀表达式> -> <自增减运算符> <变量>
-<前缀表达式> encounters --,using deducer:<前缀表达式> -> <自增减运算符> <变量>
+<内部赋值> encounters ++,using deducer:<内部赋值> -> <自增减运算符> <变量>
+<内部赋值> encounters --,using deducer:<内部赋值> -> <自增减运算符> <变量>
+<内部赋值> encounters ID,using deducer:<内部赋值> -> <变量> <赋值>
+<参数> encounters <字符串,using deducer:<参数> -> <字符串
 <参数> encounters FLOAT_VALUE,using deducer:<参数> -> <数字>
 <参数> encounters ID,using deducer:<参数> -> <标识符>
 <参数> encounters INT_VALUE,using deducer:<参数> -> <数字>
-<参数> encounters string,using deducer:<参数> -> <字符串>
+<参数列表> encounters <字符串,using deducer:<参数列表> -> <参数> <参数闭包>
 <参数列表> encounters FLOAT_VALUE,using deducer:<参数列表> -> <参数> <参数闭包>
 <参数列表> encounters ID,using deducer:<参数列表> -> <参数> <参数闭包>
 <参数列表> encounters INT_VALUE,using deducer:<参数列表> -> <参数> <参数闭包>
-<参数列表> encounters string,using deducer:<参数列表> -> <参数> <参数闭包>
 <参数闭包> encounters ),using deducer:<参数闭包> -> $
 <参数闭包> encounters ,,using deducer:<参数闭包> -> , <参数> <参数闭包>
 <变量> encounters ID,using deducer:<变量> -> <标识符> <数组下标>
 <右值> encounters %,using deducer:<右值> -> <表达式>
 <右值> encounters (,using deducer:<右值> -> <表达式>
+<右值> encounters ),using deducer:<右值> -> <表达式>
 <右值> encounters *,using deducer:<右值> -> <表达式>
 <右值> encounters +,using deducer:<右值> -> <表达式>
-<右值> encounters ++,using deducer:<右值> -> <表达式>
 <右值> encounters -,using deducer:<右值> -> <表达式>
-<右值> encounters --,using deducer:<右值> -> <表达式>
 <右值> encounters /,using deducer:<右值> -> <表达式>
 <右值> encounters ;,using deducer:<右值> -> <表达式>
 <右值> encounters FLOAT_VALUE,using deducer:<右值> -> <表达式>
 <右值> encounters ID,using deducer:<右值> -> <表达式>
 <右值> encounters INT_VALUE,using deducer:<右值> -> <表达式>
 <右值> encounters {,using deducer:<右值> -> { <多个数据> }
-<后缀表达式> encounters ID,using deducer:<后缀表达式> -> <变量> <自增减运算符>
 <否则语句> encounters #,using deducer:<否则语句> -> $
 <否则语句> encounters ++,using deducer:<否则语句> -> $
 <否则语句> encounters --,using deducer:<否则语句> -> $
@@ -529,13 +531,22 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <声明语句闭包> encounters write,using deducer:<声明语句闭包> -> $
 <声明语句闭包> encounters },using deducer:<声明语句闭包> -> $
 <复合程序块> encounters {,using deducer:<复合程序块> -> { <程序块> }
-<多个数据> encounters FLOAT_VALUE,using deducer:<多个数据> -> <数字> <数字闭包>
-<多个数据> encounters INT_VALUE,using deducer:<多个数据> -> <数字> <数字闭包>
+<多个数据> encounters FLOAT_VALUE,using deducer:<多个数据> -> <数据> <数据闭包>
+<多个数据> encounters ID,using deducer:<多个数据> -> <数据> <数据闭包>
+<多个数据> encounters INT_VALUE,using deducer:<多个数据> -> <数据> <数据闭包>
+<多个数据> encounters string,using deducer:<多个数据> -> <数据> <数据闭包>
 <字符串> encounters string,using deducer:<字符串> -> string
+<常量> encounters FLOAT_VALUE,using deducer:<常量> -> <数字>
+<常量> encounters INT_VALUE,using deducer:<常量> -> <数字>
+<常量> encounters string,using deducer:<常量> -> <字符串>
 <数字> encounters FLOAT_VALUE,using deducer:<数字> -> FLOAT_VALUE
 <数字> encounters INT_VALUE,using deducer:<数字> -> INT_VALUE
-<数字闭包> encounters ,,using deducer:<数字闭包> -> , <数字> <数字闭包>
-<数字闭包> encounters },using deducer:<数字闭包> -> $
+<数据> encounters FLOAT_VALUE,using deducer:<数据> -> <常量>
+<数据> encounters ID,using deducer:<数据> -> <变量>
+<数据> encounters INT_VALUE,using deducer:<数据> -> <常量>
+<数据> encounters string,using deducer:<数据> -> <常量>
+<数据闭包> encounters ,,using deducer:<数据闭包> -> , <数据> <数据闭包>
+<数据闭包> encounters },using deducer:<数据闭包> -> $
 <数组下标> encounters %,using deducer:<数组下标> -> $
 <数组下标> encounters %=,using deducer:<数组下标> -> $
 <数组下标> encounters ),using deducer:<数组下标> -> $
@@ -544,6 +555,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <数组下标> encounters +,using deducer:<数组下标> -> $
 <数组下标> encounters ++,using deducer:<数组下标> -> $
 <数组下标> encounters +=,using deducer:<数组下标> -> $
+<数组下标> encounters ,,using deducer:<数组下标> -> $
 <数组下标> encounters -,using deducer:<数组下标> -> $
 <数组下标> encounters --,using deducer:<数组下标> -> $
 <数组下标> encounters -=,using deducer:<数组下标> -> $
@@ -559,6 +571,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <数组下标> encounters >=,using deducer:<数组下标> -> $
 <数组下标> encounters [,using deducer:<数组下标> -> [ <因式> ]
 <数组下标> encounters ],using deducer:<数组下标> -> $
+<数组下标> encounters },using deducer:<数组下标> -> $
 <条件语句> encounters if,using deducer:<条件语句> -> if <条件语句块>
 <条件语句块> encounters (,using deducer:<条件语句块> -> ( <逻辑表达式> ) <复合程序块> <否则语句>
 <标准函数> encounters read,using deducer:<标准函数> -> read
@@ -612,9 +625,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <表达式> encounters ),using deducer:<表达式> -> <因子> <项>
 <表达式> encounters *,using deducer:<表达式> -> <因子> <项>
 <表达式> encounters +,using deducer:<表达式> -> <因子> <项>
-<表达式> encounters ++,using deducer:<表达式> -> <一元表达式>
 <表达式> encounters -,using deducer:<表达式> -> <因子> <项>
-<表达式> encounters --,using deducer:<表达式> -> <一元表达式>
 <表达式> encounters /,using deducer:<表达式> -> <因子> <项>
 <表达式> encounters ;,using deducer:<表达式> -> <因子> <项>
 <表达式> encounters <,using deducer:<表达式> -> <因子> <项>
@@ -643,9 +654,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <逻辑表达式> encounters (,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
 <逻辑表达式> encounters *,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
 <逻辑表达式> encounters +,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
-<逻辑表达式> encounters ++,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
 <逻辑表达式> encounters -,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
-<逻辑表达式> encounters --,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
 <逻辑表达式> encounters /,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
 <逻辑表达式> encounters <,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>
 <逻辑表达式> encounters <=,using deducer:<逻辑表达式> -> <表达式> <逻辑运算符> <表达式>

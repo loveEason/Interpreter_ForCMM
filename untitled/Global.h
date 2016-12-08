@@ -74,19 +74,29 @@ struct errorNode {          //错误节点，用来组织成错误链表
 };
 
 struct treeNode {           //语法树节点
-    string content;         //内容
+    string content;         //文法符号内容
     int type;               //类型
     string tokenStr;        //以字符串形式表示的token
+    string value;           //常量或变量表示的值
     int line;               //所在行数
     int childNum;           //孩子数目
     treeNode* children[MAXCHILDREN];
     treeNode(string s) {    //构造函数
         content = s;
+        type = -1;
+        tokenStr = "\0";
+        value = "\0";
+        line = -1;
         childNum = 0;
     }
 
 
     treeNode() {
+        content = "\0";
+        type = -1;
+        tokenStr = "\0";
+        value = "\0";
+        line = -1;
         childNum = 0;
     }
 };
