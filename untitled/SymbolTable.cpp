@@ -6,7 +6,7 @@ SymbolTable::~SymbolTable(){}
 
 void SymbolTable::addSymbol(Symbol *symbol) {
 	if (containsSymbol(symbol)) {
-		if (getSymbol(symbol->getName())->getLayer() < symbol->getLayer()) {                //判断是否为同一层的变量
+        if (getSymbol(symbol->getName())->getLayer() < symbol->getLayer()) {
 			Symbol *temp = getSymbol(symbol->getName());
 			symbol->setNext(temp);
 			symbolTable.erase(symbolTable.begin() + tableIndex);
@@ -29,7 +29,7 @@ void SymbolTable::removeLayerSymbol(int layer) {
 			}
 			else {
 				symbolTable.erase(symbolTable.begin() + i);
-				i--;             //当前元素被移除，后面元素往前移动
+                i--;
 			}
 		}
 	}

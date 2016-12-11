@@ -13,7 +13,7 @@ public:
 	void addSymbol(SimpleSymbol *ss);
 	void removeLayerSimple(int layer);
 	void clearTable();
-	bool containsSymbol(SimpleSymbol *ss);
+    bool containsSymbol(string name, int layer);
 	SimpleSymbol* getSymbol(string name);
 };
 

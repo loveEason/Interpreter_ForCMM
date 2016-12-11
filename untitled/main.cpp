@@ -5,6 +5,7 @@
 #include "LexAnalysis.h"
 #include "Util.h"
 #include "Parse.h"
+#include "CodeGenerator.h"
 
 using namespace std;
 
@@ -89,9 +90,15 @@ int main(int argc,char *argv[]) {
         parseTree_file.close();
         set_file.close();
         parse_file.close();
-		treeNode * root = treeRoot;
     }
 
+
+
+    CodeGenerator *cg = new CodeGenerator();
+    cg->interpretPrg(treeRoot);
+    cg->printCode();
+    cg->clearCode();
+    delete cg;
 
     return 0;
 }

@@ -1,7 +1,7 @@
 #include "InterCode.h"
 
 
-InterCode::InterCode(int instructType, string secondElm, string thirdElm, string fourthElm)
+InterCode::InterCode(string instructType, string secondElm, string thirdElm, string fourthElm)
 {
 	this->instructType = instructType;
 	this->secondElm = secondElm;
@@ -14,7 +14,7 @@ InterCode::~InterCode()
 {
 }
 
-int InterCode::getInstructType() {
+string InterCode::getInstructType() {
 	return this->instructType;
 }
 
@@ -43,5 +43,7 @@ void InterCode::setFourthElm(string fourthElm) {
 }
 
 void InterCode::printCode() {
-	cout << "(" << instructType << "," << secondElm << "," << thirdElm << "," << fourthElm << ")" << endl;
+    string third = thirdElm==""?"NULL":thirdElm;
+    string fourth = fourthElm==""?"NULL":fourthElm;
+    cout << "(  " << instructType << "  ,  " << secondElm << "  ,  " << third << "  ,  " << fourth << "  )" << endl;
 }

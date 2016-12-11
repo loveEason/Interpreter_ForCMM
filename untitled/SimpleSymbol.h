@@ -8,9 +8,8 @@ class SimpleSymbol:public BaseSymbol
 {
 private:
 	int lineNumber;
-	bool isArray;
+    bool isArray = false;
 public:
-	SimpleSymbol(string name, int type, int layer, int lineNumber);
 	SimpleSymbol(string name, int type, int layer, int lineNumber, bool isArray);
 	int getLineNumber();
 	bool isArraySymbol();

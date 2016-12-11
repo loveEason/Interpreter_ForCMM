@@ -3,36 +3,38 @@
 #include <string>
 using namespace std;
 
-#define INT_DCL 1
-#define REAL_DCL 2
-#define ASG 3
-#define RED 4
-#define WRT 5
-#define JMP 6
-//À„ ı‘ÀÀ„∑˚
-#define PLU 7
-#define MINU 8
-#define MULTIPLE 9
-#define DIVIDE 10
-//¬ﬂº≠‘ÀÀ„∑˚
-#define EQUAL 11
-#define GREATER_THAN 12
-#define LESS_THAN 13
-#define NO_GREATER_THAN 14
-#define NO_LESS_THAN 15
-#define NOT_EQUAL 16
-#define TRUE 17
-#define FALSE 18
+#define INT_DCL "INT_DCL"
+#define REAL_DCL "REAL_DCL"
+#define ASG "ASG"
+#define ASGRA "ASGRA"   //
+#define RED "RED"
+#define WRT "WRT"
+#define JMP "JMP"
+
+#define PLU "PLU"
+#define MINU "MINU"
+#define MULTIPLY "MULTIPLY"
+#define DIVIDE "DIVIDE"
+#define REM "REM"
+
+#define EQUAL "EQUAL"
+#define GREATER_THAN "GREATER_THAN"
+#define LESS_THAN "LESS_THAN"
+#define NO_GREATER_THAN "NO_GREATER_THAN"
+#define NO_LESS_THAN "NO_LESS_THAN"
+#define NOT_EQUAL 1"NOT_EQUAL"
+#define TRUE "TRUE"
+#define FALSE "FALSE"
 class InterCode
 {
 private:
-	int instructType;
+    string instructType;
 	string secondElm;
 	string thirdElm;
 	string fourthElm;
 public:
-	InterCode(int instructType, string secondElm, string thirdElm, string fourthElm);
-	int getInstructType();
+    InterCode(string instructType, string secondElm, string thirdElm, string fourthElm);
+    string getInstructType();
 	string getSecondElm();
 	string getThirdElm();
 	string getFourthElm();

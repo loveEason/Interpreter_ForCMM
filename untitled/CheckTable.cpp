@@ -7,7 +7,7 @@ CheckTable::CheckTable(){}
 CheckTable::~CheckTable(){}
 
 void CheckTable::addSymbol(SimpleSymbol *ss) {
-	if (containsSymbol(ss)) {
+    if (containsSymbol(ss->getName(), ss->getLayer())) {
 		if (ss->getLayer() > getSymbol(ss->getName())->getLayer()) {
 			checkTable.push_back(ss);
 		}
@@ -33,19 +33,20 @@ void CheckTable::clearTable() {
 	}
 }
 
-bool CheckTable::containsSymbol(SimpleSymbol *ss) {
-	for (SimpleSymbol *s : checkTable) {
-		if (s->getName() == ss->getName()) {
-			return true;
-		}
-	}
-	return false;
+bool CheckTable::containsSymbol(string name, int layer) {
+    int count = checkTable.size();
+    for(int i=0;i<count;i++){
+        if(checkTable.at(i)->getName()==name&&checkTable.at(i)->getLayer()<=layer){
+            return true;
+        }
+    }
+    return false;
 }
 
 SimpleSymbol* CheckTable::getSymbol(string name) {
-	for (SimpleSymbol *s:checkTable) {
-		if (s->getName() == name) {
-			return s;
+    for (int i=0;i<checkTable.size();i++) {
+        if (checkTable[i]->getName() == name) {
+            return checkTable[i];
 		}
 	}
 	return NULL;
