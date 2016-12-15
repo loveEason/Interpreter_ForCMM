@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     SimpleSymbol.cpp \
     Symbol.cpp \
     SymbolTable.cpp \
-    Util.cpp
+    Util.cpp \
+    optimize.cpp
 
 HEADERS += \
     BaseSymbol.h \
@@ -26,7 +27,8 @@ HEADERS += \
     SimpleSymbol.h \
     Symbol.h \
     SymbolTable.h \
-    Util.h
+    Util.h \
+    optimize.h
 
 DISTFILES += \
     console.lex \

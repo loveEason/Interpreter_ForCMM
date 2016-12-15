@@ -32,15 +32,25 @@ private:
 	string secondElm;
 	string thirdElm;
 	string fourthElm;
+    bool isDelete;     //在优化过程中使用，记录是否该中间代码是否需要删除
+    bool isModified;   //记录在优化过程中该中间代码是否被修改过
+    int line;
 public:
     InterCode(string instructType, string secondElm, string thirdElm, string fourthElm);
+    InterCode(string instructType, string secondElm, string thirdElm, string fourthElm, int line);
     string getInstructType();
 	string getSecondElm();
 	string getThirdElm();
 	string getFourthElm();
+    bool getIsDelete();
+    bool getIsModified();
+    int getLine();
 	void setSecondElm(string secondElm);
 	void setThirdElm(string thirdElm);
 	void setFourthElm(string fourthElm);
+    void setLine(int line);
+    void setIsDelete(bool isDelete);
+    void setIsModified(bool isModified);
 	void printCode();
 	~InterCode();
 };

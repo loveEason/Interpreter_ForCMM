@@ -10,4 +10,5 @@ INPUT(
 ./debug\Symbol.o
 ./debug\SymbolTable.o
 ./debug\Util.o
+./debug\optimize.o
 );

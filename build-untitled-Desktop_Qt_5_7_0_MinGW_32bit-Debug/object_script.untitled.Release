@@ -10,4 +10,5 @@ INPUT(
 ./release\Symbol.o
 ./release\SymbolTable.o
 ./release\Util.o
+./release\optimize.o
 );

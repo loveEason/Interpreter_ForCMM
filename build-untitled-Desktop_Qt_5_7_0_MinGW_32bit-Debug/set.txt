@@ -117,18 +117,18 @@ write
 <block_closure> : {$,++,--,ID,for,if,read,while,write}
 <constant> : {FLOAT_VALUE,INT_VALUE}
 <cpd_block> : {{}
-    <data> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
+    <data> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <data_closure> : {$,,}
-   <datas> : {$,%,(,*,+,,,-,/,FLOAT_VALUE,ID,INT_VALUE}
+   <datas> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <declaration> : {int,real}
  <declare> : {int,real}
 <declare_closure> : {$,int,real}
 <declare_or_assign> : {++,--,ID,int,real}
     <else> : {$,else}
-<expression> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
-  <factor> : {$,%,(,*,/,FLOAT_VALUE,ID,INT_VALUE}
+<expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
+  <factor> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <factor_recursion> : {$,%,*,/}
-<factor_type> : {$,(,FLOAT_VALUE,ID,INT_VALUE}
+<factor_type> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <for_block> : {(}
 <for_loop> : {for}
 <function> : {read,write}
@@ -139,13 +139,13 @@ write
    <index> : {$,[}
 <initialization> : {$,=}
 <inner_assign> : {++,--,ID}
-<logic_exp> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<logic_exp> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <logic_op> : {<,<=,<>,==,>,>=}
   <number> : {FLOAT_VALUE,INT_VALUE}
  <program> : {$,++,--,;,ID,for,if,int,read,real,while,write}
 <read_fun> : {read}
 <right-value> : {<right-value>}
-<right_value> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE,{}
+<right_value> : {(,FLOAT_VALUE,ID,INT_VALUE,{}
  <self_op> : {++,--}
     <term> : {$,+,-}
     <type> : {int,real}
@@ -193,22 +193,21 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <factor_type> -> ( <expression> ) : {(}
 <factor_type> -> <variable> : {ID}
 <factor_type> -> <number> : {FLOAT_VALUE,INT_VALUE}
-  <factor_type> -> $ : {$}
 <number> -> INT_VALUE : {INT_VALUE}
 <number> -> FLOAT_VALUE : {FLOAT_VALUE}
 <initialization> -> = <right_value> : {=}
 <initialization> -> $ : {$}
-<right_value> -> <expression> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
+<right_value> -> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <right_value> -> { <datas> } : {{}
-<datas> -> <data> <data_closure> : {$,%,(,*,+,,,-,/,FLOAT_VALUE,ID,INT_VALUE}
+<datas> -> <data> <data_closure> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <data_closure> -> , <data> <data_closure> : {,}
  <data_closure> -> $ : {$}
 <data> -> <constant> : {FLOAT_VALUE,INT_VALUE}
 <data> -> <variable> : {ID}
-<data> -> <expression> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
+<data> -> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <constant> -> <number> : {FLOAT_VALUE,INT_VALUE}
-<expression> -> <factor> <term> : {$,%,(,*,+,-,/,FLOAT_VALUE,ID,INT_VALUE}
-<factor> -> <factor_type> <factor_recursion> : {$,%,(,*,/,FLOAT_VALUE,ID,INT_VALUE}
+<expression> -> <factor> <term> : {(,FLOAT_VALUE,ID,INT_VALUE}
+<factor> -> <factor_type> <factor_recursion> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <factor_recursion> -> * <factor_type> <factor_recursion> : {*}
 <factor_recursion> -> / <factor_type> <factor_recursion> : {/}
 <factor_recursion> -> % <factor_type> <factor_recursion> : {%}
@@ -237,7 +236,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block> : {(}
 <declare_or_assign> -> <declaration> : {int,real}
 <declare_or_assign> -> <assignment> : {++,--,ID}
-<logic_exp> -> <expression> <logic_op> <expression> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<logic_exp> -> <expression> <logic_op> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
      <logic_op> -> < : {<}
     <logic_op> -> <= : {<=}
      <logic_op> -> > : {>}
@@ -264,7 +263,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 
 ————————————————————————Non-teminals' follow sets are as follow————————————————————————
                      : {            <assign> : {),;}
-        <assignment> : {#,%,(,*,+,++,-,--,/,;,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
+        <assignment> : {#,(,++,--,;,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
              <block> : {#,}}
      <block_closure> : {#,}}
           <constant> : {),,,}}
@@ -272,10 +271,10 @@ FLOAT_VALUE : {FLOAT_VALUE}
               <data> : {),,,}}
       <data_closure> : {}}
              <datas> : {}}
-       <declaration> : {#,%,(,*,+,++,-,--,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
+       <declaration> : {#,(,++,--,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
            <declare> : {;}
    <declare_closure> : {#,++,--,ID,for,if,read,while,write,}}
- <declare_or_assign> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+ <declare_or_assign> : {(,FLOAT_VALUE,ID,INT_VALUE}
               <else> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
         <expression> : {),,,;,<,<=,<>,==,>,>=,}}
             <factor> : {),+,,,-,;,<,<=,<>,==,>,>=,}}
@@ -292,7 +291,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
     <initialization> : {;}
       <inner_assign> : {)}
          <logic_exp> : {),;}
-          <logic_op> : {%,(,),*,+,-,/,;,FLOAT_VALUE,ID,INT_VALUE}
+          <logic_op> : {(,FLOAT_VALUE,ID,INT_VALUE}
             <number> : {%,),*,+,,,-,/,;,<,<=,<>,==,>,>=,],}}
            <program> : {#}
           <read_fun> : {;}
@@ -325,22 +324,21 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <factor_type> -> ( <expression> ) : {(}
 <factor_type> -> <variable> : {ID}
 <factor_type> -> <number> : {FLOAT_VALUE,INT_VALUE}
-  <factor_type> -> $ : {%,),*,+,,,-,/,;,<,<=,<>,==,>,>=,],}}
 <number> -> INT_VALUE : {INT_VALUE}
 <number> -> FLOAT_VALUE : {FLOAT_VALUE}
 <initialization> -> = <right_value> : {=}
 <initialization> -> $ : {;}
-<right_value> -> <expression> : {%,(,),*,+,-,/,;,FLOAT_VALUE,ID,INT_VALUE}
+<right_value> -> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <right_value> -> { <datas> } : {{}
-<datas> -> <data> <data_closure> : {%,(,*,+,,,-,/,FLOAT_VALUE,ID,INT_VALUE,}}
+<datas> -> <data> <data_closure> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <data_closure> -> , <data> <data_closure> : {,}
  <data_closure> -> $ : {}}
 <data> -> <constant> : {FLOAT_VALUE,INT_VALUE}
 <data> -> <variable> : {ID}
-<data> -> <expression> : {%,(,),*,+,,,-,/,FLOAT_VALUE,ID,INT_VALUE,}}
+<data> -> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <constant> -> <number> : {FLOAT_VALUE,INT_VALUE}
-<expression> -> <factor> <term> : {%,(,),*,+,,,-,/,;,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE,}}
-<factor> -> <factor_type> <factor_recursion> : {%,(,),*,+,,,-,/,;,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE,}}
+<expression> -> <factor> <term> : {(,FLOAT_VALUE,ID,INT_VALUE}
+<factor> -> <factor_type> <factor_recursion> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <factor_recursion> -> * <factor_type> <factor_recursion> : {*}
 <factor_recursion> -> / <factor_type> <factor_recursion> : {/}
 <factor_recursion> -> % <factor_type> <factor_recursion> : {%}
@@ -369,7 +367,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block> : {(}
 <declare_or_assign> -> <declaration> : {int,real}
 <declare_or_assign> -> <assignment> : {++,--,ID}
-<logic_exp> -> <expression> <logic_op> <expression> : {%,(,*,+,-,/,<,<=,<>,==,>,>=,FLOAT_VALUE,ID,INT_VALUE}
+<logic_exp> -> <expression> <logic_op> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
      <logic_op> -> < : {<}
     <logic_op> -> <= : {<=}
      <logic_op> -> > : {>}
@@ -431,31 +429,16 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <constant> encounters FLOAT_VALUE,using deducer:<constant> -> <number>
 <constant> encounters INT_VALUE,using deducer:<constant> -> <number>
 <cpd_block> encounters {,using deducer:<cpd_block> -> { <block> }
-<data> encounters %,using deducer:<data> -> <expression>
 <data> encounters (,using deducer:<data> -> <expression>
-<data> encounters ),using deducer:<data> -> <expression>
-<data> encounters *,using deducer:<data> -> <expression>
-<data> encounters +,using deducer:<data> -> <expression>
-<data> encounters ,,using deducer:<data> -> <expression>
-<data> encounters -,using deducer:<data> -> <expression>
-<data> encounters /,using deducer:<data> -> <expression>
 <data> encounters FLOAT_VALUE,using deducer:<data> -> <expression>
 <data> encounters ID,using deducer:<data> -> <expression>
 <data> encounters INT_VALUE,using deducer:<data> -> <expression>
-<data> encounters },using deducer:<data> -> <expression>
 <data_closure> encounters ,,using deducer:<data_closure> -> , <data> <data_closure>
 <data_closure> encounters },using deducer:<data_closure> -> $
-<datas> encounters %,using deducer:<datas> -> <data> <data_closure>
 <datas> encounters (,using deducer:<datas> -> <data> <data_closure>
-<datas> encounters *,using deducer:<datas> -> <data> <data_closure>
-<datas> encounters +,using deducer:<datas> -> <data> <data_closure>
-<datas> encounters ,,using deducer:<datas> -> <data> <data_closure>
-<datas> encounters -,using deducer:<datas> -> <data> <data_closure>
-<datas> encounters /,using deducer:<datas> -> <data> <data_closure>
 <datas> encounters FLOAT_VALUE,using deducer:<datas> -> <data> <data_closure>
 <datas> encounters ID,using deducer:<datas> -> <data> <data_closure>
 <datas> encounters INT_VALUE,using deducer:<datas> -> <data> <data_closure>
-<datas> encounters },using deducer:<datas> -> <data> <data_closure>
 <declaration> encounters int,using deducer:<declaration> -> <declare> ;
 <declaration> encounters real,using deducer:<declaration> -> <declare> ;
 <declare> encounters int,using deducer:<declare> -> <type> <variable> <initialization>
@@ -491,44 +474,14 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <else> encounters while,using deducer:<else> -> $
 <else> encounters write,using deducer:<else> -> $
 <else> encounters },using deducer:<else> -> $
-<expression> encounters %,using deducer:<expression> -> <factor> <term>
 <expression> encounters (,using deducer:<expression> -> <factor> <term>
-<expression> encounters ),using deducer:<expression> -> <factor> <term>
-<expression> encounters *,using deducer:<expression> -> <factor> <term>
-<expression> encounters +,using deducer:<expression> -> <factor> <term>
-<expression> encounters ,,using deducer:<expression> -> <factor> <term>
-<expression> encounters -,using deducer:<expression> -> <factor> <term>
-<expression> encounters /,using deducer:<expression> -> <factor> <term>
-<expression> encounters ;,using deducer:<expression> -> <factor> <term>
-<expression> encounters <,using deducer:<expression> -> <factor> <term>
-<expression> encounters <=,using deducer:<expression> -> <factor> <term>
-<expression> encounters <>,using deducer:<expression> -> <factor> <term>
-<expression> encounters ==,using deducer:<expression> -> <factor> <term>
-<expression> encounters >,using deducer:<expression> -> <factor> <term>
-<expression> encounters >=,using deducer:<expression> -> <factor> <term>
 <expression> encounters FLOAT_VALUE,using deducer:<expression> -> <factor> <term>
 <expression> encounters ID,using deducer:<expression> -> <factor> <term>
 <expression> encounters INT_VALUE,using deducer:<expression> -> <factor> <term>
-<expression> encounters },using deducer:<expression> -> <factor> <term>
-<factor> encounters %,using deducer:<factor> -> <factor_type> <factor_recursion>
 <factor> encounters (,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters ),using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters *,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters +,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters ,,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters -,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters /,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters ;,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters <,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters <=,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters <>,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters ==,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters >,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters >=,using deducer:<factor> -> <factor_type> <factor_recursion>
 <factor> encounters FLOAT_VALUE,using deducer:<factor> -> <factor_type> <factor_recursion>
 <factor> encounters ID,using deducer:<factor> -> <factor_type> <factor_recursion>
 <factor> encounters INT_VALUE,using deducer:<factor> -> <factor_type> <factor_recursion>
-<factor> encounters },using deducer:<factor> -> <factor_type> <factor_recursion>
 <factor_recursion> encounters %,using deducer:<factor_recursion> -> % <factor_type> <factor_recursion>
 <factor_recursion> encounters ),using deducer:<factor_recursion> -> $
 <factor_recursion> encounters *,using deducer:<factor_recursion> -> * <factor_type> <factor_recursion>
@@ -544,26 +497,10 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <factor_recursion> encounters >,using deducer:<factor_recursion> -> $
 <factor_recursion> encounters >=,using deducer:<factor_recursion> -> $
 <factor_recursion> encounters },using deducer:<factor_recursion> -> $
-<factor_type> encounters %,using deducer:<factor_type> -> $
 <factor_type> encounters (,using deducer:<factor_type> -> ( <expression> )
-<factor_type> encounters ),using deducer:<factor_type> -> $
-<factor_type> encounters *,using deducer:<factor_type> -> $
-<factor_type> encounters +,using deducer:<factor_type> -> $
-<factor_type> encounters ,,using deducer:<factor_type> -> $
-<factor_type> encounters -,using deducer:<factor_type> -> $
-<factor_type> encounters /,using deducer:<factor_type> -> $
-<factor_type> encounters ;,using deducer:<factor_type> -> $
-<factor_type> encounters <,using deducer:<factor_type> -> $
-<factor_type> encounters <=,using deducer:<factor_type> -> $
-<factor_type> encounters <>,using deducer:<factor_type> -> $
-<factor_type> encounters ==,using deducer:<factor_type> -> $
-<factor_type> encounters >,using deducer:<factor_type> -> $
-<factor_type> encounters >=,using deducer:<factor_type> -> $
 <factor_type> encounters FLOAT_VALUE,using deducer:<factor_type> -> <number>
 <factor_type> encounters ID,using deducer:<factor_type> -> <variable>
 <factor_type> encounters INT_VALUE,using deducer:<factor_type> -> <number>
-<factor_type> encounters ],using deducer:<factor_type> -> $
-<factor_type> encounters },using deducer:<factor_type> -> $
 <for_block> encounters (,using deducer:<for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
 <for_loop> encounters for,using deducer:<for_loop> -> for <for_block>
 <function> encounters read,using deducer:<function> -> <read_fun>
@@ -603,18 +540,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <inner_assign> encounters ++,using deducer:<inner_assign> -> <self_op> <variable>
 <inner_assign> encounters --,using deducer:<inner_assign> -> <self_op> <variable>
 <inner_assign> encounters ID,using deducer:<inner_assign> -> <variable> <assign>
-<logic_exp> encounters %,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
 <logic_exp> encounters (,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters *,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters +,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters -,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters /,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters <,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters <=,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters <>,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters ==,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters >,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
-<logic_exp> encounters >=,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
 <logic_exp> encounters FLOAT_VALUE,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
 <logic_exp> encounters ID,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
 <logic_exp> encounters INT_VALUE,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
@@ -639,14 +565,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <program> encounters while,using deducer:<program> -> <block>
 <program> encounters write,using deducer:<program> -> <block>
 <read_fun> encounters read,using deducer:<read_fun> -> read ( <variable> )
-<right_value> encounters %,using deducer:<right_value> -> <expression>
 <right_value> encounters (,using deducer:<right_value> -> <expression>
-<right_value> encounters ),using deducer:<right_value> -> <expression>
-<right_value> encounters *,using deducer:<right_value> -> <expression>
-<right_value> encounters +,using deducer:<right_value> -> <expression>
-<right_value> encounters -,using deducer:<right_value> -> <expression>
-<right_value> encounters /,using deducer:<right_value> -> <expression>
-<right_value> encounters ;,using deducer:<right_value> -> <expression>
 <right_value> encounters FLOAT_VALUE,using deducer:<right_value> -> <expression>
 <right_value> encounters ID,using deducer:<right_value> -> <expression>
 <right_value> encounters INT_VALUE,using deducer:<right_value> -> <expression>

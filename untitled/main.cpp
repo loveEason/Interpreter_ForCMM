@@ -6,6 +6,7 @@
 #include "Util.h"
 #include "Parse.h"
 #include "CodeGenerator.h"
+#include "optimize.h"
 
 using namespace std;
 
@@ -92,13 +93,16 @@ int main(int argc,char *argv[]) {
         parse_file.close();
     }
 
+    /*CodeGenerator cg = CodeGenerator();
+    cg.interpretPrg(treeRoot);
+    cg.printCode();
+    cg.clearCode();*/
+    Optimize op = Optimize();
+    op.printCode();
+    op.optmOprt();
+    op.printIndex();
+    op.printCode();
 
-
-    CodeGenerator *cg = new CodeGenerator();
-    cg->interpretPrg(treeRoot);
-    cg->printCode();
-    cg->clearCode();
-    delete cg;
 
     return 0;
 }
