@@ -13,7 +13,17 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    QString data;
     ~MainWindow();
+
+private slots:
+    void on_actionOpen_triggered();
+
+    void on_actionSave_triggered();
+
+    void on_actionExit_triggered();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
