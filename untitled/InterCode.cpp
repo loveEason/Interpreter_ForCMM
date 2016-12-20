@@ -78,6 +78,7 @@ void InterCode::setIsModified(bool isModified){
 }
 
 void InterCode::printCode() {
+    string second = secondElm==""?"NULL":second;
     string third = thirdElm==""?"NULL":thirdElm;
     string fourth = fourthElm==""?"NULL":fourthElm;
     cout << "(  " << instructType << "  ,  " << secondElm << "  ,  " << third << "  ,  " << fourth << "  )";

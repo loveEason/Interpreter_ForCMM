@@ -93,15 +93,10 @@ int main(int argc,char *argv[]) {
         parse_file.close();
     }
 
-    /*CodeGenerator cg = CodeGenerator();
+    CodeGenerator cg = CodeGenerator();
     cg.interpretPrg(treeRoot);
     cg.printCode();
-    cg.clearCode();*/
-    Optimize op = Optimize();
-    op.printCode();
-    op.optmOprt();
-    op.printIndex();
-    op.printCode();
+    cg.clearCode();
 
 
     return 0;

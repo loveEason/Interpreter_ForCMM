@@ -5,7 +5,7 @@
 #include "CheckTable.h"
 #include <vector>
 
-#define TEMP "temp"+to_string(tpCount++)
+#define TEMP "0temp"+to_string(tpCount++)
 #define INDEXMOVE "IDMVRS"
 
 class CodeGenerator
