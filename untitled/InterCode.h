@@ -23,8 +23,8 @@ using namespace std;
 #define NO_GREATER_THAN "NO_GREATER_THAN"
 #define NO_LESS_THAN "NO_LESS_THAN"
 #define NOT_EQUAL 1"NOT_EQUAL"
-#define TRUE "TRUE"
-#define FALSE "FALSE"
+//#define TRUE "TRUE"
+//#define FALSE "FALSE"
 class InterCode
 {
 private:

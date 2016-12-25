@@ -15,7 +15,6 @@
 <factor_type> -> ( <expression> )
 <factor_type> -> <variable>
 <factor_type> -> <number>
-<factor_type> -> $
 <number> -> INT_VALUE
 <number> -> FLOAT_VALUE
 <initialization> -> = <right_value>

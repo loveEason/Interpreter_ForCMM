@@ -12,8 +12,7 @@ SOURCES += main.cpp \
     Parse.cpp \
     SimpleSymbol.cpp \
     Symbol.cpp \
-    SymbolTable.cpp \
-    Util.cpp
+    SymbolTable.cpp
 
 HEADERS += \
     BaseSymbol.h \
@@ -25,8 +24,7 @@ HEADERS += \
     Parse.h \
     SimpleSymbol.h \
     Symbol.h \
-    SymbolTable.h \
-    Util.h
+    SymbolTable.h
 
 DISTFILES += \
     console.lex \
