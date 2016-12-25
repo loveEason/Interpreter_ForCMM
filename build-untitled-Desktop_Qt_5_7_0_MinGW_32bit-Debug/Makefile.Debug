@@ -139,7 +139,8 @@ debug/main.o: ../untitled/main.cpp ../untitled/Global.h \
 		../untitled/InterCode.h \
 		../untitled/SimpleSymbol.h \
 		../untitled/BaseSymbol.h \
-		../untitled/CheckTable.h
+		../untitled/CheckTable.h \
+		../untitled/optimize.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/main.o ../untitled/main.cpp
 
 debug/BaseSymbol.o: ../untitled/BaseSymbol.cpp ../untitled/BaseSymbol.h

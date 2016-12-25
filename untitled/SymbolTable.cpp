@@ -69,7 +69,7 @@ Symbol *SymbolTable::getSymbol(string name) {
 			return symbolTable.at(i);
 		}
 	}
-	return NULL;                   //不会从该return返回
+    return NULL;
 }
 
 void SymbolTable::clearTable() {

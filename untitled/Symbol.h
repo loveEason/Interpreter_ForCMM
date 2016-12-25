@@ -10,10 +10,10 @@ class Symbol:public BaseSymbol
 private:
 	int intValue;
 	double realValue;
-	int length;            //用于记录数组长度
+    int length;
 	vector<int> intArray;
 	vector<double> realArray;
-	Symbol *next;       //用于指向较低层的同名Symbol
+    Symbol *next;
 public:
 	Symbol();
 	Symbol(string name, int type, int layer);

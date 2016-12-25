@@ -6,7 +6,6 @@ CodeGenerator::CodeGenerator(){
     checkTable = new CheckTable();
 }
 
-
 CodeGenerator::~CodeGenerator(){
     delete checkTable;
 }
@@ -42,10 +41,11 @@ void CodeGenerator::interpretPrg(treeNode * node) {
         }else if(node1->content=="<functions>"){
             treeNode * func = node1->children[0]->children[0];
             treeNode * param = func->children[2];     //param为函数参数结点
+            int line = func->children[1]->line;
             if(func->children[0]->content=="read"){
                 interpretRed(param);
             }else{
-                interpretWrt(param);
+                interpretWrt(param, line);
             }
         }
         interpretPrg(node2);
@@ -65,11 +65,13 @@ void CodeGenerator::interpretDcl(treeNode * node) {
     treeNode * ident = var->children[0]->children[0];
     treeNode * index = var->children[1];               //index为<index>
     bool isArray = false;
+    bool singleVar = false;
     if(index->children[0]->content!="$"){              //数组下标不为空的情况下
+        singleVar = true;
         isArray = true;
         treeNode * idex = index->children[1];  //idex为<factor_type>
         string id = calIndex(idex);
-        createCode(decType, ident->value, id, "");
+        createCode(decType, ident->value, id, "", ident->line);
     }
 
     SimpleSymbol *s = new SimpleSymbol(ident->value, type->children[0]->type, layer, ident->line, isArray);
@@ -81,7 +83,8 @@ void CodeGenerator::interpretDcl(treeNode * node) {
             printError("Invalid initialization for array", ident->line);
         }else if(value->children[0]->content=="<expression>"&&!isArray){
             string v = interpretExp(value->children[0]);
-            createCode(decType, ident->value, "", v);
+            createCode(decType, ident->value, "", v, ident->line);
+            singleVar = true;
         }else if(value->children[0]->content=="{"&&!isArray){           //value为多个值（数组声明时赋值）
             printError("Invalid initialization for variable", ident->line);
         }else if(value->children[0]->content=="{"&&isArray){
@@ -95,10 +98,11 @@ void CodeGenerator::interpretDcl(treeNode * node) {
                 nextData = nextData->children[2];
             }
         }
-    }else{
-        createCode(decType, ident->value, "", "");
     }
 
+    if(!singleVar){
+        createCode(decType, ident->value, "", "", ident->line);
+    }
 
     treeNode * node2 = node->children[1];    //node2为<declare_closure>
     if(node2->content==";"){
@@ -154,10 +158,10 @@ void CodeGenerator::interpretRed(treeNode * node) {
     }
 }
 
-void CodeGenerator::interpretWrt(treeNode * node) {
+void CodeGenerator::interpretWrt(treeNode * node, int line) {
     if(node->children[0]->content=="<constant>"){
         treeNode * constValue = node->children[0]->children[0]->children[0];
-        createCode(WRT, constValue->value, "", "");
+        createCode(WRT, constValue->value, "", "", constValue->line);
     }else if(node->children[0]->content=="<variable>"){
         treeNode * ident = node->children[0]->children[0]->children[0];   //ident为<ID>结点
         if(checkSymbol(ident)){
@@ -167,7 +171,7 @@ void CodeGenerator::interpretWrt(treeNode * node) {
     }else if(node->children[0]->content=="<expression>"){
         treeNode * exp = node->children[0];
         string value = interpretExp(exp);
-        createCode(WRT, value, "", "");
+        createCode(WRT, value, "", "", line);
     }
 }
 
@@ -181,25 +185,30 @@ void CodeGenerator::interpretIf(treeNode * node) {
     treeNode * rightExp = condition->children[2];
     string leftValue = interpretExp(leftExp);
     string rightValue = interpretExp(rightExp);
-    createCode(logicOp->content, leftValue, rightValue, "");
+    createCode("IN", "", "", "", logicOp->line);
+    createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
 
     treeNode * block = proBlock->children[1];
     int pos = codeList.size();          //jmpCode插入codeList的位置
-    InterCode *jmpCode = new InterCode(JMP, to_string(pos+1), "", "");
+    InterCode jmpCode = InterCode(JMP, to_string(pos+1+layer), "", "", logicOp->line);
 
     layer++;
     interpretPrg(block);
+    checkTable->removeLayerSimple(layer);
     layer--;
 
     int jmpPos = codeList.size()+1;     //条件不满足时应该跳至的位置
-    jmpCode->setThirdElm(to_string(jmpPos));
+    createCode("OUT", "", "", "");
+    jmpCode.setThirdElm(to_string(jmpPos+layer));
     codeList.insert(codeList.begin()+pos, jmpCode);
 
     if(elseBlock->children[0]->content!="$"){
         treeNode * elsePro = elseBlock->children[1]->children[1];
+        createCode("IN", "", "", "");
         layer++;
         interpretPrg(elsePro);
         layer--;
+        createCode("OUT", "", "", "");
     }
 }
 
@@ -213,27 +222,34 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         treeNode * rightExp = condition->children[2];
         string leftValue = interpretExp(leftExp);
         string rightValue = interpretExp(rightExp);
-        createCode(logicOp->content, leftValue, rightValue, "");
+        createCode("IN", "", "", "");
+        createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
 
         treeNode * block = proBlock->children[1];
+        int line = proBlock->children[2]->line;   //"}"的行号
         int pos = codeList.size();
-        InterCode *jmpCode = new InterCode(JMP, to_string(pos+1), "", "");
+        InterCode jmpCode = InterCode(JMP, to_string(pos+1+layer), "", "", logicOp->line);
 
         layer++;
         interpretPrg(block);
+        checkTable->removeLayerSimple(layer);
         layer--;
 
         int jmpPos = codeList.size()+2;        //循环条件不满足时应该跳至的位置
-        jmpCode->setThirdElm(to_string(jmpPos));
+        jmpCode.setThirdElm(to_string(jmpPos+layer));
         codeList.insert(codeList.begin()+pos, jmpCode);
-        createCode(JMP, to_string(pos-1), "", "");   //执行完一次循环后跳转至条件判断处
+        createCode(JMP, to_string(pos-1+layer), "", "", line);   //执行完一次循环后跳转至条件判断处
+        createCode("OUT", "", "", "");
+
     }else{                                   //当为for循环
         treeNode * forBlock = node->children[1];
         treeNode * decOrAsg = forBlock->children[1];
         treeNode * condition = forBlock->children[2];
         treeNode * innerAsg = forBlock->children[4];
         treeNode * block = forBlock->children[6]->children[1];
+        int jmpBcLine = forBlock->children[6]->children[2]->line;
 
+        createCode("IN", "", "", "");
         layer++;
         if(decOrAsg->children[0]->content=="<declaration>"){
             interpretDcl(decOrAsg->children[0]);
@@ -246,21 +262,23 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         treeNode * rightExp = condition->children[2];
         string leftValue = interpretExp(leftExp);
         string rightValue = interpretExp(rightExp);
-        createCode(logicOp->content, leftValue, rightValue, "");
+        createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
 
         int pos = codeList.size();
-        InterCode * jmpCode = new InterCode(JMP, to_string(pos+1), "", "");
+        InterCode jmpCode = InterCode(JMP, to_string(pos+layer), "", "", logicOp->line);
 
         interpretPrg(block);
         interpretAsg(innerAsg);
+        checkTable->removeLayerSimple(layer);
         layer--;
+
         int jmpPos = codeList.size()+2;
-        jmpCode->setThirdElm(to_string(jmpPos));
+        jmpCode.setThirdElm(to_string(jmpPos+layer));
         codeList.insert(codeList.begin()+pos, jmpCode);
-        createCode(JMP, to_string(pos-1), "", "");
+        createCode(JMP, to_string(pos-1+layer), "", "", jmpBcLine);
+        createCode("OUT", "", "", "");
 
     }
-
 }
 
 string CodeGenerator::interpretExp(treeNode * node) {
@@ -272,19 +290,19 @@ string CodeGenerator::interpretExp(treeNode * node) {
     }else{
         while(term->children[0]->content!="$"){
             string op = term->children[0]->content;
+            int line = term->children[0]->line;
             string fctRs = interpretFactor(term->children[1]);
             string temp2 = TEMP;
             if(op=="+"){
-                createCode(PLU, temp1, fctRs, temp2);
+                createCode(PLU, temp1, fctRs, temp2, line);
             }else{
-                createCode(MINU, temp1, fctRs, temp2);
+                createCode(MINU, temp1, fctRs, temp2, line);
             }
             term = term->children[2];
             temp1 = temp2;
         }
         return temp1;
     }
-
 }
 
 string CodeGenerator::interpretSubFct(treeNode *node){   //传入参数为<因式>结点
@@ -298,14 +316,14 @@ string CodeGenerator::interpretSubFct(treeNode *node){   //传入参数为<因�
             if(index->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
                 treeNode * idex = index->children[1];          //idex为<因式>结点
                 string id = calIndex(idex);
-                string temp = TEMP;
-                createCode(ASGRA, temp, ident->value, id);
+                string temp = INDEXMOVE;
+                createCode(PLU, ident->value, id, temp, ident->line);
                 return temp;
             }else if(index->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
                 return ident->value;
             }else if(ident->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-                string temp = TEMP;
-                createCode(ASGRA, temp, ident->value, "0");
+                string temp = INDEXMOVE;
+                createCode(PLU, ident->value, "0", temp, ident->line);
                 return temp;
             }else{       //数组下标不为空而该变量不为数组，报错
                 printError("Variable can't be accessed by index", ident->line);
@@ -325,14 +343,15 @@ string CodeGenerator::interpretFactor(treeNode * node) {
     string temp2 = temp;     //若<factor_recursion>为空，则直接返回解析<factor_type>所得结果
     while(nextFct->children[0]->content!="$"){
         string op = nextFct->children[0]->content;
+        int line = nextFct->children[0]->line;
         string subFctRs = interpretSubFct(nextFct->children[1]);
         temp2 = TEMP;
         if(op=="*"){
-            createCode(MULTIPLY, temp, subFctRs, temp2);
+            createCode(MULTIPLY, temp, subFctRs, temp2, line);
         }else if(op=="/"){
-            createCode(DIVIDE, temp, subFctRs, temp2);
+            createCode(DIVIDE, temp, subFctRs, temp2, line);
         }else{
-            createCode(REM, temp, subFctRs, temp2);
+            createCode(REM, temp, subFctRs, temp2, line);
         }
         nextFct = nextFct->children[2];
         temp = temp2;
@@ -341,7 +360,12 @@ string CodeGenerator::interpretFactor(treeNode * node) {
 }
 
 void CodeGenerator::createCode(string op, string second, string third, string fourth){
-    InterCode *code = new InterCode(op, second, third, fourth);
+    InterCode code = InterCode(op, second, third, fourth);
+    codeList.push_back(code);
+}
+
+void CodeGenerator::createCode(string op, string second, string third, string fourth, int line){
+    InterCode code = InterCode(op, second, third, fourth, line);
     codeList.push_back(code);
 }
 
@@ -357,13 +381,13 @@ string CodeGenerator::calIndex(treeNode * node){
         if(id->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
             treeNode * idex = id->children[1];          //idex为<因式>结点
             string subId = calIndex(idex);
-            index = TEMP;
-            createCode(ASGRA, index, ident->value, subId);
+            index = INDEXMOVE;
+            createCode(PLU, ident->value, subId, index, ident->line);
         }else if(id->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
             index = ident->value;
         }else if(id->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-            index = TEMP;
-            createCode(ASGRA, index, ident->value, "0");
+            index = INDEXMOVE;
+            createCode(PLU, ident->value, "0", index, ident->line);
         }else{       //数组下标不为空而该变量不为数组，报错
             printError("Variable can't be accessed by index", ident->line);
         }
@@ -382,24 +406,23 @@ void CodeGenerator::parseValue(treeNode * ident, treeNode *node, string index){
     if(node->children[0]->content=="<constant>"){
         treeNode * constant = node->children[0];         //constant为<常量>
         treeNode * number = constant->children[0]->children[0];   //number为具体数字
-        createCode(ASG, ident->value, index, number->value); //改成value
+        createCode(ASG, ident->value, index, number->value, ident->line);
     }else if(node->children[0]->content=="<variable>"){
         treeNode * variable = node->children[0];       //variable为变量
         treeNode * asgIdent = variable->children[0]->children[0];
         checkSymbol(asgIdent);
         treeNode * asgIndex = variable->children[1];
         if(asgIndex->children[0]->content=="$"){                //用单一变量给数组元素赋值
-            createCode(ASG, ident->value, index, asgIdent->value);
+            createCode(ASG, ident->value, index, asgIdent->value, ident->line);
         }else{                                         //用数组元素给数组元素赋值，利用中间变量TEMP
             string asgId = calIndex(asgIndex);
-            string temp = TEMP;
-            createCode(ASGRA, temp, asgIdent->value, asgIndex->value);
-            createCode(ASG, ident->value, index, temp);
+            createCode(PLU, asgIdent->value, asgIndex->value, INDEXMOVE, asgIdent->line);
+            createCode(ASG, ident->value, index, INDEXMOVE, ident->line);
         }
     }else if(node->children[0]->content=="<expression>"){
         treeNode * exp = node->children[0];
         string v = interpretExp(exp);
-        createCode(ASG, ident->value, index, v);
+        createCode(ASG, ident->value, index, v, ident->line);
     }
 }
 
@@ -407,11 +430,11 @@ void CodeGenerator::parseVar(string op, treeNode * ident, treeNode * index, stri
     if(index->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
         treeNode * idex = index->children[1];          //idex为<因式>结点
         string id = calIndex(idex);
-        createCode(op, ident->value, id, value);
+        createCode(op, ident->value, id, value, ident->line);
     }else if(index->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
-        createCode(op, ident->value, "", value);
-    }else if(ident->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-        createCode(op, ident->value, "0", value);
+        createCode(op, ident->value, "", value, ident->line);
+    }else if(index->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
+        createCode(op, ident->value, "0", value, ident->line);
     }else{       //数组下标不为空而该变量不为数组，报错
         printError("Variable can't be accessed by index", ident->line);
     }
@@ -421,11 +444,11 @@ void CodeGenerator::calVar(string op, treeNode * ident, treeNode * index, string
     if(index->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
         treeNode * idex = index->children[1];          //idex为<因式>结点
         string id = calIndex(idex);
-        opArrayElm(op, ident->value, id, value);
+        opArrayElm(op, ident->value, id, value, ident->line);
     }else if(index->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
-        createCode(op, ident->value, value, ident->value);
+        createCode(op, ident->value, value, ident->value, ident->line);
     }else if(ident->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-        opArrayElm(op, ident->value, "0", value);
+        opArrayElm(op, ident->value, "0", value, ident->line);
     }else{       //数组下标不为空而该变量不为数组，报错
         printError("Variable can't be accessed by index", ident->line);
     }
@@ -443,23 +466,27 @@ bool CodeGenerator::checkIsArray(treeNode * id){   //判断变量是否是数组
     return checkTable->getSymbol(id->value)->isArraySymbol();
 }
 
-void CodeGenerator::opArrayElm(string op, string ident, string index, string value){
-    string temp1 = TEMP;
-    string temp2 = TEMP;
-    createCode(ASGRA, temp1, ident, index);    //将数组元素值赋给中间变量
-    createCode(op, temp1, value, temp2);    //对中间变量进行操作
-    createCode(ASG, ident, index, temp2);    //将结果值赋给数组元素
+void CodeGenerator::opArrayElm(string op, string ident, string index, string value, int line){
+    string temp = TEMP;
+    createCode(PLU, ident, index, INDEXMOVE, line);  //IDMVRS记录对数组进行偏移的结果
+    createCode(op, INDEXMOVE, value, temp, line);    //对中间变量进行操作
+    createCode(ASG, ident, index, temp, line);    //将结果值赋给数组元素
 }
 
 void CodeGenerator::printCode(){
     cout<<"InterCodes are as follow:"<<endl;
     for(int i=0;i<(signed)codeList.size();i++){
-        codeList[i]->printCode();
+        codeList[i].printCode();
     }
 }
 
 void CodeGenerator::clearCode(){
-    for(int i=0;i<(signed)codeList.size();i++){
-        delete codeList.at(i);
+    if(codeList.empty()){
+        codeList.clear();
     }
+}
+
+vector<InterCode> CodeGenerator::getCode(){
+    checkTable->clearTable();
+    return codeList;
 }

@@ -139,7 +139,8 @@ release/main.o: ../untitled/main.cpp ../untitled/Global.h \
 		../untitled/InterCode.h \
 		../untitled/SimpleSymbol.h \
 		../untitled/BaseSymbol.h \
-		../untitled/CheckTable.h
+		../untitled/CheckTable.h \
+		../untitled/optimize.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/main.o ../untitled/main.cpp
 
 release/BaseSymbol.o: ../untitled/BaseSymbol.cpp ../untitled/BaseSymbol.h

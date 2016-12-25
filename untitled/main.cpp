@@ -5,6 +5,7 @@
 #include "LexAnalysis.h"
 #include "Parse.h"
 #include "CodeGenerator.h"
+#include "optimize.h"
 
 using namespace std;
 
@@ -40,9 +41,7 @@ int main(int argc,char *argv[]) {
         cg->printCode();
         cg->clearCode();
         delete cg;
-
     }
-
 
     return 0;
 }
