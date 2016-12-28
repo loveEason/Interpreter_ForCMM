@@ -9,9 +9,9 @@
 enum symbolType {
     none=-1,
     integer = 0,
-    integerAarray,
+    integerArray,
     real,
-    realAarray
+    realArray
 };
 
 
@@ -19,11 +19,11 @@ enum symbolType {
 struct SymbolNode {
     string name;
     symbolType type;
-    int length;
+    int length; //数组长度
     void* value;
     SymbolNode():type(symbolType::none),length(0),value(0){}
-    SymbolNode(string _name, symbolType _type, int _length = 1);
-    SymbolNode(SymbolNode);
+    SymbolNode(string _name, symbolType _type, int _length);
+    SymbolNode(const SymbolNode&);
     ~SymbolNode();
     int getIntegerValue(int index=0);
     double getDoubleValue(int index=0);
@@ -38,7 +38,7 @@ public:
     ~Symbol();
     void addTable(); // 添加新一层符号表
     void deleteTable(); // 删除最内层符号表
-    void addNode(SymbolNode); // 在当前层添加符号
+    void addNode(symbolType, string, int length=1); // 在当前层添加符号
     SymbolNode findNode(string name); // 查找符号
 
     // 修改符号
@@ -59,7 +59,7 @@ public:
     Actuator();
     ~Actuator();
     bool runCode();
-    bool runOnelineCode();
+    bool runOnelineCode(InterCode);
     void declareInt(string first, string second, string third);
     void declareReal(string first, string second, string third);
     void assignment(string first, string second, string third);
