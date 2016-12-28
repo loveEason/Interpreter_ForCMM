@@ -69,14 +69,6 @@ void InterCode::setFourthElm(string fourthElm) {
 	this->fourthElm = fourthElm;
 }
 
-void InterCode::setIsDelete(bool isDelete){
-    this->isDelete = isDelete;
-}
-
-void InterCode::setIsModified(bool isModified){
-    this->isModified = isModified;
-}
-
 void InterCode::printCode() {
     string third = thirdElm==""?"NULL":thirdElm;
     string fourth = fourthElm==""?"NULL":fourthElm;

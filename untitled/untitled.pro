@@ -11,10 +11,8 @@ SOURCES += main.cpp \
     LexAnalysis.cpp \
     Parse.cpp \
     SimpleSymbol.cpp \
-    Symbol.cpp \
-    SymbolTable.cpp \
     Util.cpp \
-    optimize.cpp
+    Actuator.cpp
 
 HEADERS += \
     BaseSymbol.h \
@@ -25,10 +23,8 @@ HEADERS += \
     LexAnalysis.h \
     Parse.h \
     SimpleSymbol.h \
-    Symbol.h \
-    SymbolTable.h \
     Util.h \
-    optimize.h
+    Actuator.h
 
 DISTFILES += \
     console.lex \
