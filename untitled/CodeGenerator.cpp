@@ -185,6 +185,7 @@ void CodeGenerator::interpretIf(treeNode * node) {
     treeNode * rightExp = condition->children[2];
     string leftValue = interpretExp(leftExp);
     string rightValue = interpretExp(rightExp);
+    createCode("IN", "", "", "", logicOp->line);
     createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
 
     treeNode * block = proBlock->children[1];
@@ -197,14 +198,17 @@ void CodeGenerator::interpretIf(treeNode * node) {
     layer--;
 
     int jmpPos = codeList.size()+1;     //条件不满足时应该跳至的位置
+    createCode("OUT", "", "", "");
     jmpCode.setThirdElm(to_string(jmpPos+layer));
     codeList.insert(codeList.begin()+pos, jmpCode);
 
     if(elseBlock->children[0]->content!="$"){
         treeNode * elsePro = elseBlock->children[1]->children[1];
+        createCode("IN", "", "", "");
         layer++;
         interpretPrg(elsePro);
         layer--;
+        createCode("OUT", "", "", "");
     }
 }
 
@@ -218,6 +222,7 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         treeNode * rightExp = condition->children[2];
         string leftValue = interpretExp(leftExp);
         string rightValue = interpretExp(rightExp);
+        createCode("IN", "", "", "");
         createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
 
         treeNode * block = proBlock->children[1];
@@ -234,6 +239,7 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         jmpCode.setThirdElm(to_string(jmpPos+layer));
         codeList.insert(codeList.begin()+pos, jmpCode);
         createCode(JMP, to_string(pos-1+layer), "", "", line);   //执行完一次循环后跳转至条件判断处
+        createCode("OUT", "", "", "");
 
     }else{                                   //当为for循环
         treeNode * forBlock = node->children[1];
@@ -243,6 +249,7 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         treeNode * block = forBlock->children[6]->children[1];
         int jmpBcLine = forBlock->children[6]->children[2]->line;
 
+        createCode("IN", "", "", "");
         layer++;
         if(decOrAsg->children[0]->content=="<declaration>"){
             interpretDcl(decOrAsg->children[0]);
@@ -264,10 +271,12 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         interpretAsg(innerAsg);
         checkTable->removeLayerSimple(layer);
         layer--;
+
         int jmpPos = codeList.size()+2;
         jmpCode.setThirdElm(to_string(jmpPos+layer));
         codeList.insert(codeList.begin()+pos, jmpCode);
         createCode(JMP, to_string(pos-1+layer), "", "", jmpBcLine);
+        createCode("OUT", "", "", "");
 
     }
 }
