@@ -4,46 +4,55 @@
 
 
 #include "LexAnalysis.h"
-#include "Util.h"
 #include <string.h>
 #include <iomanip>
 
 
 using namespace std;
 
-//DFA的状态
-typedef enum {
-    START,
-    INNUM,INREAL0,INREAL,INID,INPLUS,INMIN,INMUL,INDIV,INMOD,INSPECIAL,
-    INASSIGN,INLES,INGRT,
-    INLINECOMMENT,INMULCOMMENT1,INMULCOMMENT2,
-    DONE
-} StateType;
 
+LexAnalysis::LexAnalysis() {
+    lineNo = 0;
+    bufSize = 0;         //目前行的长度
+    linepos = 0;         //目前行中的字符当前位置
+    EOF_flag = FALSE;
+    normalHead = NULL;
+    idenHead = NULL;
+    errorHead = NULL;
+    iden_addr = 0;                      //标识符的入口地址起点
+    hasError = false;
 
-ifstream source_file;    //源文件
-fstream lex_file;       //词法分析结果文件
+    initKeyMap();
+    initSpecialMap();
+    initNode();
+}
 
-//每一行输入缓存的最大长度
-#define BUFLEN 256
+LexAnalysis::~LexAnalysis() {
+    delete normalHead;
+    delete idenHead;
+    delete errorHead;
+}
 
-string tokenString;
-static char lineBuf[BUFLEN];    //存放每一行
-static int bufSize = 0;         //目前行的长度
-static int linepos = 0;         //目前行中的字符当前位置
-static int EOF_flag = FALSE;
-map<const string,int> keyMap;     //存放保留字的map,用于检索
-map<const string,int> specialMap; //存入特殊token的map,用于检索。特殊token指的是双字符的token
-static char check[] = {'+','-','*','/','%','=','<','>','(',')','[',']','{','}',',',';','\'','\"'};
-map<const string,int>::iterator iter;
-normalNode *normalHead = NULL;
-identifierNode *idenHead = NULL;
-errorNode *errorHead = NULL;
-int iden_addr = 0;                      //标识符的入口地址起点
-bool hasError = false;
+//词法分析是否出错，给外部调用
+bool LexAnalysis::ifHasError(){
+    return hasError;
+}
+
+normalNode* LexAnalysis::getNormalHead(){
+    return normalHead;
+}
+
+identifierNode* LexAnalysis::getIdenHead(){
+    return idenHead;
+}
+
+errorNode* LexAnalysis::getErrorHead(){
+    return errorHead;
+}
+
 
 //初始化keyMap
-void initKeyMap() {
+void LexAnalysis::initKeyMap() {
     keyMap.insert(make_pair("if", IF));
     keyMap.insert(make_pair("else", ELSE));
     keyMap.insert(make_pair("while", WHILE));
@@ -61,7 +70,7 @@ void initKeyMap() {
 
 
 //初始化specialMap
-void initSpecialMap() {
+void LexAnalysis::initSpecialMap() {
     specialMap.insert(make_pair("++", PLUS_PLUS));
     specialMap.insert(make_pair("+=", PLUS_EQL));
     specialMap.insert(make_pair("--", MINUS_MINUS));
@@ -73,11 +82,10 @@ void initSpecialMap() {
     specialMap.insert(make_pair(">=", GRT_EQL));
     specialMap.insert(make_pair("==", EQL));
     specialMap.insert(make_pair("<>", NOT_EQL));
-
 }
 
 //初始化节点，链表都是由空的头节点组织成的
-void initNode() {
+void LexAnalysis::initNode() {
     normalHead = new normalNode();
     normalHead->content = "";
     normalHead->type= -1;
@@ -98,7 +106,7 @@ void initNode() {
 }
 
 //从lineBuf中获取下个字符
-static char getNextChar(istream &source_file,ostream &lex_file,int flag) {
+char LexAnalysis::getNextChar(istream &source_file,ostream &lex_file,int flag) {
     if (!(linepos < bufSize)) { //说明此行已经读完了
         lineNo++;
         if (!source_file.eof()) {  //再读取一行
@@ -123,13 +131,13 @@ static char getNextChar(istream &source_file,ostream &lex_file,int flag) {
 }
 
 //取消获取下一个字符，也就是撤消上一次的取字符操作
-static void unGetNextChar() {
+void LexAnalysis::unGetNextChar() {
     if (!EOF_flag) linepos--;
 }
 
 
 //判断字符是否为空白
-bool isBlank(char c) {
+bool LexAnalysis::isBlank(char c) {
     if ((c == ' ') || (c == '\t') || c == '\n' || c == '\0') {
         return true;
     }
@@ -138,7 +146,7 @@ bool isBlank(char c) {
 
 
 //判断字符是否为运算符、限界符、注释的第一个字符
-static bool isFirst(char c) {
+bool LexAnalysis::isFirst(char c) {
     int n = sizeof(check)/ sizeof(check[0]);
     for (int i = 0; i < n; ++i) {
         if (c == check[i]) return true;
@@ -147,7 +155,7 @@ static bool isFirst(char c) {
 }
 
 //生成新normalNode
-void createNewNode(string content,int type,string tokenStr,int addr, int line) {
+void LexAnalysis::createNewNode(string content,int type,string tokenStr,int addr, int line) {
     normalNode *p = normalHead;
     normalNode *tmp = new normalNode();
 
@@ -166,7 +174,7 @@ void createNewNode(string content,int type,string tokenStr,int addr, int line) {
 }
 
 //生成新identifierNode,返回值是标志符第一次出现时的入口地址
-int createNewIden(string content,int addr, int line) {
+int LexAnalysis::createNewIden(string content,int addr, int line) {
     identifierNode *p = idenHead;
     identifierNode *tmp = new identifierNode();
     int flag = 0;
@@ -193,7 +201,7 @@ int createNewIden(string content,int addr, int line) {
 }
 
 //生成新errorNode
-void createNewError(string content, int line) {
+void LexAnalysis::createNewError(string content, int line) {
     errorNode *p = errorHead;
     errorNode *tmp = new errorNode();
 
@@ -208,13 +216,75 @@ void createNewError(string content, int line) {
     p->next = tmp;
 }
 
-////外部接口
-//TokenType getToken(istream &source_file,ostream &lex_file,int flag) {
-//    return getTokenPrivate(source_file,lex_file,flag);
-//}
 
-//内部实现,用来从源文件中解析出下个token
-TokenType getToken(istream &source_file,ostream &lex_file,int flag) {
+void LexAnalysis::printToken(istream &source_file,ostream &lex_file,TokenType token, const string tokenString) {
+    switch (token) {
+        case IDENTIFIER:
+            lex_file<<"Identifier:  "<<tokenString<<endl;
+            break;
+        case INT_VAL:
+            lex_file<<"Int value:  "<<tokenString<<endl;
+            break;
+        case FLOAT_VAL:
+            lex_file<<"Real value:  "<<tokenString<<endl;
+            break;
+        case IF:
+        case ELSE:
+        case WHILE:
+        case READ:
+        case WRITE:
+        case FOR:
+        case INT:
+        case REAL:
+        case BREAK:
+        case SWITCH:
+        case CASE:
+        case RETURN:
+            lex_file<<"Key word: "<<tokenString<<endl;
+            break;
+        case PLUS:
+        case PLUS_PLUS:
+        case PLUS_EQL:
+        case MINUS:
+        case MINUS_MINUS:
+        case MINUS_EQL:
+        case MUL:
+        case MUL_EQL:
+        case DIV:
+        case DIV_EQL:
+        case MOD:
+        case MOD_EQL:
+        case ASSIGN:
+        case LES:
+        case LES_EQL:
+        case GRT:
+        case GRT_EQL:
+        case EQL:
+        case NOT_EQL:
+            lex_file<<"Operator: "<<tokenString<<endl;
+            break;
+        case LEFT_BRA:
+        case RIGHT_BRA:
+        case LEFT_INDEX:
+        case RIGHT_INDEX:
+        case LEFT_BOUNDER:
+        case RIGHT_BOUNDER:
+        case POINTER:
+        case COMMA:
+        case SEMI:
+        case SIN_QUE:
+        case DOU_QUE:
+            lex_file<<"Limitor: "<<tokenString<<endl;
+            break;
+        case ERROR:
+            lex_file<<"Error, invalid token: "<<tokenString<<endl;
+            break;
+    }
+}
+
+
+//用来从源文件中解析出下个token
+TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag) {
     TokenType currentToken;
     StateType stateType = START;    //DFA的开始
     int isSave;                     //用于判断是否将字符存进当前tokenString
@@ -497,4 +567,46 @@ TokenType getToken(istream &source_file,ostream &lex_file,int flag) {
     return currentToken;
 
 }
+
+void LexAnalysis::lexAnalyse(){
+    lex_file.open("./console.lex",ios::out);
+    cout << "Please enter your code and end entering with #" << endl;
+    lex_file << "Lexical result is as follow:" << endl;
+    while (getToken(cin,lex_file,0) != ENDFILE) ;
+    lex_file.close();
+    lex_file.open("./console.lex", ios::in);
+    char readStr[BUFLEN];
+    while (!lex_file.eof()) {
+        lex_file.getline(readStr, BUFLEN);
+        cout << readStr << endl;
+    }
+    lex_file.close();
+}
+
+void LexAnalysis::lexAnalyse(string source_name){
+    string suffix = ".cmm"; //后缀名
+    string lex_name;
+    int pos = source_name.find(suffix);
+    if (pos == string::npos) {     //加上后缀名
+        source_name.append(suffix);
+    }
+    source_file.open(source_name, ios::in);
+    if (!source_file.is_open()) {
+        cout << "Failed to open the file. " << source_name << endl;
+        exit(-1);
+    }
+    lex_name.append(source_name);
+    if (pos == string::npos) {
+        lex_name.append(".lex");
+    } else {
+        lex_name.replace(pos, 4, ".lex");
+    }
+    lex_file.open(lex_name, ios::out);
+    lex_file << "Lexical result is as follow：" << endl;
+    while (getToken(source_file,lex_file,1) != ENDFILE);         //一直分析token,直到源代码已经分析结束
+
+    lex_file.close();
+    source_file.close();
+}
+
 

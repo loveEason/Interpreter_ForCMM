@@ -5,46 +5,296 @@
 
 
 #include "Parse.h"
-#include "Util.h"
 #include <string.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <iomanip>
 
-set<string> terminalSymbols ;     //终结符集
-set<string> noneTerminalSymbols ; //非终结符集
-string startToken ;               //文法的开始符
-string totalProductions[MAXNT] ;  //存放文法文件的每一行
-production productions[MAXNT] ;   //将所有产生式存储为结构体
-int productionSum;                //产生式数目
-ifstream grammar_file;            //文法文件
-map<string,set<string>> firstSet;    //存有所有文法符号的first集合
-map<int ,set<string>> productionFirstSet;      //存有所有产生式的first集合
-map<string,set<string>> followSet;   //存有所有非终结符的follow集合
-map<int,set<string>> selectSet;               //存有所有产生式的select集合
-map<string,map<string,string>> predictionTable;     //预测分析表
-treeNode *treeRoot = NULL;                    //语法树的根
-myStack *analysisStack = new myStack(1);                        //分析栈
-treeNode *treeStack[MAXTREENODE];
-int top;                                     //分析栈的栈顶指针
-fstream parse_file;      //语法分析结果文件
-ofstream set_file;       //存放LL1分析中自动生成的集合以及预测分析表
 
-
-
-
-//初始化数据，将所有数据置空
-void init() {
+Parse::Parse():productionSum(0),top(0),treeRoot(NULL),analysisStack(new myStack(1)) {
     terminalSymbols.clear();
     noneTerminalSymbols.clear();
     for (int i = 0; i < MAXNT; ++i) {
         productions[i].generation.clear();
     }
+    for(int i=0;i<MAXTREENODE;i++) {
+        treeStack[i] = NULL;
+    }
+}
+
+Parse::~Parse() {
+    delete treeRoot;
+    delete analysisStack;
+    for(int i=0;i<MAXTREENODE;i++) {
+        delete treeStack[i];
+    }
+}
+
+//分隔字符串
+list<string> Parse::strtok_plus(string text,string delim) {
+    list<string> result;
+    int last_pos = 0;
+    int pos = 0;
+    int stepLength = delim.length();
+
+
+    while (true) {
+        pos = text.find(delim, last_pos);
+        if (pos == string::npos) {
+            break;
+        } else {
+            result.push_back(text.substr(last_pos, pos - last_pos));
+            last_pos = pos + stepLength;
+        }
+    }
+    result.push_back(text.substr(last_pos));
+
+    return result;
+}
+
+//保存非终结符到文件中
+void Parse::saveNoneTerminal(set<string> noneTerminalSymbols,ofstream &out) {
+    out<<"————————————————————————Grammer non-terminals are as follow——————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (set<string>::const_iterator it = noneTerminalSymbols.cbegin(); it != noneTerminalSymbols.cend(); it++) {
+            out<<*it<<endl;
+        }
+    }
+    out << endl << endl << endl;
+}
+
+//保存终结符到文件中
+void Parse::saveTerminal(set<string> terminalSymbols,ofstream &out) {
+    out<<"———————————————————————-Grammer terminals are as follow————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (set<string>::const_iterator it = terminalSymbols.cbegin(); it != terminalSymbols.cend(); it++) {
+            out<<*it<<endl;
+        }
+    }
+    out << endl << endl << endl;
+}
+
+//保存文法符号的first集到文件中
+void Parse::saveFirst(map<string,set<string>> firstSet,ofstream &out) {
+    out<<"————————————————————————Grammer tokens' first sets are as follow————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (auto ite = firstSet.cbegin(); ite != firstSet.cend(); ite++) {
+            out<<setw(10)<<ite->first;
+            out<<" : {";
+            for (auto ite2 = ite->second.cbegin(); ite2 != ite->second.cend(); ite2++) {
+                if (++ite2 == ite->second.cend()) {
+                    ite2--;
+                    out<<*ite2<<"}"<<endl;
+                } else {
+                    ite2--;
+                    out<<*ite2<<",";
+                }
+            }
+        }
+    }
+    out << endl << endl << endl;
+}
+
+
+//保存产生式的first集到文件中
+void Parse::saveProductionFirst(map<int,set<string>> productionFirstSet,ofstream &out) {
+    out<<"————————————————————————Deducers' first sets are as follow————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (auto ite = productionFirstSet.cbegin(); ite != productionFirstSet.cend(); ite++) {
+            out<<setw(20)<<totalProductions[ite->first]<<" : {";
+            for (auto ite2 = ite->second.cbegin(); ite2 != ite->second.cend(); ite2++) {
+                if (++ite2 == ite->second.cend()) {
+                    ite2--;
+                    out<<*ite2<<"}"<<endl;
+                } else {
+                    ite2--;
+                    out<<*ite2<<",";
+                }
+            }
+        }
+    }
+    out << endl << endl << endl;
+}
+
+//保存非终结符的follow集到文件中
+void Parse::saveFollow(map<string,set<string>> followSet,ofstream &out) {
+    out<<"————————————————————————Non-teminals' follow sets are as follow————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (auto ite = followSet.cbegin(); ite != followSet.cend(); ite++) {
+            out<<setw(20)<<ite->first<<" : {";
+            for (auto ite2 = ite->second.cbegin(); ite2 != ite->second.cend(); ite2++) {
+                if (++ite2 == ite->second.cend()) {
+                    ite2--;
+                    out<<*ite2<<"}"<<endl;
+                } else {
+                    ite2--;
+                    out<<*ite2<<",";
+                }
+            }
+        }
+    }
+    out << endl << endl << endl;
+}
+
+
+//保存产生式的select集到文件中
+void Parse::saveProductionSelect(map<int,set<string>> selectSet,ofstream &out) {
+    out<<"————————————————————————Deducers' follow sets are as follow————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (auto ite = selectSet.cbegin(); ite != selectSet.cend(); ite++) {
+            out<<setw(20)<<totalProductions[ite->first]<<" : {";
+            for (auto ite2 = ite->second.cbegin(); ite2 != ite->second.cend(); ite2++) {
+                if (++ite2 == ite->second.cend()) {
+                    ite2--;
+                    out<<*ite2<<"}"<<endl;
+                } else {
+                    ite2--;
+                    out<<*ite2<<",";
+                }
+            }
+        }
+    }
+    out << endl << endl << endl;
+}
+
+
+//保存预测分析表到文件中
+void Parse::savePredictionTable(map<string,map<string,string>> predictionTable,ofstream &out) {
+    out<<"————————————————————————Prodiction-analyzing table is as follow————————————————————————"<<endl;
+    if (out.is_open()) {
+        for (auto ite1 = predictionTable.cbegin(); ite1 != predictionTable.cend(); ite1++) {
+            for (auto ite2 = ite1->second.cbegin(); ite2 != ite1->second.cend(); ite2++) {
+                out << setw(5) << ite1->first << " encounters " << ite2->first << ",using deducer:"  << ite2->second << endl;
+            }
+        }
+    }
+    out << endl << endl << endl;
+}
+
+//存入树中
+void Parse::addToTree(treeNode *tNode) {
+    treeStack[top] = tNode;
+    top++;
+}
+
+//得到语法树栈的当前根节点
+treeNode* Parse::getTopNode() {
+    return treeStack[--top];
+}
+
+
+//处理文法中的运算符和限界符符号,转换为对应的英文说明
+string Parse::dealTerminalSymbols(string oldStr) {
+    if (oldStr == "+") {
+        return "PLUS";
+    } else if (oldStr == "++") {
+        return "PLUS_PLUS";
+    }else if (oldStr == "+=") {
+        return "PLUS_EQL";
+    }else if (oldStr == "-") {
+        return "MINUS";
+    }else if (oldStr == "--") {
+        return "MINUS_MINUS";
+    }else if (oldStr == "-=") {
+        return "MINUS_EQL";
+    }else if (oldStr == "*") {
+        return "MUL";
+    }else if (oldStr == "*=") {
+        return "MUL_EQL";
+    }else if (oldStr == "/") {
+        return "DIV";
+    }else if (oldStr == "/=") {
+        return "DIV_EQL";
+    }else if (oldStr == "%") {
+        return "MOD";
+    }else if (oldStr == "%=") {
+        return "MOD_EQL";
+    }else if (oldStr == "=") {
+        return "ASSIGN";
+    }else if (oldStr == "<") {
+        return "LES";
+    }else if (oldStr == "<=") {
+        return "LES_EQL";
+    }else if (oldStr == ">") {
+        return "GRT";
+    }else if (oldStr == ">=") {
+        return "GRT_EQL";
+    }else if (oldStr == "==") {
+        return "EQL";
+    }else if (oldStr == "<>") {
+        return "NOT_EQL";
+    }else if (oldStr == "(") {
+        return "LEFT_BRA";
+    }else if (oldStr == ")") {
+        return "RIGHT_BRA";
+    }else if (oldStr == "[") {
+        return "LEFT_INDEX";
+    }else if (oldStr == "]") {
+        return "RIGHT_INDEX";
+    }else if (oldStr == "{") {
+        return "LEFT_BOUNDER";
+    }else if (oldStr == "}") {
+        return "RIGHT_BOUNDER";
+    }else if (oldStr == ".") {
+        return "POINTER";
+    }else if (oldStr == ",") {
+        return "COMMA";
+    }else if (oldStr == ";") {
+        return "SEMI";
+    }else if (oldStr == "\'") {
+        return "SIN_QUOTE";
+    }else if (oldStr == "\"") {
+        return "DOU_QUOTE";
+    } else {
+        return oldStr;
+    }
+}
+
+
+//处理文法中的符号,如果是由<>包围的，则去掉
+string Parse::dealNoneTerminalSymbols(string oldStr) {
+    int pos1 = 0;
+    int pos2 = 0;
+    string result;
+
+    pos1 = oldStr.find("<", 0);
+    pos2 = oldStr.find(">", 0);
+    if (pos1 == 0 && pos2 == oldStr.length() - 1 && pos2 != 1) {
+        result = oldStr.substr(pos1 + 1, pos2 - pos1 - 1);
+    } else {
+        result = oldStr;
+    }
+    return result;
+}
+
+
+
+//保存语法树到xml文件中
+void Parse::saveTree(treeNode *pTree, ofstream &out) {
+    int i ;
+    if( pTree == NULL ) return ;
+    /*当前节点为叶子节点*/
+    if( pTree->childNum == 0 && terminalSymbols.find(pTree->content) != terminalSymbols.end() ) {
+        if (pTree->content == "$" || pTree->content=="(" || pTree->content==")") {    //空字和括号不输出
+
+        } else {
+            out << dealTerminalSymbols(pTree->content) << endl;
+        }
+        return;
+    } else {
+        out << "<" << dealNoneTerminalSymbols(pTree->content) << ">" << endl ;
+    }
+
+    for ( i = 0 ; i < pTree->childNum ; i++)
+    {
+        saveTree(pTree->children[i],out);
+    }
+
+    out << "</" << dealNoneTerminalSymbols(pTree->content) << ">" << endl ;
 }
 
 //将文法文件中的产生式存储在数据结构中
-void saveProduction(string grammar_name) {
-    init();
+void Parse::saveProduction(string grammar_name) {
     char perProduction[MAX];   //每条完整产生式
     char *pos = NULL;
     string productionRight;      //产生式右部
@@ -53,9 +303,8 @@ void saveProduction(string grammar_name) {
     grammar_file.open(grammar_name, ios::in);
     if (grammar_file.is_open() != true) {
         cout<<"Failed to open the grammer file."<<endl;
-        return;
+        exit(-1);
     }
-    productionSum = 0;
     while (!grammar_file.eof()) {
         productionSum++;
         grammar_file.getline(perProduction, MAX);
@@ -100,12 +349,10 @@ void saveProduction(string grammar_name) {
 
     saveNoneTerminal(noneTerminalSymbols,set_file);
     saveTerminal(terminalSymbols,set_file);
-
-
 }
 
 //求所有文法符号的first集合
-void buildFirstSet() {
+void Parse::buildFirstSet() {
     //初始化所有终结符的first集，为其本身
     for (set<string>::const_iterator ite = terminalSymbols.cbegin(); ite != terminalSymbols.cend(); ite++) {
         firstSet[*ite].insert(*ite);
@@ -144,7 +391,7 @@ void buildFirstSet() {
 }
 
 //求所有产生式的first集合
-void buildProductionFirstSet() {
+void Parse::buildProductionFirstSet() {
     int i,j;
     bool has$ = false;
 
@@ -177,7 +424,7 @@ void buildProductionFirstSet() {
 
 
 //求所有非终结符的follow集合
-void buildFollowSet() {
+void Parse::buildFollowSet() {
     followSet[startToken].insert("#");  //文法的开始符号的follow集中包含{#}
     int preSize;    //非终结符之前的follow集元素个数
     int curSize;    //非终结符现在的follow集元素个数
@@ -243,7 +490,7 @@ void buildFollowSet() {
 }
 
 //求所有产生式的select集合
-void buildSelectSet() {
+void Parse::buildSelectSet() {
     int i,j;
 
     for (i = 0; i < productionSum; i++) {
@@ -277,7 +524,7 @@ void buildSelectSet() {
 }
 
 //构建预测分析表
-void buildPredictionTable() {
+void Parse::buildPredictionTable() {
     //若a ∈ select(A -> α),则把A -> α放入predictionTable[A,a]中
     int i;
     for (i = 0; i < productionSum; i++) {   //对于每个产生式
@@ -291,7 +538,7 @@ void buildPredictionTable() {
 }
 
 //输出分析栈的内容
-void showAnalysisStack(myStack *analysisStack) {
+void Parse::showAnalysisStack(myStack *analysisStack) {
     for (int i = 0; i < analysisStack->n; ++i) {
         parse_file << analysisStack->item[i]->content << " ";
     }
@@ -299,7 +546,7 @@ void showAnalysisStack(myStack *analysisStack) {
 }
 
 //输出剩余输入串的内容
-void showRemainToken(normalNode *pCurrent) {
+void Parse::showRemainToken(normalNode *pCurrent) {
     normalNode *p = pCurrent;
     while (p != NULL) {
         parse_file<<p->tokenStr<<" ";
@@ -311,7 +558,18 @@ void showRemainToken(normalNode *pCurrent) {
 
 //正式用预测分析表进行语法分析
 //注：改进版，将每一个token的细节信息也加入到树节点中，也就是终结符节点中。
-void analyse() {
+void Parse::grammarAnalyse(normalNode *normalHead) {
+    parse_file.open("./parseResult.txt", ios::out);
+    set_file.open("./set.txt", ios::trunc);
+    string grammar_name = "./grammar.txt";
+    saveProduction(grammar_name);
+    buildFirstSet();
+    buildProductionFirstSet();
+    buildFollowSet();
+    buildSelectSet();
+    buildPredictionTable();
+
+
     //将#添加到normalNode链表的结尾
     normalNode *p = normalHead;
     normalNode *tmp = new normalNode();
@@ -427,4 +685,14 @@ void analyse() {
             }
         }
     }
+
+    parseTree_file.open("./tree.xml");
+    parseTree_file << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+    saveTree(treeRoot, parseTree_file);
+    parse_file.close();
 }
+
+treeNode* Parse::getTreeRoot(){
+    return treeRoot;
+}
+
