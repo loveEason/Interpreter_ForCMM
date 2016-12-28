@@ -166,3 +166,26 @@ void Actuator::declareInt(string first, string second, string third) {
     // todo: 错误处理
 }
 
+void Actuator::declareReal(string first, string second, string third) {
+    // todo: 错误处理
+}
+
+void Actuator::assignment(string first, string second, string third) {
+    // todo: 错误处理
+}
+
+void Actuator::plus(string first, string second, string third) {
+
+}
+
+void Actuator::minu(string first, string second, string third) {
+
+}
+
+void Actuator::divide(string first, string second, string third) {
+
+}
+
+void Actuator::jump(string first, string second, string third) {
+
+}
