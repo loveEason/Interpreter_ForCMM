@@ -7,19 +7,17 @@
 #define CMM_INTERPRETER_GLOBAL_H
 
 #include <iostream>
+#include <vector>
+
 #include <fstream>
 using namespace std;
 
-#ifndef TRUE
-#define TRUE 1
-#endif
 
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#define MAXCHILDREN 20
-#define MAXTREENODE 1024
+const int FALSE = 0;
+const int TRUE = 1;
+const int MAXCHILDREN = 20;
+const int MAXTREENODE = 1024;
+const int BUFLEN = 256;
 
 //token的类型
 typedef enum {
@@ -48,8 +46,6 @@ typedef enum {
     MUL_NOTE                                // /**/注释
 } TokenType;
 
-/*extern std::istream &source_file;    //源程序,可以是控制台输入也可以是文件输入
-extern std::ostream &lex_file;       //词法分析结果,可以是控制台输出也可以是文件输出*/
 
 struct normalNode {          //普通节点，用来组织成token链表，最后链表作为输入符号串用于语法分析过程中
     string content;         //内容
@@ -173,19 +169,20 @@ struct myStack {
     }
 };
 
-extern int lineNo;              //源文件中行的序号
-extern ifstream source_file;    //源文件
-extern fstream lex_file;        //词法分析结果文件
-extern ofstream set_file;       //存放LL1分析中自动生成的集合以及预测分析表
-extern fstream parse_file;      //语法分析结果文件
-extern ofstream parseTree_file; //语法树结果文件
-extern ifstream grammar_file;   //文法文件
-extern int productionSum;       //产生式数目
-extern normalNode *normalHead;
-extern identifierNode *idenHead;
-extern errorNode *errorHead;
-extern treeNode *treeRoot;
-extern treeNode *treeStack[MAXTREENODE];
+//DFA的状态
+typedef enum {
+    START,
+    INNUM,INREAL0,INREAL,INID,INPLUS,INMIN,INMUL,INDIV,INMOD,INSPECIAL,
+    INASSIGN,INLES,INGRT,
+    INLINECOMMENT,INMULCOMMENT1,INMULCOMMENT2,
+    DONE
+} StateType;
+
+//存放产生式的结构
+struct production{
+    string noneTerminalSymbol;  //非终结符
+    vector<string> generation;  //该非终结符的产生式右部
+};
 
 
 

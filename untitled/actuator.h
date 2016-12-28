@@ -63,7 +63,6 @@ public:
     void declareInt(string first, string second, string third);
     void declareReal(string first, string second, string third);
     void assignment(string first, string second, string third);
-    void function(string first, string second, string third);
     void plus(string first, string second, string third);
     void minu(string first, string second, string third);
     void divide(string first, string second, string third);
