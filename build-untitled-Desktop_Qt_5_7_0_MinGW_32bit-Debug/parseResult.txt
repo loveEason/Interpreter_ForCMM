@@ -1,669 +1,79 @@
 第1步
 当前分析栈:# <program> 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 推导所用产生式:<program> -> <block>
 
 第2步
 当前分析栈:# <block> 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 推导所用产生式:<block> -> <declare_closure> <block_closure>
 
 第3步
 当前分析栈:# <block_closure> <declare_closure> 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 推导所用产生式:<declare_closure> -> <declaration> <declare_closure>
 
 第4步
 当前分析栈:# <block_closure> <declare_closure> <declaration> 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 推导所用产生式:<declaration> -> <declare> ;
 
 第5步
 当前分析栈:# <block_closure> <declare_closure> ; <declare> 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 推导所用产生式:<declare> -> <type> <variable> <initialization>
 
 第6步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> <variable> <type> 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 推导所用产生式:<type> -> int
 
 第7步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> <variable> int 
-剩余输入串:int ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:int ID ; # 
 Match :int
 
 第8步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> <variable> 
-剩余输入串:ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:ID ; # 
 推导所用产生式:<variable> -> <identifier> <index>
 
 第9步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> <index> <identifier> 
-剩余输入串:ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:ID ; # 
 推导所用产生式:<identifier> -> ID
 
 第10步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> <index> ID 
-剩余输入串:ID ; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:ID ; # 
 Match :ID
 
 第11步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> <index> 
-剩余输入串:; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:; # 
 推导所用产生式:<index> -> $
 
 第12步
 当前分析栈:# <block_closure> <declare_closure> ; <initialization> 
-剩余输入串:; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:; # 
 推导所用产生式:<initialization> -> $
 
 第13步
 当前分析栈:# <block_closure> <declare_closure> ; 
-剩余输入串:; if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:; # 
 Match :;
 
 第14步
 当前分析栈:# <block_closure> <declare_closure> 
-剩余输入串:if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
+剩余输入串:# 
 推导所用产生式:<declare_closure> -> $
 
 第15步
 当前分析栈:# <block_closure> 
-剩余输入串:if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<block_closure> -> <if_stmt> <block>
+剩余输入串:# 
+推导所用产生式:<block_closure> -> $
 
 第16步
-当前分析栈:# <block> <if_stmt> 
-剩余输入串:if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<if_stmt> -> if <if_block>
-
-第17步
-当前分析栈:# <block> <if_block> if 
-剩余输入串:if ( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :if
-
-第18步
-当前分析栈:# <block> <if_block> 
-剩余输入串:( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<if_block> -> ( <logic_exp> ) <cpd_block> <else>
-
-第19步
-当前分析栈:# <block> <else> <cpd_block> ) <logic_exp> ( 
-剩余输入串:( ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :(
-
-第20步
-当前分析栈:# <block> <else> <cpd_block> ) <logic_exp> 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<logic_exp> -> <expression> <logic_op> <expression>
-
-第21步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <expression> 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<expression> -> <factor> <term>
-
-第22步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor> 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor> -> <factor_type> <factor_recursion>
-
-第23步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <factor_type> 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_type> -> <variable>
-
-第24步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <variable> 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<variable> -> <identifier> <index>
-
-第25步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> <identifier> 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<identifier> -> ID
-
-第26步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> ID 
-剩余输入串:ID > INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :ID
-
-第27步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> 
-剩余输入串:> INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<index> -> $
-
-第28步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> 
-剩余输入串:> INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_recursion> -> $
-
-第29步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> 
-剩余输入串:> INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<term> -> $
-
-第30步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> 
-剩余输入串:> INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<logic_op> -> >
-
-第31步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> > 
-剩余输入串:> INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :>
-
-第32步
-当前分析栈:# <block> <else> <cpd_block> ) <expression> 
-剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<expression> -> <factor> <term>
-
-第33步
-当前分析栈:# <block> <else> <cpd_block> ) <term> <factor> 
-剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor> -> <factor_type> <factor_recursion>
-
-第34步
-当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> <factor_type> 
-剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_type> -> <number>
-
-第35步
-当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> <number> 
-剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<number> -> INT_VALUE
-
-第36步
-当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> INT_VALUE 
-剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :INT_VALUE
-
-第37步
-当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> 
-剩余输入串:) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_recursion> -> $
-
-第38步
-当前分析栈:# <block> <else> <cpd_block> ) <term> 
-剩余输入串:) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<term> -> $
-
-第39步
-当前分析栈:# <block> <else> <cpd_block> ) 
-剩余输入串:) { for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :)
-
-第40步
-当前分析栈:# <block> <else> <cpd_block> 
-剩余输入串:{ for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<cpd_block> -> { <block> }
-
-第41步
-当前分析栈:# <block> <else> } <block> { 
-剩余输入串:{ for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :{
-
-第42步
-当前分析栈:# <block> <else> } <block> 
-剩余输入串:for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<block> -> <declare_closure> <block_closure>
-
-第43步
-当前分析栈:# <block> <else> } <block_closure> <declare_closure> 
-剩余输入串:for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<declare_closure> -> $
-
-第44步
-当前分析栈:# <block> <else> } <block_closure> 
-剩余输入串:for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<block_closure> -> <for_loop> <block>
-
-第45步
-当前分析栈:# <block> <else> } <block> <for_loop> 
-剩余输入串:for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<for_loop> -> for <for_block>
-
-第46步
-当前分析栈:# <block> <else> } <block> <for_block> for 
-剩余输入串:for ( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :for
-
-第47步
-当前分析栈:# <block> <else> } <block> <for_block> 
-剩余输入串:( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
-
-第48步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declare_or_assign> ( 
-剩余输入串:( int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :(
-
-第49步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declare_or_assign> 
-剩余输入串:int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<declare_or_assign> -> <declaration>
-
-第50步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declaration> 
-剩余输入串:int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<declaration> -> <declare> ;
-
-第51步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <declare> 
-剩余输入串:int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<declare> -> <type> <variable> <initialization>
-
-第52步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> <variable> <type> 
-剩余输入串:int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<type> -> int
-
-第53步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> <variable> int 
-剩余输入串:int ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :int
-
-第54步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> <variable> 
-剩余输入串:ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<variable> -> <identifier> <index>
-
-第55步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> <index> <identifier> 
-剩余输入串:ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<identifier> -> ID
-
-第56步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> <index> ID 
-剩余输入串:ID = INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :ID
-
-第57步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> <index> 
-剩余输入串:= INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<index> -> $
-
-第58步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <initialization> 
-剩余输入串:= INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<initialization> -> = <right_value>
-
-第59步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <right_value> = 
-剩余输入串:= INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :=
-
-第60步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <right_value> 
-剩余输入串:INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<right_value> -> <expression>
-
-第61步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <expression> 
-剩余输入串:INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<expression> -> <factor> <term>
-
-第62步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <term> <factor> 
-剩余输入串:INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor> -> <factor_type> <factor_recursion>
-
-第63步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <term> <factor_recursion> <factor_type> 
-剩余输入串:INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_type> -> <number>
-
-第64步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <term> <factor_recursion> <number> 
-剩余输入串:INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<number> -> INT_VALUE
-
-第65步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <term> <factor_recursion> INT_VALUE 
-剩余输入串:INT_VALUE ; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :INT_VALUE
-
-第66步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <term> <factor_recursion> 
-剩余输入串:; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_recursion> -> $
-
-第67步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <term> 
-剩余输入串:; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<term> -> $
-
-第68步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; 
-剩余输入串:; ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :;
-
-第69步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<logic_exp> -> <expression> <logic_op> <expression>
-
-第70步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <expression> 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<expression> -> <factor> <term>
-
-第71步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor> 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor> -> <factor_type> <factor_recursion>
-
-第72步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <factor_type> 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_type> -> <variable>
-
-第73步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <variable> 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<variable> -> <identifier> <index>
-
-第74步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> <identifier> 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<identifier> -> ID
-
-第75步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> ID 
-剩余输入串:ID < INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :ID
-
-第76步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> 
-剩余输入串:< INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<index> -> $
-
-第77步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> 
-剩余输入串:< INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_recursion> -> $
-
-第78步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> 
-剩余输入串:< INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<term> -> $
-
-第79步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> 
-剩余输入串:< INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<logic_op> -> <
-
-第80步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> < 
-剩余输入串:< INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :<
-
-第81步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> 
-剩余输入串:INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<expression> -> <factor> <term>
-
-第82步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor> 
-剩余输入串:INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor> -> <factor_type> <factor_recursion>
-
-第83步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <factor_type> 
-剩余输入串:INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_type> -> <number>
-
-第84步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <number> 
-剩余输入串:INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<number> -> INT_VALUE
-
-第85步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> INT_VALUE 
-剩余输入串:INT_VALUE ; ID ++ ) { int ID ; real ID ; } } # 
-Match :INT_VALUE
-
-第86步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> 
-剩余输入串:; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<factor_recursion> -> $
-
-第87步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> 
-剩余输入串:; ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<term> -> $
-
-第88步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; 
-剩余输入串:; ID ++ ) { int ID ; real ID ; } } # 
-Match :;
-
-第89步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> 
-剩余输入串:ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<inner_assign> -> <variable> <assign>
-
-第90步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <variable> 
-剩余输入串:ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<variable> -> <identifier> <index>
-
-第91步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> <identifier> 
-剩余输入串:ID ++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<identifier> -> ID
-
-第92步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> ID 
-剩余输入串:ID ++ ) { int ID ; real ID ; } } # 
-Match :ID
-
-第93步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> 
-剩余输入串:++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<index> -> $
-
-第94步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> 
-剩余输入串:++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<assign> -> <self_op>
-
-第95步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) <self_op> 
-剩余输入串:++ ) { int ID ; real ID ; } } # 
-推导所用产生式:<self_op> -> ++
-
-第96步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) ++ 
-剩余输入串:++ ) { int ID ; real ID ; } } # 
-Match :++
-
-第97步
-当前分析栈:# <block> <else> } <block> <cpd_block> ) 
-剩余输入串:) { int ID ; real ID ; } } # 
-Match :)
-
-第98步
-当前分析栈:# <block> <else> } <block> <cpd_block> 
-剩余输入串:{ int ID ; real ID ; } } # 
-推导所用产生式:<cpd_block> -> { <block> }
-
-第99步
-当前分析栈:# <block> <else> } <block> } <block> { 
-剩余输入串:{ int ID ; real ID ; } } # 
-Match :{
-
-第100步
-当前分析栈:# <block> <else> } <block> } <block> 
-剩余输入串:int ID ; real ID ; } } # 
-推导所用产生式:<block> -> <declare_closure> <block_closure>
-
-第101步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
-剩余输入串:int ID ; real ID ; } } # 
-推导所用产生式:<declare_closure> -> <declaration> <declare_closure>
-
-第102步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> <declaration> 
-剩余输入串:int ID ; real ID ; } } # 
-推导所用产生式:<declaration> -> <declare> ;
-
-第103步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <declare> 
-剩余输入串:int ID ; real ID ; } } # 
-推导所用产生式:<declare> -> <type> <variable> <initialization>
-
-第104步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <variable> <type> 
-剩余输入串:int ID ; real ID ; } } # 
-推导所用产生式:<type> -> int
-
-第105步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <variable> int 
-剩余输入串:int ID ; real ID ; } } # 
-Match :int
-
-第106步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <variable> 
-剩余输入串:ID ; real ID ; } } # 
-推导所用产生式:<variable> -> <identifier> <index>
-
-第107步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <index> <identifier> 
-剩余输入串:ID ; real ID ; } } # 
-推导所用产生式:<identifier> -> ID
-
-第108步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <index> ID 
-剩余输入串:ID ; real ID ; } } # 
-Match :ID
-
-第109步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <index> 
-剩余输入串:; real ID ; } } # 
-推导所用产生式:<index> -> $
-
-第110步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> 
-剩余输入串:; real ID ; } } # 
-推导所用产生式:<initialization> -> $
-
-第111步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; 
-剩余输入串:; real ID ; } } # 
-Match :;
-
-第112步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
-剩余输入串:real ID ; } } # 
-推导所用产生式:<declare_closure> -> <declaration> <declare_closure>
-
-第113步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> <declaration> 
-剩余输入串:real ID ; } } # 
-推导所用产生式:<declaration> -> <declare> ;
-
-第114步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <declare> 
-剩余输入串:real ID ; } } # 
-推导所用产生式:<declare> -> <type> <variable> <initialization>
-
-第115步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <variable> <type> 
-剩余输入串:real ID ; } } # 
-推导所用产生式:<type> -> real
-
-第116步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <variable> real 
-剩余输入串:real ID ; } } # 
-Match :real
-
-第117步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <variable> 
-剩余输入串:ID ; } } # 
-推导所用产生式:<variable> -> <identifier> <index>
-
-第118步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <index> <identifier> 
-剩余输入串:ID ; } } # 
-推导所用产生式:<identifier> -> ID
-
-第119步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <index> ID 
-剩余输入串:ID ; } } # 
-Match :ID
-
-第120步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> <index> 
-剩余输入串:; } } # 
-推导所用产生式:<index> -> $
-
-第121步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; <initialization> 
-剩余输入串:; } } # 
-推导所用产生式:<initialization> -> $
-
-第122步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> ; 
-剩余输入串:; } } # 
-Match :;
-
-第123步
-当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
-剩余输入串:} } # 
-推导所用产生式:<declare_closure> -> $
-
-第124步
-当前分析栈:# <block> <else> } <block> } <block_closure> 
-剩余输入串:} } # 
-推导所用产生式:<block_closure> -> $
-
-第125步
-当前分析栈:# <block> <else> } <block> } 
-剩余输入串:} } # 
-Match :}
-
-第126步
-当前分析栈:# <block> <else> } <block> 
-剩余输入串:} # 
-推导所用产生式:<block> -> <declare_closure> <block_closure>
-
-第127步
-当前分析栈:# <block> <else> } <block_closure> <declare_closure> 
-剩余输入串:} # 
-推导所用产生式:<declare_closure> -> $
-
-第128步
-当前分析栈:# <block> <else> } <block_closure> 
-剩余输入串:} # 
-推导所用产生式:<block_closure> -> $
-
-第129步
-当前分析栈:# <block> <else> } 
-剩余输入串:} # 
-Match :}
-
-第130步
-当前分析栈:# <block> <else> 
-剩余输入串:# 
-推导所用产生式:<else> -> $
-
-第131步
-当前分析栈:# <block> 
-剩余输入串:# 
-推导所用产生式:<block> -> <declare_closure> <block_closure>
-
-第132步
-当前分析栈:# <block_closure> <declare_closure> 
-剩余输入串:# 
-推导所用产生式:<declare_closure> -> $
-
-第133步
-当前分析栈:# <block_closure> 
-剩余输入串:# 
-推导所用产生式:<block_closure> -> $
-
-第134步
 当前分析栈:# 
 剩余输入串:# 
 当前程序语法分析成功！

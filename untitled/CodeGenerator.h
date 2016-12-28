@@ -6,7 +6,6 @@
 #include <vector>
 
 #define TEMP "0temp"+to_string(tpCount++)
-#define INDEXMOVE "IDMVRS"
 
 class CodeGenerator
 {

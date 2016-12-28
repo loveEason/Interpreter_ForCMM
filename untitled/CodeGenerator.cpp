@@ -316,15 +316,13 @@ string CodeGenerator::interpretSubFct(treeNode *node){   //传入参数为<因�
             if(index->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
                 treeNode * idex = index->children[1];          //idex为<因式>结点
                 string id = calIndex(idex);
-                string temp = INDEXMOVE;
+                string temp = TEMP;
                 createCode(PLU, ident->value, id, temp, ident->line);
                 return temp;
             }else if(index->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
                 return ident->value;
-            }else if(ident->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-                string temp = INDEXMOVE;
-                createCode(PLU, ident->value, "0", temp, ident->line);
-                return temp;
+            }else if(index->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
+                printError("Array variable should be accessed by index", ident->line);
             }else{       //数组下标不为空而该变量不为数组，报错
                 printError("Variable can't be accessed by index", ident->line);
             }
@@ -360,11 +358,29 @@ string CodeGenerator::interpretFactor(treeNode * node) {
 }
 
 void CodeGenerator::createCode(string op, string second, string third, string fourth){
+    if(second==""){
+        second = "NULL";
+    }
+    if(third==""){
+        third = "NULL";
+    }
+    if(fourth==""){
+        fourth = "NULL";
+    }
     InterCode code = InterCode(op, second, third, fourth);
     codeList.push_back(code);
 }
 
 void CodeGenerator::createCode(string op, string second, string third, string fourth, int line){
+    if(second==""){
+        second = "NULL";
+    }
+    if(third==""){
+        third = "NULL";
+    }
+    if(fourth==""){
+        fourth = "NULL";
+    }
     InterCode code = InterCode(op, second, third, fourth, line);
     codeList.push_back(code);
 }
@@ -381,13 +397,12 @@ string CodeGenerator::calIndex(treeNode * node){
         if(id->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
             treeNode * idex = id->children[1];          //idex为<因式>结点
             string subId = calIndex(idex);
-            index = INDEXMOVE;
+            index = TEMP;
             createCode(PLU, ident->value, subId, index, ident->line);
         }else if(id->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
             index = ident->value;
         }else if(id->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-            index = INDEXMOVE;
-            createCode(PLU, ident->value, "0", index, ident->line);
+            printError("Array variable should be accessed by index", ident->line);
         }else{       //数组下标不为空而该变量不为数组，报错
             printError("Variable can't be accessed by index", ident->line);
         }
@@ -416,8 +431,8 @@ void CodeGenerator::parseValue(treeNode * ident, treeNode *node, string index){
             createCode(ASG, ident->value, index, asgIdent->value, ident->line);
         }else{                                         //用数组元素给数组元素赋值，利用中间变量TEMP
             string asgId = calIndex(asgIndex);
-            createCode(PLU, asgIdent->value, asgIndex->value, INDEXMOVE, asgIdent->line);
-            createCode(ASG, ident->value, index, INDEXMOVE, ident->line);
+            createCode(PLU, asgIdent->value, asgIndex->value, TEMP, asgIdent->line);
+            createCode(ASG, ident->value, index, TEMP, ident->line);
         }
     }else if(node->children[0]->content=="<expression>"){
         treeNode * exp = node->children[0];
@@ -468,8 +483,8 @@ bool CodeGenerator::checkIsArray(treeNode * id){   //判断变量是否是数组
 
 void CodeGenerator::opArrayElm(string op, string ident, string index, string value, int line){
     string temp = TEMP;
-    createCode(PLU, ident, index, INDEXMOVE, line);  //IDMVRS记录对数组进行偏移的结果
-    createCode(op, INDEXMOVE, value, temp, line);    //对中间变量进行操作
+    createCode(PLU, ident, index, TEMP, line);  //IDMVRS记录对数组进行偏移的结果
+    createCode(op, TEMP, value, temp, line);    //对中间变量进行操作
     createCode(ASG, ident, index, temp, line);    //将结果值赋给数组元素
 }
 
