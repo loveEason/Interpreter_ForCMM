@@ -1,5 +1,36 @@
 #include "actuator.h"
 
+
+bool isnumber(string x) {
+    int length = x.length();
+    if (length<1) return -1;
+    bool flag = false;
+
+    if (x[0]<='9'&&x[0]>='0') return 0;
+
+    if (x[0]=='0') {
+        if (length==1)
+            return 0;
+        else if (x[1]=='.') {
+            if (length<3) return -1;
+            for (int i=2; i<length; i++) {
+                if (x[i]<'0'||x[i]>'9') return -1;
+            }
+            return 1;
+        } else {
+            return -1;
+        }
+    } else {
+        for (int i=1; i<length; i++){
+            if (x[i]=='.') {
+                if (flag) return -1;
+                flag = true;
+            } else if (x[i]>'9'&&x[i]<'0') return -1;
+        }
+        if (flag) return 1; else return 0;
+    }
+}
+
 //SymbolNode 实现
 
 SymbolNode::SymbolNode(string _name, symbolType _type, int _length = 1){
@@ -231,15 +262,128 @@ void Actuator::assignment(string first, string second, string third) {
 }
 
 void Actuator::plus(string first, string second, string third) {
+    double num = 0;
+    auto t = symbolTable.findNode(third);
+    if (t.type==symbolType::none) {
+        symbolTable.addNode(symbolType::real, third);
+    }
 
+    if (isnumber(first)<0) {
+        auto f = symbolTable.findNode(first);
+        if (f.type==symbolType::integerArray||f.type==symbolType::realArray){
+            if (f.type==symbolType::integerArray) num += f.getIntegerValue(atoi(second.c_str()));
+            if (f.type==symbolType::realArray) num += f.getDoubleValue(atoi(second.c_str()));
+        }
+        if (t.type==symbolType::integer)
+            symbolTable.changeNode(third, (int)num);
+        else
+            symbolTable.changeNode(third, num);
+        return;
+    }
+
+    if (isnumber(first)==0)
+        num += atoi(first.c_str());
+    else if (isnumber(first)==1)
+        num += atof(first.c_str());
+    else {
+        auto x = symbolTable.findNode(first);
+        if (x.type==symbolType::integer)
+            num += x.getIntegerValue();
+        else
+            num += x.getDoubleValue();
+    }
+
+
+    if (isnumber(second)==0)
+        num += atoi(second.c_str());
+    else if (isnumber(second)==1)
+        num += atof(second.c_str());
+    else {
+        auto x = symbolTable.findNode(second);
+        if (x.type==symbolType::integer)
+            num += x.getIntegerValue();
+        else
+            num += x.getDoubleValue();
+    }
+
+    if (t.type==symbolType::integer)
+        symbolTable.changeNode(third, (int)num);
+    else
+        symbolTable.changeNode(third, num);
 }
 
 void Actuator::minu(string first, string second, string third) {
+    double num = 0;
+    auto t = symbolTable.findNode(third);
+    if (t.type==symbolType::none) {
+        symbolTable.addNode(symbolType::real, third);
+    }
 
+    if (isnumber(first)==0)
+        num += atoi(first.c_str());
+    else if (isnumber(first)==1)
+        num += atof(first.c_str());
+    else {
+        auto x = symbolTable.findNode(first);
+        if (x.type==symbolType::integer)
+            num += x.getIntegerValue();
+        else
+            num += x.getDoubleValue();
+    }
+
+    if (isnumber(second)==0)
+        num -= atoi(second.c_str());
+    else if (isnumber(second)==1)
+        num -= atof(second.c_str());
+    else {
+        auto x = symbolTable.findNode(second);
+        if (x.type==symbolType::integer)
+            num -= x.getIntegerValue();
+        else
+            num -= x.getDoubleValue();
+    }
+
+    if (t.type==symbolType::integer)
+        symbolTable.changeNode(third, (int)num);
+    else
+        symbolTable.changeNode(third, num);
 }
 
 void Actuator::divide(string first, string second, string third) {
+    double num = 0;
+    auto t = symbolTable.findNode(third);
+    if (t.type==symbolType::none) {
+        symbolTable.addNode(symbolType::real, third);
+    }
 
+    if (isnumber(first)==0)
+        num += atoi(first.c_str());
+    else if (isnumber(first)==1)
+        num += atof(first.c_str());
+    else {
+        auto x = symbolTable.findNode(first);
+        if (x.type==symbolType::integer)
+            num += x.getIntegerValue();
+        else
+            num += x.getDoubleValue();
+    }
+
+    if (isnumber(second)==0)
+        num /= atoi(second.c_str());
+    else if (isnumber(second)==1)
+        num /= atof(second.c_str());
+    else {
+        auto x = symbolTable.findNode(second);
+        if (x.type==symbolType::integer)
+            num /= x.getIntegerValue();
+        else
+            num /= x.getDoubleValue();
+    }
+
+    if (t.type==symbolType::integer)
+        symbolTable.changeNode(third, (int)num);
+    else
+        symbolTable.changeNode(third, num);
 }
 
 void Actuator::jump(string first, string second, string third) {
