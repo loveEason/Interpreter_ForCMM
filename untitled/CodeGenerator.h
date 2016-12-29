@@ -20,6 +20,7 @@ public:
 	~CodeGenerator();
     void interpretPrg(treeNode * node);
 	void interpretDcl(treeNode * node);
+    void interpretSubDcl(treeNode * node, string type);
 	void interpretAsg(treeNode * node);
     void interpretRed(treeNode * node);
     void interpretWrt(treeNode * node, int line);

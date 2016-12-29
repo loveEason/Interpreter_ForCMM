@@ -8,7 +8,6 @@
 <data>
 <data_closure>
 <datas>
-<declaration>
 <declare>
 <declare_closure>
 <declare_or_assign>
@@ -30,6 +29,8 @@
 <logic_exp>
 <logic_op>
 <number>
+<per_declaration>
+<per_declare_closure>
 <program>
 <read_fun>
 <right_value>
@@ -65,6 +66,7 @@ $
 <
 <=
 <>
+<declaration>
 <right-value>
 =
 ==
@@ -120,10 +122,10 @@ write
     <data> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <data_closure> : {$,,}
    <datas> : {(,FLOAT_VALUE,ID,INT_VALUE}
-<declaration> : {int,real}
+<declaration> : {<declaration>}
  <declare> : {int,real}
 <declare_closure> : {$,int,real}
-<declare_or_assign> : {++,--,ID,int,real}
+<declare_or_assign> : {++,--,<declaration>,ID}
     <else> : {$,else}
 <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
   <factor> : {(,FLOAT_VALUE,ID,INT_VALUE}
@@ -142,6 +144,8 @@ write
 <logic_exp> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <logic_op> : {<,<=,<>,==,>,>=}
   <number> : {FLOAT_VALUE,INT_VALUE}
+<per_declaration> : {int,real}
+<per_declare_closure> : {$,,}
  <program> : {$,++,--,;,ID,for,if,int,read,real,while,write}
 <read_fun> : {read}
 <right-value> : {<right-value>}
@@ -180,10 +184,12 @@ FLOAT_VALUE : {FLOAT_VALUE}
       <program> -> $ : {$}
         <block> -> ; : {;}
 <block> -> <declare_closure> <block_closure> : {$,++,--,ID,for,if,int,read,real,while,write}
-<declare_closure> -> <declaration> <declare_closure> : {int,real}
+<declare_closure> -> <per_declaration> <declare_closure> : {int,real}
 <declare_closure> -> $ : {$}
-<declaration> -> <declare> ; : {int,real}
+<per_declaration> -> <declare> <per_declare_closure> ; : {int,real}
 <declare> -> <type> <variable> <initialization> : {int,real}
+<per_declare_closure> -> , <variable> <initialization> <per_declare_closure> : {,}
+<per_declare_closure> -> $ : {$}
        <type> -> int : {int}
       <type> -> real : {real}
 <variable> -> <identifier> <index> : {ID}
@@ -234,7 +240,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
      <self_op> -> -- : {--}
 <for_loop> -> for <for_block> : {for}
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block> : {(}
-<declare_or_assign> -> <declaration> : {int,real}
+<declare_or_assign> -> <declaration> : {<declaration>}
 <declare_or_assign> -> <assignment> : {++,--,ID}
 <logic_exp> -> <expression> <logic_op> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
      <logic_op> -> < : {<}
@@ -271,8 +277,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
               <data> : {),,,}}
       <data_closure> : {}}
              <datas> : {}}
-       <declaration> : {#,(,++,--,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
-           <declare> : {;}
+           <declare> : {,,;}
    <declare_closure> : {#,++,--,ID,for,if,read,while,write,}}
  <declare_or_assign> : {(,FLOAT_VALUE,ID,INT_VALUE}
               <else> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
@@ -288,14 +293,16 @@ FLOAT_VALUE : {FLOAT_VALUE}
           <if_block> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
            <if_stmt> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
              <index> : {%,%=,),*,*=,+,++,+=,,,-,--,-=,/,/=,;,<,<=,<>,=,==,>,>=,],}}
-    <initialization> : {;}
+    <initialization> : {,,;}
       <inner_assign> : {)}
          <logic_exp> : {),;}
           <logic_op> : {(,FLOAT_VALUE,ID,INT_VALUE}
             <number> : {%,),*,+,,,-,/,;,<,<=,<>,==,>,>=,],}}
+   <per_declaration> : {#,++,--,ID,for,if,int,read,real,while,write,}}
+<per_declare_closure> : {;}
            <program> : {#}
           <read_fun> : {;}
-       <right_value> : {),;}
+       <right_value> : {),,,;}
            <self_op> : {),;,ID}
               <term> : {),,,;,<,<=,<>,==,>,>=,}}
               <type> : {ID}
@@ -311,10 +318,12 @@ FLOAT_VALUE : {FLOAT_VALUE}
       <program> -> $ : {#}
         <block> -> ; : {;}
 <block> -> <declare_closure> <block_closure> : {#,++,--,ID,for,if,int,read,real,while,write,}}
-<declare_closure> -> <declaration> <declare_closure> : {int,real}
+<declare_closure> -> <per_declaration> <declare_closure> : {int,real}
 <declare_closure> -> $ : {#,++,--,ID,for,if,read,while,write,}}
-<declaration> -> <declare> ; : {int,real}
+<per_declaration> -> <declare> <per_declare_closure> ; : {int,real}
 <declare> -> <type> <variable> <initialization> : {int,real}
+<per_declare_closure> -> , <variable> <initialization> <per_declare_closure> : {,}
+<per_declare_closure> -> $ : {;}
        <type> -> int : {int}
       <type> -> real : {real}
 <variable> -> <identifier> <index> : {ID}
@@ -327,7 +336,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <number> -> INT_VALUE : {INT_VALUE}
 <number> -> FLOAT_VALUE : {FLOAT_VALUE}
 <initialization> -> = <right_value> : {=}
-<initialization> -> $ : {;}
+<initialization> -> $ : {,,;}
 <right_value> -> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
 <right_value> -> { <datas> } : {{}
 <datas> -> <data> <data_closure> : {(,FLOAT_VALUE,ID,INT_VALUE}
@@ -365,7 +374,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
      <self_op> -> -- : {--}
 <for_loop> -> for <for_block> : {for}
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block> : {(}
-<declare_or_assign> -> <declaration> : {int,real}
+<declare_or_assign> -> <declaration> : {<declaration>}
 <declare_or_assign> -> <assignment> : {++,--,ID}
 <logic_exp> -> <expression> <logic_op> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
      <logic_op> -> < : {<}
@@ -439,8 +448,6 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <datas> encounters FLOAT_VALUE,using deducer:<datas> -> <data> <data_closure>
 <datas> encounters ID,using deducer:<datas> -> <data> <data_closure>
 <datas> encounters INT_VALUE,using deducer:<datas> -> <data> <data_closure>
-<declaration> encounters int,using deducer:<declaration> -> <declare> ;
-<declaration> encounters real,using deducer:<declaration> -> <declare> ;
 <declare> encounters int,using deducer:<declare> -> <type> <variable> <initialization>
 <declare> encounters real,using deducer:<declare> -> <type> <variable> <initialization>
 <declare_closure> encounters #,using deducer:<declare_closure> -> $
@@ -449,17 +456,16 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <declare_closure> encounters ID,using deducer:<declare_closure> -> $
 <declare_closure> encounters for,using deducer:<declare_closure> -> $
 <declare_closure> encounters if,using deducer:<declare_closure> -> $
-<declare_closure> encounters int,using deducer:<declare_closure> -> <declaration> <declare_closure>
+<declare_closure> encounters int,using deducer:<declare_closure> -> <per_declaration> <declare_closure>
 <declare_closure> encounters read,using deducer:<declare_closure> -> $
-<declare_closure> encounters real,using deducer:<declare_closure> -> <declaration> <declare_closure>
+<declare_closure> encounters real,using deducer:<declare_closure> -> <per_declaration> <declare_closure>
 <declare_closure> encounters while,using deducer:<declare_closure> -> $
 <declare_closure> encounters write,using deducer:<declare_closure> -> $
 <declare_closure> encounters },using deducer:<declare_closure> -> $
 <declare_or_assign> encounters ++,using deducer:<declare_or_assign> -> <assignment>
 <declare_or_assign> encounters --,using deducer:<declare_or_assign> -> <assignment>
+<declare_or_assign> encounters <declaration>,using deducer:<declare_or_assign> -> <declaration>
 <declare_or_assign> encounters ID,using deducer:<declare_or_assign> -> <assignment>
-<declare_or_assign> encounters int,using deducer:<declare_or_assign> -> <declaration>
-<declare_or_assign> encounters real,using deducer:<declare_or_assign> -> <declaration>
 <else> encounters #,using deducer:<else> -> $
 <else> encounters ++,using deducer:<else> -> $
 <else> encounters --,using deducer:<else> -> $
@@ -535,6 +541,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <index> encounters [,using deducer:<index> -> [ <factor_type> ]
 <index> encounters ],using deducer:<index> -> $
 <index> encounters },using deducer:<index> -> $
+<initialization> encounters ,,using deducer:<initialization> -> $
 <initialization> encounters ;,using deducer:<initialization> -> $
 <initialization> encounters =,using deducer:<initialization> -> = <right_value>
 <inner_assign> encounters ++,using deducer:<inner_assign> -> <self_op> <variable>
@@ -552,6 +559,10 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <logic_op> encounters >=,using deducer:<logic_op> -> >=
 <number> encounters FLOAT_VALUE,using deducer:<number> -> FLOAT_VALUE
 <number> encounters INT_VALUE,using deducer:<number> -> INT_VALUE
+<per_declaration> encounters int,using deducer:<per_declaration> -> <declare> <per_declare_closure> ;
+<per_declaration> encounters real,using deducer:<per_declaration> -> <declare> <per_declare_closure> ;
+<per_declare_closure> encounters ,,using deducer:<per_declare_closure> -> , <variable> <initialization> <per_declare_closure>
+<per_declare_closure> encounters ;,using deducer:<per_declare_closure> -> $
 <program> encounters #,using deducer:<program> -> $
 <program> encounters ++,using deducer:<program> -> <block>
 <program> encounters --,using deducer:<program> -> <block>

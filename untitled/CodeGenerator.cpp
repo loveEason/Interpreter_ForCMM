@@ -54,13 +54,16 @@ void CodeGenerator::interpretPrg(treeNode * node) {
 
 void CodeGenerator::interpretDcl(treeNode * node) {
     treeNode * node1 = NULL;
-    if(node->content=="<declare_closure>"){    //node1为<declare>
-        node1 = node->children[0]->children[0];
-    }else{
-        node1 = node->children[0];
-    }
+    treeNode * nodeNext = NULL;
+    //if(node->content=="<declare_closure>"){
+    node1 = node->children[0]->children[0];     //node1为<declare>
+    nodeNext = node->children[0]->children[1];  //nodeNext为<per_declare_closure>
+    //}else{
+    //   node1 = node->children[0];
+    //}
     treeNode * type = node1->children[0];
     string decType = type->children[0]->content=="int"?INT_DCL:REAL_DCL;  //判断声明的类型
+    int typeNum = decType=="INT_DCL"?1:2;
     treeNode * var = node1->children[1];
     treeNode * ident = var->children[0]->children[0];
     treeNode * index = var->children[1];               //index为<index>
@@ -74,7 +77,7 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         createCode(decType, ident->value, id, "", ident->line);
     }
 
-    SimpleSymbol *s = new SimpleSymbol(ident->value, type->children[0]->type, layer, ident->line, isArray);
+    SimpleSymbol *s = new SimpleSymbol(ident->value, typeNum, layer, ident->line, isArray);
     checkTable->addSymbol(s);
 
     if(node1->children[2]->children[0]->content!="$"){         //判断是否初始化变量
@@ -104,11 +107,62 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         createCode(decType, ident->value, "", "", ident->line);
     }
 
+    while(nodeNext->children[0]->content!="$"){
+        interpretSubDcl(nodeNext, decType);   //声明多个变量情况
+        nodeNext = nodeNext->children[3];
+    }
+
     treeNode * node2 = node->children[1];    //node2为<declare_closure>
     if(node2->content==";"){
         return;
     }else if(node2->children[0]->content!="$"){
         interpretDcl(node2);
+    }
+}
+
+void CodeGenerator::interpretSubDcl(treeNode *node, string type){
+    treeNode * subVar = node->children[1];
+    treeNode * subIdent = subVar->children[0]->children[0];
+    treeNode * subIndex = subVar->children[1];
+    int typeNum = type=="INC_DCL"?1:2;
+    bool isArray = false;
+    bool singleVar = false;
+    if(subIndex->children[0]->content!="$"){              //数组下标不为空的情况下
+        singleVar = true;
+        isArray = true;
+        treeNode * idex = subIndex->children[1];  //idex为<factor_type>
+        string id = calIndex(idex);
+        createCode(type, subIdent->value, id, "", subIdent->line);
+    }
+
+    SimpleSymbol *s = new SimpleSymbol(subIdent->value, typeNum, layer, subIdent->line, isArray);
+    checkTable->addSymbol(s);
+
+    if(node->children[2]->children[0]->content!="$"){         //判断是否初始化变量
+        treeNode * value = node->children[2]->children[1];    //value为<right_value>
+        if(value->children[0]->content=="<expression>"&&isArray){   //判断初始化的方式是否合理
+            printError("Invalid initialization for array", subIdent->line);
+        }else if(value->children[0]->content=="<expression>"&&!isArray){
+            string v = interpretExp(value->children[0]);
+            createCode(type, subIdent->value, "", v, subIdent->line);
+            singleVar = true;
+        }else if(value->children[0]->content=="{"&&!isArray){           //value为多个值（数组声明时赋值）
+            printError("Invalid initialization for variable", subIdent->line);
+        }else if(value->children[0]->content=="{"&&isArray){
+            treeNode * values = value->children[1];              //values为<datas>
+            treeNode * data = values->children[0];               //data为<data>
+            parseValue(subIdent, data, "0");
+            treeNode * nextData = values->children[1];           //nextData为<data_closure>
+            for(int i=1;nextData->children[0]->content!="$";i++){
+                treeNode * data = nextData->children[1];
+                parseValue(subIdent, data, to_string(i));
+                nextData = nextData->children[2];
+            }
+        }
+    }
+
+    if(!singleVar){
+        createCode(type, subIdent->value, "", "", subIdent->line);
     }
 }
 
