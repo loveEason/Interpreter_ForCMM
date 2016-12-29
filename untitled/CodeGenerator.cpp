@@ -54,13 +54,16 @@ void CodeGenerator::interpretPrg(treeNode * node) {
 
 void CodeGenerator::interpretDcl(treeNode * node) {
     treeNode * node1 = NULL;
-    if(node->content=="<declare_closure>"){    //node1为<declare>
-        node1 = node->children[0]->children[0];
-    }else{
-        node1 = node->children[0];
-    }
+    treeNode * nodeNext = NULL;
+    //if(node->content=="<declare_closure>"){
+    node1 = node->children[0]->children[0];     //node1为<declare>
+    nodeNext = node->children[0]->children[1];  //nodeNext为<per_declare_closure>
+    //}else{
+    //   node1 = node->children[0];
+    //}
     treeNode * type = node1->children[0];
     string decType = type->children[0]->content=="int"?INT_DCL:REAL_DCL;  //判断声明的类型
+    int typeNum = decType=="INT_DCL"?1:2;
     treeNode * var = node1->children[1];
     treeNode * ident = var->children[0]->children[0];
     treeNode * index = var->children[1];               //index为<index>
@@ -74,7 +77,7 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         createCode(decType, ident->value, id, "", ident->line);
     }
 
-    SimpleSymbol *s = new SimpleSymbol(ident->value, type->children[0]->type, layer, ident->line, isArray);
+    SimpleSymbol *s = new SimpleSymbol(ident->value, typeNum, layer, ident->line, isArray);
     checkTable->addSymbol(s);
 
     if(node1->children[2]->children[0]->content!="$"){         //判断是否初始化变量
@@ -104,11 +107,62 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         createCode(decType, ident->value, "", "", ident->line);
     }
 
+    while(nodeNext->children[0]->content!="$"){
+        interpretSubDcl(nodeNext, decType);   //声明多个变量情况
+        nodeNext = nodeNext->children[3];
+    }
+
     treeNode * node2 = node->children[1];    //node2为<declare_closure>
     if(node2->content==";"){
         return;
     }else if(node2->children[0]->content!="$"){
         interpretDcl(node2);
+    }
+}
+
+void CodeGenerator::interpretSubDcl(treeNode *node, string type){
+    treeNode * subVar = node->children[1];
+    treeNode * subIdent = subVar->children[0]->children[0];
+    treeNode * subIndex = subVar->children[1];
+    int typeNum = type=="INC_DCL"?1:2;
+    bool isArray = false;
+    bool singleVar = false;
+    if(subIndex->children[0]->content!="$"){              //数组下标不为空的情况下
+        singleVar = true;
+        isArray = true;
+        treeNode * idex = subIndex->children[1];  //idex为<factor_type>
+        string id = calIndex(idex);
+        createCode(type, subIdent->value, id, "", subIdent->line);
+    }
+
+    SimpleSymbol *s = new SimpleSymbol(subIdent->value, typeNum, layer, subIdent->line, isArray);
+    checkTable->addSymbol(s);
+
+    if(node->children[2]->children[0]->content!="$"){         //判断是否初始化变量
+        treeNode * value = node->children[2]->children[1];    //value为<right_value>
+        if(value->children[0]->content=="<expression>"&&isArray){   //判断初始化的方式是否合理
+            printError("Invalid initialization for array", subIdent->line);
+        }else if(value->children[0]->content=="<expression>"&&!isArray){
+            string v = interpretExp(value->children[0]);
+            createCode(type, subIdent->value, "", v, subIdent->line);
+            singleVar = true;
+        }else if(value->children[0]->content=="{"&&!isArray){           //value为多个值（数组声明时赋值）
+            printError("Invalid initialization for variable", subIdent->line);
+        }else if(value->children[0]->content=="{"&&isArray){
+            treeNode * values = value->children[1];              //values为<datas>
+            treeNode * data = values->children[0];               //data为<data>
+            parseValue(subIdent, data, "0");
+            treeNode * nextData = values->children[1];           //nextData为<data_closure>
+            for(int i=1;nextData->children[0]->content!="$";i++){
+                treeNode * data = nextData->children[1];
+                parseValue(subIdent, data, to_string(i));
+                nextData = nextData->children[2];
+            }
+        }
+    }
+
+    if(!singleVar){
+        createCode(type, subIdent->value, "", "", subIdent->line);
     }
 }
 
@@ -316,15 +370,13 @@ string CodeGenerator::interpretSubFct(treeNode *node){   //传入参数为<因�
             if(index->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
                 treeNode * idex = index->children[1];          //idex为<因式>结点
                 string id = calIndex(idex);
-                string temp = INDEXMOVE;
+                string temp = TEMP;
                 createCode(PLU, ident->value, id, temp, ident->line);
                 return temp;
             }else if(index->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
                 return ident->value;
-            }else if(ident->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-                string temp = INDEXMOVE;
-                createCode(PLU, ident->value, "0", temp, ident->line);
-                return temp;
+            }else if(index->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
+                printError("Array variable should be accessed by index", ident->line);
             }else{       //数组下标不为空而该变量不为数组，报错
                 printError("Variable can't be accessed by index", ident->line);
             }
@@ -360,11 +412,29 @@ string CodeGenerator::interpretFactor(treeNode * node) {
 }
 
 void CodeGenerator::createCode(string op, string second, string third, string fourth){
+    if(second==""){
+        second = "NULL";
+    }
+    if(third==""){
+        third = "NULL";
+    }
+    if(fourth==""){
+        fourth = "NULL";
+    }
     InterCode code = InterCode(op, second, third, fourth);
     codeList.push_back(code);
 }
 
 void CodeGenerator::createCode(string op, string second, string third, string fourth, int line){
+    if(second==""){
+        second = "NULL";
+    }
+    if(third==""){
+        third = "NULL";
+    }
+    if(fourth==""){
+        fourth = "NULL";
+    }
     InterCode code = InterCode(op, second, third, fourth, line);
     codeList.push_back(code);
 }
@@ -381,13 +451,12 @@ string CodeGenerator::calIndex(treeNode * node){
         if(id->children[0]->content!="$"&&checkIsArray(ident)){     //数组下标不为空且该变量为数组
             treeNode * idex = id->children[1];          //idex为<因式>结点
             string subId = calIndex(idex);
-            index = INDEXMOVE;
+            index = TEMP;
             createCode(PLU, ident->value, subId, index, ident->line);
         }else if(id->children[0]->content=="$"&&!checkIsArray(ident)){  //数组下标为空且该变量不为数组
             index = ident->value;
         }else if(id->children[0]->content=="$"&&checkIsArray(ident)){   //数组下标为空而该变量为数组则默认下标为0
-            index = INDEXMOVE;
-            createCode(PLU, ident->value, "0", index, ident->line);
+            printError("Array variable should be accessed by index", ident->line);
         }else{       //数组下标不为空而该变量不为数组，报错
             printError("Variable can't be accessed by index", ident->line);
         }
@@ -416,8 +485,8 @@ void CodeGenerator::parseValue(treeNode * ident, treeNode *node, string index){
             createCode(ASG, ident->value, index, asgIdent->value, ident->line);
         }else{                                         //用数组元素给数组元素赋值，利用中间变量TEMP
             string asgId = calIndex(asgIndex);
-            createCode(PLU, asgIdent->value, asgIndex->value, INDEXMOVE, asgIdent->line);
-            createCode(ASG, ident->value, index, INDEXMOVE, ident->line);
+            createCode(PLU, asgIdent->value, asgIndex->value, TEMP, asgIdent->line);
+            createCode(ASG, ident->value, index, TEMP, ident->line);
         }
     }else if(node->children[0]->content=="<expression>"){
         treeNode * exp = node->children[0];
@@ -468,8 +537,8 @@ bool CodeGenerator::checkIsArray(treeNode * id){   //判断变量是否是数组
 
 void CodeGenerator::opArrayElm(string op, string ident, string index, string value, int line){
     string temp = TEMP;
-    createCode(PLU, ident, index, INDEXMOVE, line);  //IDMVRS记录对数组进行偏移的结果
-    createCode(op, INDEXMOVE, value, temp, line);    //对中间变量进行操作
+    createCode(PLU, ident, index, TEMP, line);  //IDMVRS记录对数组进行偏移的结果
+    createCode(op, TEMP, value, temp, line);    //对中间变量进行操作
     createCode(ASG, ident, index, temp, line);    //将结果值赋给数组元素
 }
 
