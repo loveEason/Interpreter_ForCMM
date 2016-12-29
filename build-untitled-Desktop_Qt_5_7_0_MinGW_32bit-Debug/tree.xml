@@ -12,12 +12,23 @@ int
 ID
 </identifier>
 <index>
+<<<<<<< HEAD
 LEFT_INDEX
+=======
+</index>
+</variable>
+<initialization>
+ASSIGN
+<right_value>
+<expression>
+<factor>
+>>>>>>> ce8950c3636f6a307b515f61a678265816b6a7c0
 <factor_type>
 <number>
 INT_VALUE
 </number>
 </factor_type>
+<<<<<<< HEAD
 RIGHT_INDEX
 </index>
 </variable>
@@ -71,6 +82,19 @@ RIGHT_INDEX
 </per_declare_closure>
 SEMI
 </per_declaration>
+=======
+<factor_recursion>
+</factor_recursion>
+</factor>
+<term>
+</term>
+</expression>
+</right_value>
+</initialization>
+</declare>
+SEMI
+</declaration>
+>>>>>>> ce8950c3636f6a307b515f61a678265816b6a7c0
 <declare_closure>
 </declare_closure>
 </declare_closure>
