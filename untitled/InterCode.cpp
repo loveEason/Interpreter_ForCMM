@@ -7,8 +7,6 @@ InterCode::InterCode(string instructType, string secondElm, string thirdElm, str
 	this->secondElm = secondElm;
 	this->thirdElm = thirdElm;
 	this->fourthElm = fourthElm;
-    this->isDelete = false;
-    this->isModified = false;
 }
 
 InterCode::InterCode(string instructType, string secondElm, string thirdElm, string fourthElm, int line){
@@ -17,8 +15,6 @@ InterCode::InterCode(string instructType, string secondElm, string thirdElm, str
     this->thirdElm = thirdElm;
     this->fourthElm = fourthElm;
     this->line = line;
-    this->isDelete = false;
-    this->isModified = false;
 }
 
 InterCode::~InterCode()
@@ -45,14 +41,6 @@ int InterCode::getLine(){
     return this->line;
 }
 
-bool InterCode::getIsDelete(){
-    return this->isDelete;
-}
-
-bool InterCode::getIsModified(){
-    return this->isModified;
-}
-
 void InterCode::setLine(int line){
     this->line = line;
 }
@@ -69,15 +57,10 @@ void InterCode::setFourthElm(string fourthElm) {
 	this->fourthElm = fourthElm;
 }
 
-void InterCode::setIsDelete(bool isDelete){
-    this->isDelete = isDelete;
-}
-
-void InterCode::setIsModified(bool isModified){
-    this->isModified = isModified;
-}
-
 void InterCode::printCode() {
-    cout << "(  " << instructType << "  ,  " << secondElm << "  ,  " << thirdElm << "  ,  " << fourthElm << "  )";
+    string second = secondElm==""?"NULL":secondElm;
+    string third = thirdElm==""?"NULL":thirdElm;
+    string fourth = fourthElm==""?"NULL":fourthElm;
+    cout << "(  " << instructType << "  ,  " << secondElm << "  ,  " << third << "  ,  " << fourth << "  )";
     cout<<" Line "<<line<<endl;
 }

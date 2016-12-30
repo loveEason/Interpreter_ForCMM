@@ -5,7 +5,6 @@
 #include "LexAnalysis.h"
 #include "Parse.h"
 #include "CodeGenerator.h"
-#include "optimize.h"
 
 using namespace std;
 

@@ -2,12 +2,10 @@
 <program> -> $
 <block> -> ;
 <block> -> <declare_closure> <block_closure>
-<declare_closure> -> <per_declaration> <declare_closure>
+<declare_closure> -> <declaration> <declare_closure>
 <declare_closure> -> $
-<per_declaration> -> <declare> <per_declare_closure> ;
+<declaration> -> <declare> ;
 <declare> -> <type> <variable> <initialization>
-<per_declare_closure> -> , <variable> <initialization> <per_declare_closure>
-<per_declare_closure> -> $
 <type> -> int
 <type> -> real
 <variable> -> <identifier> <index>
