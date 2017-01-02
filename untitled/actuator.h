@@ -54,19 +54,27 @@ class Actuator {
 private:
     Symbol symbolTable;
     treeNode* nodes;
+    int index = 0;
+    bool cmp;
     vector<InterCode> interCode;
 public:
-    Actuator();
+    Actuator(vector<InterCode>);
     ~Actuator();
     bool runCode();
     bool runOnelineCode(InterCode);
+    void in();
+    void out();
     void declareInt(string first, string second, string third);
     void declareReal(string first, string second, string third);
     void assignment(string first, string second, string third);
     void plus(string first, string second, string third);
+    void read(string first, string second, string third);
+    void write(string first, string second, string third);
     void minu(string first, string second, string third);
     void divide(string first, string second, string third);
-    void jump(string first, string second, string third);
+    void multiply(string first, string second, string third);
+    void jump(string first, string second);
+    void compare(string first, string second, string third);
 };
 
 #endif // ACTUATOR_H

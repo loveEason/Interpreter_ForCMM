@@ -1,12 +1,10 @@
 #include "actuator.h"
 
 
-bool isnumber(string x) {
+int isnumber(string x) {
     int length = x.length();
     if (length<1) return -1;
     bool flag = false;
-
-    if (x[0]<='9'&&x[0]>='0') return 0;
 
     if (x[0]=='0') {
         if (length==1)
@@ -20,7 +18,7 @@ bool isnumber(string x) {
         } else {
             return -1;
         }
-    } else {
+    } else if (x[0]<='9'&&x[0]>'0') {
         for (int i=1; i<length; i++){
             if (x[i]=='.') {
                 if (flag) return -1;
@@ -29,6 +27,8 @@ bool isnumber(string x) {
         }
         if (flag) return 1; else return 0;
     }
+
+    return -1;
 }
 
 //SymbolNode 实现
@@ -143,7 +143,8 @@ void Symbol::deleteTable() {
 }
 
 SymbolNode Symbol::findNode(string name) {
-    for (auto i=symbolTable.end(); ;i--) {
+    for (auto i=symbolTable.end()-1; ;i--) {
+        if (symbolTable.size()==0) break;
         auto node = i->find(name);
         if (node!=i->end()) {
             return node->second;
@@ -163,7 +164,8 @@ void Symbol::addNode(symbolType type, string name, int length) {
 
 void Symbol::changeNode(string name, double value, int index) {
     // todo: 错误处理 类型检查 越界检查
-    for (auto i=symbolTable.end(); ;i--) {
+    for (auto i=symbolTable.end()-1; ;i--) {
+        if (symbolTable.size()==0) break;
         auto node = i->find(name);
         if (node!=i->end()) {
             node->second.setDoubleValue(value, index);
@@ -175,7 +177,8 @@ void Symbol::changeNode(string name, double value, int index) {
 
 void Symbol::changeNode(string name, int value, int index) {
     // todo: 错误处理 类型检查 越界检查
-    for (auto i=symbolTable.end(); ;i--) {
+    for (auto i=symbolTable.end()-1; ;i--) {
+        if (symbolTable.size()==0) break;
         auto node = i->find(name);
         if (node!=i->end()) {
             node->second.setIntegerValue(value, index);
@@ -188,8 +191,8 @@ void Symbol::changeNode(string name, int value, int index) {
 
 // Actuator 实现
 
-Actuator::Actuator() {
-
+Actuator::Actuator(vector<InterCode> code) {
+    interCode = code;
 }
 
 Actuator::~Actuator() {
@@ -197,31 +200,42 @@ Actuator::~Actuator() {
 }
 
 bool Actuator::runCode() {
-    return false;
+    while(true) {
+        runOnelineCode(interCode[index]);
+        index++;
+        if (index>=(int)interCode.size()) break;
+    }
+    return true;
 }
 
 bool Actuator::runOnelineCode(InterCode code) {
     string type = code.getInstructType();
     if (type=="INT_DCL") {
-
+        declareInt(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="REAL_DCL") {
-
+        declareReal(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="ASG") {
-
+        assignment(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="RED") {
-
+        read(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="WRT") {
-
+        write(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="PLU") {
-
+        plus(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="MINU") {
-
+        minu(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="DIVIDE") {
-
+        divide(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
     } else if (type=="JMP") {
-
+        jump(code.getSecondElm(), code.getThirdElm());
+    } else if (type=="MULTIPLY") {
+        multiply(code.getSecondElm(), code.getThirdElm(), code.getFourthElm());
+    } else if (type=="IN") {
+        in();
+    } else if (type=="OUT") {
+        out();
     } else {
-
+        compare(type, code.getSecondElm(), code.getThirdElm());
     }
     return false;
 }
@@ -247,18 +261,38 @@ void Actuator::declareReal(string first, string second, string third) {
 
 void Actuator::assignment(string first, string second, string third) {
     // todo: 错误处理
-    auto node = symbolTable.findNode(first);
-    if (second=="NULL") {
-        if (node.type==symbolType::integer)
-            symbolTable.changeNode(first, atoi(third.c_str()));
-        else
-            symbolTable.changeNode(first, atof(third.c_str()));
+    double value;
+    if (isnumber(third)>=0) {
+        value = atof(third.c_str());
     } else {
-        if (node.type==symbolType::integerArray)
-            symbolTable.changeNode(first, atoi(third.c_str()), atoi(second.c_str()));
+        auto node = symbolTable.findNode(third);
+        if (node.type==symbolType::integer)
+            value = node.getIntegerValue();
         else
-            symbolTable.changeNode(first, atof(third.c_str()), atoi(second.c_str()));
+            value = node.getDoubleValue();
     }
+
+    int index = 0;
+    if (second!="NULL") {
+        if (isnumber(second)==0)
+            index = atoi(second.c_str());
+        else {
+            auto node = symbolTable.findNode(second);
+            if (node.type==symbolType::integer)
+                index = node.getIntegerValue();
+            else {
+                // todo: error
+            }
+        }
+    }
+
+    auto node = symbolTable.findNode(first);
+
+    if (node.type==symbolType::integer or node.type==symbolType::integerArray)
+        symbolTable.changeNode(first, (int)value, index);
+    else
+        symbolTable.changeNode(first, value, index);
+
 }
 
 void Actuator::plus(string first, string second, string third) {
@@ -266,19 +300,6 @@ void Actuator::plus(string first, string second, string third) {
     auto t = symbolTable.findNode(third);
     if (t.type==symbolType::none) {
         symbolTable.addNode(symbolType::real, third);
-    }
-
-    if (isnumber(first)<0) {
-        auto f = symbolTable.findNode(first);
-        if (f.type==symbolType::integerArray||f.type==symbolType::realArray){
-            if (f.type==symbolType::integerArray) num += f.getIntegerValue(atoi(second.c_str()));
-            if (f.type==symbolType::realArray) num += f.getDoubleValue(atoi(second.c_str()));
-        }
-        if (t.type==symbolType::integer)
-            symbolTable.changeNode(third, (int)num);
-        else
-            symbolTable.changeNode(third, num);
-        return;
     }
 
     if (isnumber(first)==0)
@@ -292,7 +313,6 @@ void Actuator::plus(string first, string second, string third) {
         else
             num += x.getDoubleValue();
     }
-
 
     if (isnumber(second)==0)
         num += atoi(second.c_str());
@@ -350,6 +370,7 @@ void Actuator::minu(string first, string second, string third) {
 }
 
 void Actuator::divide(string first, string second, string third) {
+    // todo: chushu 0 check
     double num = 0;
     auto t = symbolTable.findNode(third);
     if (t.type==symbolType::none) {
@@ -386,6 +407,134 @@ void Actuator::divide(string first, string second, string third) {
         symbolTable.changeNode(third, num);
 }
 
-void Actuator::jump(string first, string second, string third) {
+void Actuator::read(string first, string second, string third) {
+    auto node = symbolTable.findNode(first);
+    if (node.type!=symbolType::none) {
+        if (node.type==symbolType::integer) {
+            int x;
+            cin >> x;
+            symbolTable.changeNode(first, x);
+        } else {
+            double x;
+            cin >> x;
+            symbolTable.changeNode(first, x);
+        }
+    } else {
+        //todo: error
+    }
+}
 
+void Actuator::write(string first, string second, string third) {
+    if (isnumber(first)>=0)
+        cout << first << endl;
+    else {
+        auto node = symbolTable.findNode(first);
+        if (node.type==symbolType::integer)
+            cout << node.getIntegerValue() << endl;
+        else
+            cout << node.getDoubleValue() << endl;
+    }
+}
+
+void Actuator::multiply(string first, string second, string third) {
+    double num = 0;
+    auto t = symbolTable.findNode(third);
+    if (t.type==symbolType::none) {
+        symbolTable.addNode(symbolType::real, third);
+    }
+
+    if (isnumber(first)==0)
+        num += atoi(first.c_str());
+    else if (isnumber(first)==1)
+        num += atof(first.c_str());
+    else {
+        auto x = symbolTable.findNode(first);
+        if (x.type==symbolType::integer)
+            num += x.getIntegerValue();
+        else
+            num += x.getDoubleValue();
+    }
+
+    if (isnumber(second)==0)
+        num *= atoi(second.c_str());
+    else if (isnumber(second)==1)
+        num *= atof(second.c_str());
+    else {
+        auto x = symbolTable.findNode(second);
+        if (x.type==symbolType::integer)
+            num *= x.getIntegerValue();
+        else
+            num *= x.getDoubleValue();
+    }
+
+    if (t.type==symbolType::integer)
+        symbolTable.changeNode(third, (int)num);
+    else
+        symbolTable.changeNode(third, num);
+}
+
+void Actuator::jump(string first, string second) {
+    if (second=="NULL") {
+        index = atoi(first.c_str()) - 1;
+    } else {
+        if (cmp)
+            index = atoi(first.c_str()) - 1;
+        else
+            index = atoi(second.c_str()) - 1;
+    }
+}
+
+void Actuator::in() {
+    symbolTable.addTable();
+}
+
+void Actuator::out() {
+    symbolTable.deleteTable();
+}
+
+void Actuator::compare(string first, string second, string third) {
+    double a, b;
+
+    if (isnumber(second)>=0) {
+        a = atof(second.c_str());
+    } else {
+        auto x = symbolTable.findNode(second);
+        if (x.type == symbolType::integer) {
+            a = x.getIntegerValue();
+        } else if (x.type==symbolType::real) {
+            a = x.getDoubleValue();
+        } else {
+            return;
+        }
+    }
+
+    if (isnumber(third)>=0) {
+        b = atof(third.c_str());
+    } else {
+        auto x = symbolTable.findNode(third);
+        if (x.type == symbolType::integer) {
+            b = x.getIntegerValue();
+        } else if (x.type==symbolType::real) {
+            b = x.getDoubleValue();
+        } else {
+            return;
+        }
+    }
+
+
+    if (first==">") {
+        if (a>b) cmp = true; else cmp = false;
+    } else if (first==">=") {
+        if (a-b>1e-6) cmp = true; else cmp = false;
+    } else if (first=="==") {
+        if (a-b<1e-6) cmp = true; else cmp = false;
+    } else if (first=="<") {
+        if (a<b) cmp = true; else cmp = false;
+    } else if (first=="<=") {
+        if (b-a>1e-6) cmp = true; else cmp = false;
+    } else if (first=="<>") {
+        if (b-a>1e-6 || a-b>1e-6) cmp = true; else cmp = false;
+    } else {
+        return;
+    }
 }

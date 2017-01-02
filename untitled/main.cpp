@@ -4,6 +4,7 @@
 #include "Global.h"
 #include "LexAnalysis.h"
 #include "Parse.h"
+#include "actuator.h"
 #include "CodeGenerator.h"
 
 using namespace std;
@@ -38,6 +39,8 @@ int main(int argc,char *argv[]) {
         CodeGenerator *cg = new CodeGenerator();
         cg->interpretPrg(parse.getTreeRoot());
         cg->printCode();
+        Actuator actuator(cg->getCode());
+        actuator.runCode();
         cg->clearCode();
         delete cg;
     }
