@@ -11,6 +11,8 @@ class CodeGenerator
 {
 private:
     vector<InterCode> codeList;
+    vector<string> errorList;
+    bool isError = false;
     CheckTable * checkTable;
     int layer = 0;
     int tpCount = 0;   //用来记录在中间代码中使用的中间变量的序号，作为中间变量名字的一部分
@@ -32,6 +34,8 @@ public:
     vector<InterCode> getCode();
     void printCode();
     void clearCode();
+    vector<string> getError();
+    bool hasError();
 private:
     void createCode(string op, string second, string third, string fourth, int line);
     void createCode(string op, string second, string third, string fourth);  //生成一条四元式并加入codeList

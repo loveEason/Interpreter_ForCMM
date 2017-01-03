@@ -55,12 +55,14 @@ void CodeGenerator::interpretPrg(treeNode * node) {
 void CodeGenerator::interpretDcl(treeNode * node) {
     treeNode * node1 = NULL;
     treeNode * nodeNext = NULL;
-    //if(node->content=="<declare_closure>"){
-    node1 = node->children[0]->children[0];     //node1为<declare>
-    nodeNext = node->children[0]->children[1];  //nodeNext为<per_declare_closure>
-    //}else{
-    //   node1 = node->children[0];
-    //}
+    if(node->content=="<declare_closure>"){
+        node1 = node->children[0]->children[0];     //node1为<declare>
+        nodeNext = node->children[0]->children[1];  //nodeNext为<per_declare_closure>
+    }else if(node->content=="<per_declaration>"){
+        node1 = node->children[0];
+        nodeNext = node->children[1];
+    }
+
     treeNode * type = node1->children[0];
     string decType = type->children[0]->content=="int"?INT_DCL:REAL_DCL;  //判断声明的类型
     int typeNum = decType=="INT_DCL"?1:2;
@@ -305,7 +307,7 @@ void CodeGenerator::interpretLoop(treeNode * node) {
 
         createCode("IN", "", "", "");
         layer++;
-        if(decOrAsg->children[0]->content=="<declaration>"){
+        if(decOrAsg->children[0]->content=="<per_declaration>"){
             interpretDcl(decOrAsg->children[0]);
         }else{
             interpretAsg(decOrAsg->children[0]);
@@ -440,7 +442,20 @@ void CodeGenerator::createCode(string op, string second, string third, string fo
 }
 
 void CodeGenerator::printError(string error, int pos){
+    isError = true;
     cout<<error<<". At line "<<pos<<"."<<endl;
+    char buffer[10];
+    itoa(pos, buffer, 10);
+    string er = error + ". At line " + buffer;
+    errorList.push_back(er);
+}
+
+vector<string> CodeGenerator::getError(){
+    return errorList;
+}
+
+bool CodeGenerator::hasError(){
+    return isError;
 }
 
 string CodeGenerator::calIndex(treeNode * node){
