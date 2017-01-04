@@ -32,7 +32,13 @@ public:
     QString data;
     ~MainWindow();
     void paintEvent(QPaintEvent *);
-        void keyPressEvent(QKeyEvent *event);
+
+    void addoutput(string output=NULL);
+
+    void addintercode(string intercode=NULL);
+
+    string getinput();
+
 private slots:
     void on_Input_cursorPositionChanged();
 
@@ -48,11 +54,6 @@ private slots:
 
     void on_Exit_released();
 
-    void addoutput(string output=NULL);
-
-    void addintercode(string intercode=NULL);
-
-    string getinput();
 
 private:
     Ui::MainWindow *ui;

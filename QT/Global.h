@@ -13,8 +13,8 @@
 using namespace std;
 
 
-const int FALSE = 0;
-const int TRUE = 1;
+//const int FALSE = 0;
+//const int TRUE = 1;
 const int MAXCHILDREN = 20;
 const int MAXTREENODE = 1024;
 const int BUFLEN = 256;
@@ -95,6 +95,11 @@ struct treeNode {           //语法树节点
         line = -1;
         childNum = 0;
     }
+};
+
+struct ParseError {         //语法分析出错信息
+    string content;         //出错处文法符号内容
+    int line;               //所在行数
 };
 
 ////栈结构，实现长度自动增长缩小

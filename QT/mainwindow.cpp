@@ -123,17 +123,24 @@ void MainWindow::on_Start_clicked()
     lexAnalysis.lexAnalyse(code);
 
     if (lexAnalysis.ifHasError()) {
-        cout<<"Invalid token,please rectify:"<<endl;
+        addoutput("Invalid token,please rectify:");
         errorNode *p = lexAnalysis.getErrorHead();
+        string parsefault;
         while (p->next != NULL) {
-            cout<<"Line at "<<p->next->line<<":"<<p->next->content<<endl;
+            parsefault ="Line at "+to_string(p->next->line)+":"+p->next->content+"\n";
+            addoutput(parsefault);
             p = p->next;
         }
     } else {    //词法分析正确,开始语法分析
         normalNode* normalHead = lexAnalysis.getNormalHead();
         Parse parse;
-        parse.grammarAnalyse(normalHead);
-
+        bool isSuccess = parse.grammarAnalyse(normalHead);
+        if(isSuccess==false){
+            ParseError *parseError = parse.getParseError();
+            addoutput("there is something wrong happened near line"+to_string(parseError->line)+":"+parseError->content);
+            addoutput("==Finished============================================================\n");
+            return;
+        }
         CodeGenerator *cg = new CodeGenerator();
         cg->interpretPrg(parse.getTreeRoot());
         cg->printCode();
@@ -146,11 +153,25 @@ void MainWindow::on_Start_clicked()
             intercode ="( "+val.getInstructType()+" , "+val.getSecondElm()+" , "+val.getThirdElm()+" , "+val.getFourthElm()+ " )\n";
             addintercode(intercode);
         }
+        bool isError = cg->hasError();
+        if(isError==true){
+            auto errors= cg->getError();
+            for(auto i:errors){
+                addoutput(i+"\n");
+            }
+            addoutput("==Finished============================================================\n");
+            return;
+        }
 //        执行代码
+        if(intercodes.size()==0){
+           addoutput("==Finished============================================================\n");
+           return;
+        }
         Actuator actuator(intercodes);
         actuator.runCode();
         cg->clearCode();
         delete cg;
+        addoutput("==Finished============================================================\n");
     }
 //    string out;
 //    QString result = QString::fromStdString(out);

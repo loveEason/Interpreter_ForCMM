@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1003</width>
-    <height>667</height>
+    <width>951</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
      <rect>
       <x>640</x>
       <y>50</y>
-      <width>331</width>
+      <width>271</width>
       <height>531</height>
      </rect>
     </property>
@@ -79,8 +79,8 @@
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>610</y>
+      <x>700</x>
+      <y>580</y>
       <width>201</width>
       <height>31</height>
      </rect>
@@ -137,7 +137,7 @@
    <widget class="QPushButton" name="Exit">
     <property name="geometry">
      <rect>
-      <x>950</x>
+      <x>910</x>
       <y>20</y>
       <width>21</width>
       <height>23</height>
@@ -152,21 +152,16 @@ background-color:red;
      <string/>
     </property>
    </widget>
-   <widget class="QWidget" name="gridLayoutWidget_4">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>600</y>
-      <width>581</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_4">
-     <item row="0" column="0">
-      <widget class="QLineEdit" name="lineEdit"/>
-     </item>
-    </layout>
-   </widget>
+   <zorder>gridLayoutWidget</zorder>
+   <zorder>gridLayoutWidget_2</zorder>
+   <zorder>formLayoutWidget</zorder>
+   <zorder>Start</zorder>
+   <zorder>gridLayoutWidget_3</zorder>
+   <zorder>Tree</zorder>
+   <zorder>Open</zorder>
+   <zorder>Save</zorder>
+   <zorder>Exit</zorder>
+   <zorder>status</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
