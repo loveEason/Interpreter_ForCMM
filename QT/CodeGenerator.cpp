@@ -443,10 +443,8 @@ void CodeGenerator::createCode(string op, string second, string third, string fo
 
 void CodeGenerator::printError(string error, int pos){
     isError = true;
-    cout<<error<<". At line "<<pos<<"."<<endl;
-    char buffer[10];
-    itoa(pos, buffer, 10);
-    string er = error + ". At line " + buffer;
+
+    string er = error + ". At line " + to_string(pos);
     errorList.push_back(er);
 }
 
