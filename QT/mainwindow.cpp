@@ -112,7 +112,8 @@ void MainWindow::on_Save_clicked()
 //开始按钮，对代码进行解释
 void MainWindow::on_Start_clicked()
 {
-
+//    ui->Result->clear();
+    ui->Intercode->clear();
     QString text = ui->Input->toPlainText();
     string code = text.toStdString();
     string error;
@@ -136,7 +137,17 @@ void MainWindow::on_Start_clicked()
         CodeGenerator *cg = new CodeGenerator();
         cg->interpretPrg(parse.getTreeRoot());
         cg->printCode();
-        Actuator actuator(cg->getCode());
+//        获得中间代码
+        auto intercodes = cg->getCode();
+        string intercode;
+//        循环输出中间代码
+        for (auto val : intercodes)
+        {
+            intercode ="( "+val.getInstructType()+" , "+val.getSecondElm()+" , "+val.getThirdElm()+" , "+val.getFourthElm()+ " )\n";
+            addintercode(intercode);
+        }
+//        执行代码
+        Actuator actuator(intercodes);
         actuator.runCode();
         cg->clearCode();
         delete cg;
