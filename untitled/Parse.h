@@ -37,6 +37,7 @@ private:
     fstream parse_file;                                  //语法分析结果文件
     ofstream set_file;                                   //存放LL1分析中自动生成的集合以及预测分析表
     ofstream parseTree_file;                             //语法树结果文件
+    ParseError *parseError;                               //文法分析错误信息
 
     //分隔字符串
     list<string> strtok_plus(string text,string delim);
@@ -78,8 +79,9 @@ public:
     Parse();
     ~Parse();
 
-    void grammarAnalyse(normalNode*);                    //正式进行语法分析
+    bool grammarAnalyse(normalNode*);                    //正式进行语法分析
     treeNode* getTreeRoot();
+    ParseError* getParseError();
 };
 
 

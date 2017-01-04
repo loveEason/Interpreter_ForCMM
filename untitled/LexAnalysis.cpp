@@ -15,7 +15,7 @@ LexAnalysis::LexAnalysis() {
     lineNo = 0;
     bufSize = 0;         //目前行的长度
     linepos = 0;         //目前行中的字符当前位置
-    EOF_flag = FALSE;
+    EOF_flag = false;
     normalHead = NULL;
     idenHead = NULL;
     errorHead = NULL;
@@ -112,7 +112,7 @@ char LexAnalysis::getNextChar(istream &source_file,ostream &lex_file,int flag) {
         if (!source_file.eof()) {  //再读取一行
             source_file.getline(lineBuf,BUFLEN);
             if (flag == 0 && lineBuf[0] == '#') {   //flag为0表示是控制台输入,设定#是程序结束标志
-                EOF_flag = TRUE;
+                EOF_flag = true;
                 return EOF;
             }
             lex_file<<setw(4)<<lineNo<<": "<<lineBuf<<endl;       //同时将此行内容写入词法分析结果文件
@@ -120,8 +120,8 @@ char LexAnalysis::getNextChar(istream &source_file,ostream &lex_file,int flag) {
             bufSize = strlen(lineBuf);
             return lineBuf[linepos++];
         } else {
-            if (flag == 1) {                //flag为1表示是文件输入,设定到达文件结尾表示程序结束标志
-                EOF_flag = TRUE;
+            if (flag == 1) {                //flag为1表示是文件输入或者是输入一串字符代码,设定到达文件结尾表示程序结束标志
+                EOF_flag = true;
                 return EOF;
             }
         }
@@ -133,6 +133,7 @@ char LexAnalysis::getNextChar(istream &source_file,ostream &lex_file,int flag) {
 //取消获取下一个字符，也就是撤消上一次的取字符操作
 void LexAnalysis::unGetNextChar() {
     if (!EOF_flag) linepos--;
+    else lineNo--;
 }
 
 
@@ -287,19 +288,23 @@ void LexAnalysis::printToken(istream &source_file,ostream &lex_file,TokenType to
 TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag) {
     TokenType currentToken;
     StateType stateType = START;    //DFA的开始
-    int isSave;                     //用于判断是否将字符存进当前tokenString
+    bool isSave;                     //用于判断是否将字符存进当前tokenString
+    bool meetEnd = false;                   //用于在控制台输入中判断某个token之后是否遇到了#，如果是则在将该token存储好之后，返回ENDFILE
     while (stateType != DONE) {
         char c = getNextChar(source_file,lex_file,flag);
-        if (EOF_flag && flag == 0) {  //在控制台输入情况下经过取字符发现已经到达文件尾,即读到了#,则先将c置为#,先处理上一个还没保存的token,再退出分析
+//        if (EOF_flag && flag == 0) {  //在控制台输入情况下经过取字符发现已经到达文件尾,即读到了#,则先将c置为#,先处理上一个还没保存的token,再退出分析
+//            c = '#';
+//        } else if (EOF_flag && flag == 1) {
+//            return ENDFILE;
+//        }
+        if(EOF_flag) {
             c = '#';
-        } else if (EOF_flag && flag == 1) {
-            return ENDFILE;
         }
-        isSave = TRUE;
+        isSave = true;
         switch (stateType) {
             case START:
                 if (isBlank(c)) {   //是空白的则跳过
-                    isSave = FALSE;
+                    isSave = false;
                 } else if (isdigit(c)) {
                     stateType = INNUM;
                 } else if (isalpha(c)) {
@@ -356,7 +361,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 } else if (c == '#') {
                     stateType = DONE;
                     currentToken = ENDFILE;
-                    isSave = FALSE;
+                    isSave = false;
                 } else {
                     currentToken = ERROR;
                     stateType = DONE;
@@ -368,10 +373,11 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 }else if (c == '.') {
                     stateType = INREAL0;
                 } else if (isBlank(c) || isFirst(c) || c == '#') { //本编译器设定如果是控制台输入源程序的话需要以#结尾,此判断条件是为了防止上个token还没保存就退出分析了
-                    isSave = FALSE;     //当前字符不能存入tokenString中，因为已经识别出是个token了
+                    isSave = false;     //当前字符不能存入tokenString中，因为已经识别出是个token了
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = INT_VAL;
+                    meetEnd = flag==0&&c=='#'?true:false;
                 } else {
                     currentToken = ERROR;
                     stateType = DONE;
@@ -389,10 +395,11 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (isdigit(c)) {
                     stateType = INREAL;
                 }else if (isBlank(c) || isFirst(c) || c == '#') {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = FLOAT_VAL;
+                    meetEnd = flag==0&&c=='#'?true:false;
                 }else {
                     currentToken = ERROR;
                     stateType = DONE;
@@ -402,10 +409,11 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (isalpha(c) || isdigit(c) || c == '_') {
                     stateType = INID;
                 } else if (isBlank(c) || isFirst(c) || c == '#') {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = IDENTIFIER;
+                    meetEnd = flag==0&&c=='#'?true:false;
                 } else {
                     currentToken = ERROR;
                     stateType = DONE;
@@ -415,7 +423,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '+' || c == '=') {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = PLUS;
@@ -425,7 +433,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '-' || c == '=') {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = MINUS;
@@ -435,7 +443,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '=') {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = MUL;
@@ -445,20 +453,20 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if ( c == '=') {
                     stateType = INSPECIAL;
                 } else if (c == '/') {
-                    isSave = FALSE;
+                    isSave = false;
                     stateType = INLINECOMMENT;
                 } else if (c == '*') {
-                    isSave = FALSE;
+                    isSave = false;
                     stateType = INMULCOMMENT1;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = DIV;
                 }
                 break;
             case INLINECOMMENT:
-                isSave = FALSE;
+                isSave = false;
                 stateType = INLINECOMMENT;
                 if (linepos>=bufSize) {
                     currentToken = LINE_NOTE;
@@ -466,13 +474,13 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 }
                 break;
             case INMULCOMMENT1:
-                isSave = FALSE;
+                isSave = false;
                 if (c == '*') {
                     stateType = INMULCOMMENT2;
                 }
                 break;
             case INMULCOMMENT2:
-                isSave = FALSE;
+                isSave = false;
                 if (c == '*') {
                     stateType = INMULCOMMENT2;
                 } else if (c == '/') {
@@ -486,7 +494,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '=') {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = MOD;
@@ -496,7 +504,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '=') {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = ASSIGN;
@@ -506,7 +514,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '=' || c == '>') {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = LES;
@@ -516,14 +524,14 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
                 if (c == '=' ) {
                     stateType = INSPECIAL;
                 } else {
-                    isSave = FALSE;
+                    isSave = false;
                     unGetNextChar();
                     stateType = DONE;
                     currentToken = GRT;
                 }
                 break;
             case INSPECIAL:     //对于特殊的token进行分析处理,在此状态下不进行存储新字符
-                isSave = FALSE;
+                isSave = false;
                 unGetNextChar();
                 stateType = DONE;
                 currentToken = (TokenType)(specialMap.find(tokenString)->second);
@@ -540,6 +548,8 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
             } else if (currentToken == LINE_NOTE || currentToken == MUL_NOTE) {
                 tokenString.erase(0,tokenString.length());  //将tokenString中的元素都擦除
                 return currentToken;
+            } else if(currentToken == ENDFILE) {
+                return ENDFILE;
             }
         }
     }
@@ -564,6 +574,9 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
     lex_file<<setw(8)<<lineNo<<":";
     printToken(source_file,lex_file,currentToken, tokenString);
     tokenString.erase(0,tokenString.length());  //将tokenString中的元素都擦除
+    if(meetEnd) {
+        return ENDFILE;
+    }
     return currentToken;
 
 }
@@ -582,7 +595,7 @@ void LexAnalysis::lexAnalyse(){
         cout << readStr << endl;
     }
     lex_file.close();
-}
+     }
 
 //源代码从文件输入
 void LexAnalysis::lexAnalyse(int isFile,string source_name){

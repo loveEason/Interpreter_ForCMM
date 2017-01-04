@@ -19,13 +19,14 @@ int main(int argc,char *argv[]) {
 //    if (argc == 1) {    //不提供参数,默认为从控制台输入源程序
 //        lexAnalysis.lexAnalyse();
 //    } else if (argc == 2) {     //从参数中打开源代码文件
-//        lexAnalysis.lexAnalyse(argv[1]);
+//        lexAnalysis.lexAnalyse(1,argv[1]);
 //    } else {
 //        printf("Usage：%s or %s filename\n",argv[0],argv[0]);
 //    }
 
-    string code = "int i=1;\n"
-                  "if(i>0){i=i-1;}";
+//    string code = "int i=1;\n"
+//                  "if(i>0){i=i-1;}";
+    string code = "int";
     lexAnalysis.lexAnalyse(code);
 
     if (lexAnalysis.ifHasError()) {
@@ -38,7 +39,13 @@ int main(int argc,char *argv[]) {
     } else {    //词法分析正确,开始语法分析
         normalNode* normalHead = lexAnalysis.getNormalHead();
         Parse parse;
-        parse.grammarAnalyse(normalHead);
+        bool isSuccess = parse.grammarAnalyse(normalHead);
+        if(isSuccess == false) {
+            ParseError *parseError = parse.getParseError();
+            cout<<"there is something wrong happened near line "<<parseError->line<<" :"<<parseError->content<<endl;
+
+            return -1;
+        }
 
         CodeGenerator *cg = new CodeGenerator();
         cg->interpretPrg(parse.getTreeRoot());
