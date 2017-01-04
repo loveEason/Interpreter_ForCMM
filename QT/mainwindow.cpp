@@ -1,12 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "iostream"
-
+//#include <string.h>
 #include "treedialog.h"
 #include <QPainter>
 #include <QtMath>
 #include <QFileDialog>
 #include <QTextStream>
+
+#include <string.h>
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -32,10 +36,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Tree_clicked()
 {
-    TreeDialog *tree = new TreeDialog(this);
+    TreeDialog *parsetree = new TreeDialog(this,tree);
 //    tree->setWindowFlags(Qt::FramelessWindowHint);
 //    tree->setAttribute(Qt::WA_TranslucentBackground,true);
-    tree->show();
+    parsetree->show();
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
@@ -109,7 +113,38 @@ void MainWindow::on_Save_clicked()
 void MainWindow::on_Start_clicked()
 {
 
-    ui->Result->setPlainText(ui->Input->toPlainText());
+    QString text = ui->Input->toPlainText();
+    string code = text.toStdString();
+    string error;
+//    code = "int i=1;\n"
+//                  "if(i>0){i=i-1;}";
+    LexAnalysis lexAnalysis;
+    lexAnalysis.lexAnalyse(code);
+
+    if (lexAnalysis.ifHasError()) {
+        cout<<"Invalid token,please rectify:"<<endl;
+        errorNode *p = lexAnalysis.getErrorHead();
+        while (p->next != NULL) {
+            cout<<"Line at "<<p->next->line<<":"<<p->next->content<<endl;
+            p = p->next;
+        }
+    } else {    //词法分析正确,开始语法分析
+        normalNode* normalHead = lexAnalysis.getNormalHead();
+        Parse parse;
+        parse.grammarAnalyse(normalHead);
+
+        CodeGenerator *cg = new CodeGenerator();
+        cg->interpretPrg(parse.getTreeRoot());
+        cg->printCode();
+        Actuator actuator(cg->getCode());
+        actuator.runCode();
+        cg->clearCode();
+        delete cg;
+    }
+//    string out;
+//    QString result = QString::fromStdString(out);
+//    ui->Result->insertPlainText(result);
+
 }
 //光标位置改变
 void MainWindow::on_Input_cursorPositionChanged()
@@ -131,4 +166,35 @@ void MainWindow::on_Exit_clicked()
 void MainWindow::on_Exit_released()
 {
     this->close();
+}
+
+void MainWindow::addoutput(string output){
+    QString result = QString::fromStdString(output);
+    ui->Result->insertPlainText(result);
+}
+
+void MainWindow::addintercode(string intercode){
+    QString result = QString::fromStdString(intercode);
+    ui->Intercode->insertPlainText(result);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event){
+    if(event->key()==Qt::Key_Enter)
+    {
+        cout<<"Enter";
+        if(ui->lineEdit->hasFocus()){
+            cout<<"true";
+            ui->Result->insertPlainText("true");
+        }
+    }
+}
+
+string MainWindow::getinput(){
+    QString input;
+    bool ok;
+    input = QInputDialog::getText(this, tr(""),
+                                         tr("Input:"), QLineEdit::Normal,
+                                         "", &ok);
+    string result = input.toStdString();
+    return result;
 }

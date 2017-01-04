@@ -14,10 +14,31 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    treedialog.cpp
+    treedialog.cpp \
+    actuator.cpp \
+    BaseSymbol.cpp \
+    CheckTable.cpp \
+    CodeGenerator.cpp \
+    InterCode.cpp \
+    LexAnalysis.cpp \
+    Parse.cpp \
+    SimpleSymbol.cpp
 
 HEADERS  += mainwindow.h \
-    treedialog.h
+    treedialog.h \
+    actuator.h \
+    BaseSymbol.h \
+    CheckTable.h \
+    CodeGenerator.h \
+    Global.h \
+    InterCode.h \
+    LexAnalysis.h \
+    Parse.h \
+    SimpleSymbol.h
 
 FORMS    += mainwindow.ui \
     tree.ui
+
+DISTFILES += \
+    console.lex \
+    grammar.txt

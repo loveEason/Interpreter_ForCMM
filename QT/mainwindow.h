@@ -3,6 +3,22 @@
 
 #include <QMainWindow>
 #include <QMouseEvent>
+
+
+#include <iosfwd>
+#include <iostream>
+#include <fstream>
+#include "Global.h"
+#include "LexAnalysis.h"
+#include "Parse.h"
+#include "actuator.h"
+#include "CodeGenerator.h"
+#include <qinputdialog.h>
+using namespace std;
+
+
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -16,6 +32,7 @@ public:
     QString data;
     ~MainWindow();
     void paintEvent(QPaintEvent *);
+        void keyPressEvent(QKeyEvent *event);
 private slots:
     void on_Input_cursorPositionChanged();
 
@@ -31,14 +48,27 @@ private slots:
 
     void on_Exit_released();
 
+    void addoutput(string output=NULL);
+
+    void addintercode(string intercode=NULL);
+
+    string getinput();
+
 private:
     Ui::MainWindow *ui;
     QPoint last;
+    int lineNo;          //源文件中行的序号
+//    ofstream parseTree_file; //语法树结果文件
+//    LexAnalysis *lexAnalysis;
+//    normalNode* normalHead;
+//    Parse *parse;
+//    CodeGenerator *cg;
+//    Actuator *actuator;
+    treeNode *tree=NULL;
 protected:
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-
 };
 
 #endif // MAINWINDOW_H

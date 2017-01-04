@@ -2,10 +2,11 @@
 #include <QFileDialog>
 #include <QPainter>
 #include <QtMath>
-TreeDialog::TreeDialog(QWidget *parent, Qt::WindowFlags flags):QDialog(parent, flags){
+TreeDialog::TreeDialog(QWidget *parent, treeNode *par,Qt::WindowFlags flags):QDialog(parent, flags){
     setWindowTitle(tr("Tree"));
+    tree =par;
     resize(800,600);
-    ScrollView *scroll = new scrollView();
+//    ScrollView *scroll = new scrollView();
 
 }
 TreeDialog::~TreeDialog(){
