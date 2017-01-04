@@ -189,17 +189,6 @@ void MainWindow::addintercode(string intercode){
     ui->Intercode->insertPlainText(result);
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event){
-    if(event->key()==Qt::Key_Enter)
-    {
-        cout<<"Enter";
-        if(ui->lineEdit->hasFocus()){
-            cout<<"true";
-            ui->Result->insertPlainText("true");
-        }
-    }
-}
-
 string MainWindow::getinput(){
     QString input;
     bool ok;
