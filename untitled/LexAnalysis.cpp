@@ -568,6 +568,7 @@ TokenType LexAnalysis::getToken(istream &source_file,ostream &lex_file,int flag)
 
 }
 
+//源代码从控制台输入
 void LexAnalysis::lexAnalyse(){
     lex_file.open("./console.lex",ios::out);
     cout << "Please enter your code and end entering with #" << endl;
@@ -583,7 +584,8 @@ void LexAnalysis::lexAnalyse(){
     lex_file.close();
 }
 
-void LexAnalysis::lexAnalyse(string source_name){
+//源代码从文件输入
+void LexAnalysis::lexAnalyse(int isFile,string source_name){
     string suffix = ".cmm"; //后缀名
     string lex_name;
     int pos = source_name.find(suffix);
@@ -607,6 +609,17 @@ void LexAnalysis::lexAnalyse(string source_name){
 
     lex_file.close();
     source_file.close();
+}
+
+//源代码从字符串中读入
+void LexAnalysis::lexAnalyse(string sourceCode) {
+    lex_file.open("./sourcecodeLex.lex",ios::out);
+    lex_file << "Lexical result is as follow:" << endl;
+
+    source_code.str(sourceCode);
+    while (getToken(source_code,lex_file,1) != ENDFILE) ;
+    lex_file.close();
+
 }
 
 

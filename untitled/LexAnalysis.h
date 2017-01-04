@@ -7,6 +7,8 @@
 
 #include "Global.h"
 #include <map>
+#include <fstream>
+#include <sstream>
 
 
 
@@ -18,6 +20,7 @@ private:
     bool hasError;                           //词法分析中是否出现错误
     ifstream source_file;    //源文件
     fstream lex_file;       //词法分析结果文件
+    istringstream source_code;
 
     char lineBuf[BUFLEN];    //存放每一行
     int lineNo;              //源文件中行的序号
@@ -59,8 +62,9 @@ public:
     errorNode* getErrorHead();
 
 
-    void lexAnalyse();
-    void lexAnalyse(string sourceName);
+    void lexAnalyse();                                  //源代码从控制台输入
+    void lexAnalyse(int isFile,string sourceName);      //源代码从文件输入
+    void lexAnalyse(string sourceCode);                 //源代码从字符串中读入
 };
 
 

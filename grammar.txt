@@ -58,7 +58,7 @@
 <self_op> -> --
 <for_loop> -> for <for_block>
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
-<declare_or_assign> -> <pre_declaration>
+<declare_or_assign> -> <per_declaration>
 <declare_or_assign> -> <assignment>
 <logic_exp> -> <expression> <logic_op> <expression>
 <logic_op> -> <

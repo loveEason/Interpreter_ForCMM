@@ -16,13 +16,17 @@ ofstream parseTree_file; //语法树结果文件
 
 int main(int argc,char *argv[]) {
     LexAnalysis lexAnalysis;
-    if (argc == 1) {    //不提供参数,默认为从控制台输入源程序
-        lexAnalysis.lexAnalyse();
-    } else if (argc == 2) {     //从参数中打开源代码文件
-        lexAnalysis.lexAnalyse(argv[1]);
-    } else {
-        printf("Usage：%s or %s filename\n",argv[0],argv[0]);
-    }
+//    if (argc == 1) {    //不提供参数,默认为从控制台输入源程序
+//        lexAnalysis.lexAnalyse();
+//    } else if (argc == 2) {     //从参数中打开源代码文件
+//        lexAnalysis.lexAnalyse(argv[1]);
+//    } else {
+//        printf("Usage：%s or %s filename\n",argv[0],argv[0]);
+//    }
+
+    string code = "int i=1;\n"
+                  "if(i>0){i=i-1;}";
+    lexAnalysis.lexAnalyse(code);
 
     if (lexAnalysis.ifHasError()) {
         cout<<"Invalid token,please rectify:"<<endl;
