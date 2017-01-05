@@ -24,9 +24,9 @@ int main(int argc,char *argv[]) {
 //        printf("Usage：%s or %s filename\n",argv[0],argv[0]);
 //    }
 
-//    string code = "int i=1;\n"
-//                  "if(i>0){i=i-1;}";
-    string code = "int i=0;i=i+2;write(i);";
+    string code = "int i=1;\n"
+                  "for(i=1;i<5;i=i+1){}";
+//    string code = "int i=0;i=i+2;write(i);";
     lexAnalysis.lexAnalyse(code);
 
     if (lexAnalysis.ifHasError()) {

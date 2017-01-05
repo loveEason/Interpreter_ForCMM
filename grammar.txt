@@ -60,6 +60,7 @@
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
 <declare_or_assign> -> <per_declaration>
 <declare_or_assign> -> <assignment>
+<declare_or_assign> -> ;
 <logic_exp> -> <expression> <logic_op> <expression>
 <logic_op> -> <
 <logic_op> -> <=
