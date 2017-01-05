@@ -7,7 +7,7 @@
 #include <QtMath>
 #include <QFileDialog>
 #include <QTextStream>
-
+#include <QDesktopServices>
 #include <string.h>
 
 
@@ -36,10 +36,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Tree_clicked()
 {
-    TreeDialog *parsetree = new TreeDialog(this,tree);
-//    tree->setWindowFlags(Qt::FramelessWindowHint);
-//    tree->setAttribute(Qt::WA_TranslucentBackground,true);
+//    TreeDialog *parsetree = new TreeDialog(this,tree);
+////    tree->setWindowFlags(Qt::FramelessWindowHint);
+////    tree->setAttribute(Qt::WA_TranslucentBackground,true);
+//    parsetree->show();
+    QString fileName = "tree.xml";
+    QFile *in = new QFile(fileName);
+    in->open(QIODevice::ReadOnly|QIODevice::Text);
+    QString xml = QString(in->readAll());
+    in->close();
+    TreeDialog *parsetree = new TreeDialog(this,xml);
+    //    tree->setWindowFlags(Qt::FramelessWindowHint);
+    //    tree->setAttribute(Qt::WA_TranslucentBackground,true);
     parsetree->show();
+//    QDesktopServices::openUrl(QUrl::fromLocalFile("tree.xml"));
 }
 
 void MainWindow::paintEvent(QPaintEvent *){

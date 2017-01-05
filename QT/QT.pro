@@ -36,8 +36,7 @@ HEADERS  += mainwindow.h \
     Parse.h \
     SimpleSymbol.h
 
-FORMS    += mainwindow.ui \
-    tree.ui
+FORMS    += mainwindow.ui
 
 DISTFILES += \
     console.lex \
