@@ -52,6 +52,18 @@ private:
     vector<map<string, SymbolNode>> symbolTable;
 };
 
+class ActuatorException {
+public:
+    string message = "";
+    ActuatorException() {}
+    ActuatorException(string msg) {
+        message = msg;
+    }
+    ActuatorException(const ActuatorException& exc) {
+        message = exc.message;
+    }
+};
+
 // 解释器
 class Actuator {
 private:
@@ -61,6 +73,7 @@ private:
     bool cmp;
     vector<InterCode> interCode;
     MainWindow *win;
+    string errorMsg = "";
 public:
     Actuator(vector<InterCode>);
     ~Actuator();
