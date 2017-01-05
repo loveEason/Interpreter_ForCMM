@@ -1,0 +1,349 @@
+第1步
+当前分析栈:# <program> 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<program> -> <block>
+
+第2步
+当前分析栈:# <block> 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第3步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> <per_declaration> <declare_closure>
+
+第4步
+当前分析栈:# <block_closure> <declare_closure> <per_declaration> 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<per_declaration> -> <declare> <per_declare_closure> ;
+
+第5步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <declare> 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<declare> -> <type> <variable> <initialization>
+
+第6步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> <type> 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<type> -> int
+
+第7步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> int 
+剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :int
+
+第8步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> 
+剩余输入串:ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第9步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> <identifier> 
+剩余输入串:ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第10步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> ID 
+剩余输入串:ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :ID
+
+第11步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> 
+剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第12步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> 
+剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<initialization> -> $
+
+第13步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> 
+剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<per_declare_closure> -> $
+
+第14步
+当前分析栈:# <block_closure> <declare_closure> ; 
+剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :;
+
+第15步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第16步
+当前分析栈:# <block_closure> 
+剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <functions> <block>
+
+第17步
+当前分析栈:# <block> <functions> 
+剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<functions> -> <function> ;
+
+第18步
+当前分析栈:# <block> ; <function> 
+剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<function> -> <read_fun>
+
+第19步
+当前分析栈:# <block> ; <read_fun> 
+剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<read_fun> -> read ( <variable> )
+
+第20步
+当前分析栈:# <block> ; ) <variable> ( read 
+剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :read
+
+第21步
+当前分析栈:# <block> ; ) <variable> ( 
+剩余输入串:( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :(
+
+第22步
+当前分析栈:# <block> ; ) <variable> 
+剩余输入串:ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第23步
+当前分析栈:# <block> ; ) <index> <identifier> 
+剩余输入串:ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第24步
+当前分析栈:# <block> ; ) <index> ID 
+剩余输入串:ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :ID
+
+第25步
+当前分析栈:# <block> ; ) <index> 
+剩余输入串:) ; ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第26步
+当前分析栈:# <block> ; ) 
+剩余输入串:) ; ID += INT_VALUE ; write ( ID ) ; # 
+Match :)
+
+第27步
+当前分析栈:# <block> ; 
+剩余输入串:; ID += INT_VALUE ; write ( ID ) ; # 
+Match :;
+
+第28步
+当前分析栈:# <block> 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第29步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第30步
+当前分析栈:# <block_closure> 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <assignment> <block>
+
+第31步
+当前分析栈:# <block> <assignment> 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<assignment> -> <variable> <assign> ;
+
+第32步
+当前分析栈:# <block> ; <assign> <variable> 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第33步
+当前分析栈:# <block> ; <assign> <index> <identifier> 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第34步
+当前分析栈:# <block> ; <assign> <index> ID 
+剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+Match :ID
+
+第35步
+当前分析栈:# <block> ; <assign> <index> 
+剩余输入串:+= INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第36步
+当前分析栈:# <block> ; <assign> 
+剩余输入串:+= INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<assign> -> += <right_value>
+
+第37步
+当前分析栈:# <block> ; <right_value> += 
+剩余输入串:+= INT_VALUE ; write ( ID ) ; # 
+Match :+=
+
+第38步
+当前分析栈:# <block> ; <right_value> 
+剩余输入串:INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第39步
+当前分析栈:# <block> ; <expression> 
+剩余输入串:INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第40步
+当前分析栈:# <block> ; <term> <factor> 
+剩余输入串:INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第41步
+当前分析栈:# <block> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第42步
+当前分析栈:# <block> ; <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ; write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第43步
+当前分析栈:# <block> ; <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ; write ( ID ) ; # 
+Match :INT_VALUE
+
+第44步
+当前分析栈:# <block> ; <term> <factor_recursion> 
+剩余输入串:; write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第45步
+当前分析栈:# <block> ; <term> 
+剩余输入串:; write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第46步
+当前分析栈:# <block> ; 
+剩余输入串:; write ( ID ) ; # 
+Match :;
+
+第47步
+当前分析栈:# <block> 
+剩余输入串:write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第48步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第49步
+当前分析栈:# <block_closure> 
+剩余输入串:write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <functions> <block>
+
+第50步
+当前分析栈:# <block> <functions> 
+剩余输入串:write ( ID ) ; # 
+推导所用产生式:<functions> -> <function> ;
+
+第51步
+当前分析栈:# <block> ; <function> 
+剩余输入串:write ( ID ) ; # 
+推导所用产生式:<function> -> <write_fun>
+
+第52步
+当前分析栈:# <block> ; <write_fun> 
+剩余输入串:write ( ID ) ; # 
+推导所用产生式:<write_fun> -> write ( <data> )
+
+第53步
+当前分析栈:# <block> ; ) <data> ( write 
+剩余输入串:write ( ID ) ; # 
+Match :write
+
+第54步
+当前分析栈:# <block> ; ) <data> ( 
+剩余输入串:( ID ) ; # 
+Match :(
+
+第55步
+当前分析栈:# <block> ; ) <data> 
+剩余输入串:ID ) ; # 
+推导所用产生式:<data> -> <expression>
+
+第56步
+当前分析栈:# <block> ; ) <expression> 
+剩余输入串:ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第57步
+当前分析栈:# <block> ; ) <term> <factor> 
+剩余输入串:ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第58步
+当前分析栈:# <block> ; ) <term> <factor_recursion> <factor_type> 
+剩余输入串:ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第59步
+当前分析栈:# <block> ; ) <term> <factor_recursion> <variable> 
+剩余输入串:ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第60步
+当前分析栈:# <block> ; ) <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第61步
+当前分析栈:# <block> ; ) <term> <factor_recursion> <index> ID 
+剩余输入串:ID ) ; # 
+Match :ID
+
+第62步
+当前分析栈:# <block> ; ) <term> <factor_recursion> <index> 
+剩余输入串:) ; # 
+推导所用产生式:<index> -> $
+
+第63步
+当前分析栈:# <block> ; ) <term> <factor_recursion> 
+剩余输入串:) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第64步
+当前分析栈:# <block> ; ) <term> 
+剩余输入串:) ; # 
+推导所用产生式:<term> -> $
+
+第65步
+当前分析栈:# <block> ; ) 
+剩余输入串:) ; # 
+Match :)
+
+第66步
+当前分析栈:# <block> ; 
+剩余输入串:; # 
+Match :;
+
+第67步
+当前分析栈:# <block> 
+剩余输入串:# 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第68步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:# 
+推导所用产生式:<declare_closure> -> $
+
+第69步
+当前分析栈:# <block_closure> 
+剩余输入串:# 
+推导所用产生式:<block_closure> -> $
+
+第70步
+当前分析栈:# 
+剩余输入串:# 
+当前程序语法分析成功！

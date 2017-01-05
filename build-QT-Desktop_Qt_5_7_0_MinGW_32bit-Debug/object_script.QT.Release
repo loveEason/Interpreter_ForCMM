@@ -1,0 +1,14 @@
+INPUT(
+./release/main.o
+./release/mainwindow.o
+./release/treedialog.o
+./release/actuator.o
+./release/BaseSymbol.o
+./release/CheckTable.o
+./release/CodeGenerator.o
+./release/InterCode.o
+./release/LexAnalysis.o
+./release/Parse.o
+./release/SimpleSymbol.o
+./release/moc_mainwindow.o
+);
