@@ -29,8 +29,11 @@ LexAnalysis::LexAnalysis() {
 
 LexAnalysis::~LexAnalysis() {
     delete normalHead;
+    normalHead = NULL;
     delete idenHead;
+    idenHead = NULL;
     delete errorHead;
+    errorHead = NULL;
 }
 
 //词法分析是否出错，给外部调用

@@ -47,6 +47,8 @@ int main(int argc,char *argv[]) {
             return -1;
         }
 
+        parse.saveTree(parse.getTreeRoot(),"./tree.xml");
+
         CodeGenerator *cg = new CodeGenerator();
         cg->interpretPrg(parse.getTreeRoot());
         cg->printCode();

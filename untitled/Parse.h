@@ -59,8 +59,8 @@ private:
     void addToTree(treeNode *tNode);
     //得到语法树栈的当前根节点
     treeNode *getTopNode();
-    //保存语法树到xml文件中
-    void saveTree(treeNode *pTree, ofstream &out);
+    //私有成员函数，由公有saveTree()调用，保存语法树到xml文件中
+    void saveTreePrivate(treeNode *pTree, ofstream &out);
     //处理文法中的运算符和限界符符号,转换为对应的英文说明
     string dealTerminalSymbols(string oldStr);
     //处理文法中的非终结符符号,去掉包围的<>
@@ -82,6 +82,8 @@ public:
     bool grammarAnalyse(normalNode*);                    //正式进行语法分析
     treeNode* getTreeRoot();
     ParseError* getParseError();
+    //外部接口，保存语法树到xml文件中
+    void saveTree(treeNode *pTree, string filename);
 };
 
 
