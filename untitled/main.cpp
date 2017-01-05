@@ -26,7 +26,7 @@ int main(int argc,char *argv[]) {
 
 //    string code = "int i=1;\n"
 //                  "if(i>0){i=i-1;}";
-    string code = "int i;i=i+";
+    string code = "int i=0;i=i+2;write(i);";
     lexAnalysis.lexAnalyse(code);
 
     if (lexAnalysis.ifHasError()) {
