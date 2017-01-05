@@ -1,4 +1,5 @@
 #include "actuator.h"
+#include "math.h"
 
 
 int isnumber(string x) {
@@ -103,24 +104,36 @@ SymbolNode::~SymbolNode() {
 
 int SymbolNode::getIntegerValue(int index) {
     // todo: 错误处理 越界检查 类型检查
+    if (index>=this->length) throw ActuatorException("Error: array out of bouds!\nFunction: getIntegerValue.");
+    if (this->type!=symbolType::integer && this->type!=symbolType::integerArray)
+        throw ActuatorException("Internal Error: get int but the element is not int!");
     int* x = (int*) value;
     return x[index];
 }
 
 double SymbolNode::getDoubleValue(int index) {
     // todo: 错误处理 越界检查 类型检查
+    if (index>=this->length) throw ActuatorException("Error: array out of bouds!\nFunction: getDoubleValue.");
+    if (this->type!=symbolType::real && this->type!=symbolType::realArray)
+        throw ActuatorException("Internal Error: get real but the element is not real!\nname: "+this->name);
     double* x = (double*) value;
     return x[index];
 }
 
 void SymbolNode::setIntegerValue(int _value, int index) {
     // todo: 错误处理 越界检查 类型检查
+    if (index>=this->length) throw ActuatorException("Error: array out of bouds!\nFunction: setIntegerValue.");
+    if (this->type!=symbolType::integer && this->type!=symbolType::integerArray)
+        throw ActuatorException("Internal Error: set int but the element is not int!");
     int* x = (int*) value;
     x[index] = _value;
 }
 
 void SymbolNode::setDoubleValue(double _value, int index) {
     // todo: 错误处理 越界检查 类型检查
+    if (index>=this->length) throw ActuatorException("Error: array out of bouds!\nFunction: setDoubleValue.");
+    if (this->type!=symbolType::real && this->type!=symbolType::realArray)
+        throw ActuatorException("Internal Error: set real but the element is not real!");
     double* x = (double*) value;
     x[index] = _value;
 }
@@ -171,7 +184,10 @@ void Symbol::changeNode(string name, double value, int index) {
             node->second.setDoubleValue(value, index);
             break;
         }
-        if (i==symbolTable.begin()) break;
+        if (i==symbolTable.begin()) {
+            throw ActuatorException("Internal Error: Can't change \""+name+"\" because I can't find it!\nFunction: ChangeNode(double).");
+            break;
+        }
     }
 }
 
@@ -184,7 +200,10 @@ void Symbol::changeNode(string name, int value, int index) {
             node->second.setIntegerValue(value, index);
             break;
         }
-        if (i==symbolTable.begin()) break;
+        if (i==symbolTable.begin()) {
+            throw ActuatorException("Internal Error: Can't change \""+name+"\" because I can't find it!\nFunction: ChangeNode(int).");
+            break;
+        }
     }
 }
 
@@ -200,11 +219,17 @@ Actuator::~Actuator() {
 }
 
 bool Actuator::runCode() {
-    while(true) {
-        runOnelineCode(interCode[index]);
-        index++;
-        if (index>=(int)interCode.size()) break;
+    try {
+        while(true) {
+            runOnelineCode(interCode[index]);
+            index++;
+            if (index>=(int)interCode.size()) break;
+        }
+    } catch (ActuatorException e) {
+        win->addoutput(e.message+"\n");
+        return false;
     }
+
     return true;
 }
 
@@ -288,7 +313,7 @@ void Actuator::assignment(string first, string second, string third) {
 
     auto node = symbolTable.findNode(first);
 
-    if (node.type==symbolType::integer or node.type==symbolType::integerArray)
+    if (node.type==symbolType::integer || node.type==symbolType::integerArray)
         symbolTable.changeNode(first, (int)value, index);
     else
         symbolTable.changeNode(first, value, index);
@@ -296,22 +321,45 @@ void Actuator::assignment(string first, string second, string third) {
 }
 
 void Actuator::plus(string first, string second, string third) {
-    double num = 0;
+    double num = 0; bool isreal = false;
     auto t = symbolTable.findNode(third);
-    if (t.type==symbolType::none) {
-        symbolTable.addNode(symbolType::real, third);
-    }
+//    if (t.type==symbolType::none) {
+//        symbolTable.addNode(symbolType::real, third);
+//    }
 
     if (isnumber(first)==0)
         num += atoi(first.c_str());
-    else if (isnumber(first)==1)
+    else if (isnumber(first)==1) {
+        isreal = true;
         num += atof(first.c_str());
+    }
     else {
         auto x = symbolTable.findNode(first);
         if (x.type==symbolType::integer)
             num += x.getIntegerValue();
-        else
+        else if (x.type==symbolType::real) {
             num += x.getDoubleValue();
+            isreal = true;
+        }
+        else {
+            if (x.type==symbolType::integerArray)
+                num += x.getIntegerValue(atoi(second.c_str()));
+            else if (x.type==symbolType::realArray) {
+                isreal = true;
+                num += x.getDoubleValue(atoi(second.c_str()));
+            }
+
+            if (t.type == symbolType::none) {
+                if (isreal) {
+                    symbolTable.addNode(symbolType::real, third);
+                    symbolTable.changeNode(third, num);
+                } else {
+                    symbolTable.addNode(symbolType::integer, third);
+                    symbolTable.changeNode(third, (int)num);
+                }
+            }
+            return ;
+        }
     }
 
     if (isnumber(second)==0)
@@ -324,6 +372,14 @@ void Actuator::plus(string first, string second, string third) {
             num += x.getIntegerValue();
         else
             num += x.getDoubleValue();
+    }
+
+    if (t.type == symbolType::none) {
+        if (isreal)
+            symbolTable.addNode(symbolType::real, third);
+        else
+            symbolTable.addNode(symbolType::integer, third);
+        t = symbolTable.findNode(third);
     }
 
     if (t.type==symbolType::integer)
@@ -373,38 +429,76 @@ void Actuator::divide(string first, string second, string third) {
     // todo: chushu 0 check
     double num = 0;
     auto t = symbolTable.findNode(third);
+    auto f = symbolTable.findNode(first);
+    auto s = symbolTable.findNode(second);
     if (t.type==symbolType::none) {
         symbolTable.addNode(symbolType::real, third);
     }
 
-    if (isnumber(first)==0)
-        num += atoi(first.c_str());
-    else if (isnumber(first)==1)
-        num += atof(first.c_str());
-    else {
-        auto x = symbolTable.findNode(first);
-        if (x.type==symbolType::integer)
-            num += x.getIntegerValue();
-        else
-            num += x.getDoubleValue();
+    if (s.type == symbolType::none) {
+        if (isnumber(second)==0) {
+            if (atoi(second.c_str()) == 0) throw ActuatorException("Can't divide 0!");
+        } else if (isnumber(second)>0) {
+            if (abs(atof(second.c_str()))<(1e-8)) throw ActuatorException("Can't divide 0!");
+        } else {
+            throw ActuatorException("Can't recogize \""+second+"\"!");
+        }
+    } else if (s.type == symbolType::real) {
+        if (abs(s.getDoubleValue())<(1e-8)) throw ActuatorException("Can't divide 0!");
+    } else if (s.type == symbolType::integer) {
+        if (s.getIntegerValue()==0) throw ActuatorException("Can't divide 0!");
     }
 
-    if (isnumber(second)==0)
-        num /= atoi(second.c_str());
-    else if (isnumber(second)==1)
-        num /= atof(second.c_str());
-    else {
-        auto x = symbolTable.findNode(second);
-        if (x.type==symbolType::integer)
-            num /= x.getIntegerValue();
-        else
-            num /= x.getDoubleValue();
+    if (s.type == symbolType::none && f.type == symbolType::none) {
+        if (isnumber(second)>0||isnumber(first)>0) {
+            num = atof(first.c_str())/atof(second.c_str());
+        } else {
+            num = atoi(first.c_str())/atoi(second.c_str());
+        }
+    } else if (f.type != symbolType::none) {
+        if (s.type != symbolType::none) {
+            if (f.type == symbolType::real || f.type == symbolType::real) {
+                if (f.type == symbolType::real)
+                    num += f.getDoubleValue();
+                else
+                    num += f.getIntegerValue();
+
+                if (s.type == symbolType::real)
+                    num /= s.getDoubleValue();
+                else
+                    num /= s.getIntegerValue();
+            } else {
+                num = f.getIntegerValue()/s.getIntegerValue();
+            }
+        } else {
+            if (f.type == symbolType::real || isnumber(second)>0) {
+                if (f.type == symbolType::real)
+                    num += f.getDoubleValue();
+                else
+                    num += f.getIntegerValue();
+
+                num /= atof(second.c_str());
+            } else {
+                num = f.getIntegerValue()/atoi(second.c_str());
+            }
+        }
+    } else {
+        if (isnumber(first)>0||s.type==symbolType::real) {
+            num += atof(first.c_str());
+            if (s.type==symbolType::real)
+                num /= s.getDoubleValue();
+            else
+                num /= s.getIntegerValue();
+        } else {
+            num = atoi(first.c_str())/s.getIntegerValue();
+        }
     }
 
-    if (t.type==symbolType::integer)
+    if (t.type==symbolType::integer) {
         symbolTable.changeNode(third, (int)num);
-    else
-        symbolTable.changeNode(third, num);
+    } else {
+        symbolTable.changeNode(third, (double)num);
+    }
 }
 
 void Actuator::read(string first, string second, string third) {
@@ -416,13 +510,14 @@ void Actuator::read(string first, string second, string third) {
                 symbolTable.changeNode(first, atoi(input.c_str()));
             else {
                 // todo: error
-
+                throw ActuatorException("\""+input+"\" is not a integer!");
             }
         } else {
             if (isnumber(input)>=0)
                 symbolTable.changeNode(first, atof(input.c_str()));
             else {
                 // todo: error
+                throw ActuatorException("\""+input+"\" is not a number!");
             }
         }
     } else {
