@@ -63,7 +63,7 @@ public:
 
 
     void lexAnalyse();                                  //源代码从控制台输入
-//    void lexAnalyse(int isFile,string sourceName);      //源代码从文件输入
+    void lexAnalyse(int isFile,string sourceName);      //源代码从文件输入
     void lexAnalyse(string sourceCode);                 //源代码从字符串中读入
 };
 

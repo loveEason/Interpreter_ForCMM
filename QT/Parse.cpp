@@ -271,7 +271,7 @@ string Parse::dealNoneTerminalSymbols(string oldStr) {
 
 
 //保存语法树到xml文件中
-void Parse::saveTree(treeNode *pTree, ofstream &out) {
+void Parse::saveTreePrivate(treeNode *pTree, ofstream &out) {
     int i ;
     if( pTree == NULL ) return ;
     /*当前节点为叶子节点*/
@@ -292,6 +292,18 @@ void Parse::saveTree(treeNode *pTree, ofstream &out) {
     }
 
     out << "</" << dealNoneTerminalSymbols(pTree->content) << ">" << endl ;
+}
+
+//外部接口，保存语法树到xml文件中
+void Parse::saveTree(treeNode *pTree, string filename){
+    parseTree_file.open(filename);
+    if(!parseTree_file.is_open()) {
+        cout<<"open error!";
+        return;
+    }else {
+        parseTree_file << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+        saveTreePrivate(pTree,parseTree_file);
+    }
 }
 
 //将文法文件中的产生式存储在数据结构中
@@ -698,9 +710,7 @@ bool Parse::grammarAnalyse(normalNode *normalHead) {
         }
     }
 
-    parseTree_file.open("./tree.xml");
-    parseTree_file << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
-    saveTree(treeRoot, parseTree_file);
+    saveTree(treeRoot, "./tree.xml");
     parse_file.close();
     return true;
 }
