@@ -168,6 +168,7 @@ void MainWindow::on_Start_clicked()
            return;
         }
         Actuator actuator(intercodes);
+        actuator.bindWin(this);
         actuator.runCode();
         cg->clearCode();
         delete cg;

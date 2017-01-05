@@ -3,7 +3,10 @@
 
 #include <string>
 #include <map>
+#include "mainwindow.h"
 #include "CodeGenerator.h"
+
+class MainWindow;
 
 // 符号类型
 enum symbolType {
@@ -57,9 +60,11 @@ private:
     int index = 0;
     bool cmp;
     vector<InterCode> interCode;
+    MainWindow *win;
 public:
     Actuator(vector<InterCode>);
     ~Actuator();
+    void bindWin(MainWindow*);
     bool runCode();
     bool runOnelineCode(InterCode);
     void in();

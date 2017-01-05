@@ -597,33 +597,6 @@ void LexAnalysis::lexAnalyse(){
     lex_file.close();
      }
 
-//源代码从文件输入
-void LexAnalysis::lexAnalyse(int isFile,string source_name){
-    string suffix = ".cmm"; //后缀名
-    string lex_name;
-    int pos = source_name.find(suffix);
-    if (pos == string::npos) {     //加上后缀名
-        source_name.append(suffix);
-    }
-    source_file.open(source_name, ios::in);
-    if (!source_file.is_open()) {
-        cout << "Failed to open the file. " << source_name << endl;
-        exit(-1);
-    }
-    lex_name.append(source_name);
-    if (pos == string::npos) {
-        lex_name.append(".lex");
-    } else {
-        lex_name.replace(pos, 4, ".lex");
-    }
-    lex_file.open(lex_name, ios::out);
-    lex_file << "Lexical result is as follow：" << endl;
-    while (getToken(source_file,lex_file,1) != ENDFILE);         //一直分析token,直到源代码已经分析结束
-
-    lex_file.close();
-    source_file.close();
-}
-
 //源代码从字符串中读入
 void LexAnalysis::lexAnalyse(string sourceCode) {
     lex_file.open("./sourcecodeLex.lex",ios::out);

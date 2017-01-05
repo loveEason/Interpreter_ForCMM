@@ -410,14 +410,20 @@ void Actuator::divide(string first, string second, string third) {
 void Actuator::read(string first, string second, string third) {
     auto node = symbolTable.findNode(first);
     if (node.type!=symbolType::none) {
+        string input = win->getinput();
         if (node.type==symbolType::integer) {
-            int x;
-            cin >> x;
-            symbolTable.changeNode(first, x);
+            if (isnumber(input)==0)
+                symbolTable.changeNode(first, atoi(input.c_str()));
+            else {
+                // todo: error
+
+            }
         } else {
-            double x;
-            cin >> x;
-            symbolTable.changeNode(first, x);
+            if (isnumber(input)>=0)
+                symbolTable.changeNode(first, atof(input.c_str()));
+            else {
+                // todo: error
+            }
         }
     } else {
         //todo: error
@@ -426,13 +432,13 @@ void Actuator::read(string first, string second, string third) {
 
 void Actuator::write(string first, string second, string third) {
     if (isnumber(first)>=0)
-        cout << first << endl;
+        this->win->addoutput(first+"\n");
     else {
         auto node = symbolTable.findNode(first);
         if (node.type==symbolType::integer)
-            cout << node.getIntegerValue() << endl;
+            this->win->addoutput(to_string(node.getIntegerValue())+"\n");
         else
-            cout << node.getDoubleValue() << endl;
+            this->win->addoutput(to_string(node.getDoubleValue())+"\n");
     }
 }
 
@@ -537,4 +543,8 @@ void Actuator::compare(string first, string second, string third) {
     } else {
         return;
     }
+}
+
+void Actuator::bindWin(MainWindow * win) {
+    this->win = win;
 }
