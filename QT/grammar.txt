@@ -2,9 +2,9 @@
 <program> -> $
 <block> -> ;
 <block> -> <declare_closure> <block_closure>
-<declare_closure> -> <per_declaration> <declare_closure>
+<declare_closure> -> <per_declaration> ; <declare_closure>
 <declare_closure> -> $
-<per_declaration> -> <declare> <per_declare_closure> ;
+<per_declaration> -> <declare> <per_declare_closure>
 <declare> -> <type> <variable> <initialization>
 <per_declare_closure> -> , <variable> <initialization> <per_declare_closure>
 <per_declare_closure> -> $
@@ -39,14 +39,14 @@
 <term> -> + <factor> <term>
 <term> -> - <factor> <term>
 <term> -> $
-<block_closure> -> <assignment> <block>
+<block_closure> -> <assignment> ; <block>
 <block_closure> -> <for_loop> <block>
 <block_closure> -> <while_loop> <block>
 <block_closure> -> <if_stmt> <block>
 <block_closure> -> <functions> <block>
 <block_closure> -> $
-<assignment> -> <self_op> <variable> ;
-<assignment> -> <variable> <assign> ;
+<assignment> -> <self_op> <variable>
+<assignment> -> <variable> <assign>
 <assign> -> <self_op>
 <assign> -> = <right_value>
 <assign> -> += <right_value>
@@ -57,10 +57,12 @@
 <self_op> -> ++
 <self_op> -> --
 <for_loop> -> for <for_block>
-<for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
+<for_block> -> ( <declare_or_assign> ; <logic_exp> ; <inner_assign> ) <cpd_block>
 <declare_or_assign> -> <per_declaration>
 <declare_or_assign> -> <assignment>
+<declare_or_assign> -> $
 <logic_exp> -> <expression> <logic_op> <expression>
+<logic_exp> -> $
 <logic_op> -> <
 <logic_op> -> <=
 <logic_op> -> >
@@ -69,6 +71,7 @@
 <logic_op> -> ==
 <inner_assign> -> <self_op> <variable>
 <inner_assign> -> <variable> <assign>
+<inner_assign> -> $
 <while_loop> -> while <while_block>
 <while_block> -> ( <logic_exp> ) <cpd_block>
 <if_stmt> -> if <if_block>

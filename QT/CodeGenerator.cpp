@@ -63,7 +63,6 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         nodeNext = node->children[1];
     }
 
-
     treeNode * type = node1->children[0];
     string decType = type->children[0]->content=="int"?INT_DCL:REAL_DCL;  //判断声明的类型
     int typeNum = decType=="INT_DCL"?1:2;
@@ -331,6 +330,7 @@ void CodeGenerator::interpretLoop(treeNode * node) {
         int pos = codeList.size();
         InterCode jmpCode = InterCode(JMP, to_string(pos+layer), "", "", line);
 
+
         interpretPrg(block);
         if(innerAsg->children[0]->content!="$"){
             interpretAsg(innerAsg);
@@ -452,7 +452,20 @@ void CodeGenerator::createCode(string op, string second, string third, string fo
 }
 
 void CodeGenerator::printError(string error, int pos){
+    isError = true;
     cout<<error<<". At line "<<pos<<"."<<endl;
+    char buffer[10];
+    itoa(pos, buffer, 10);
+    string er = error + ". At line " + buffer;
+    errorList.push_back(er);
+}
+
+vector<string> CodeGenerator::getError(){
+    return errorList;
+}
+
+bool CodeGenerator::hasError(){
+    return isError;
 }
 
 string CodeGenerator::calIndex(treeNode * node){
