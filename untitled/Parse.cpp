@@ -592,6 +592,7 @@ bool Parse::grammarAnalyse(normalNode *normalHead) {
     treeNode * analysisStkTop = NULL;
     normalNode *preTop = NULL;
     normalNode *remainTokenTop = NULL;
+    normalNode *preTokenTop = NULL;
     treeNode *tmpTreeNode;
 
     top = 0;
@@ -618,6 +619,7 @@ bool Parse::grammarAnalyse(normalNode *normalHead) {
             //取出分析栈的栈顶
             analysisStkTop = analysisStack->top();
             //取出剩余输入串的栈顶
+            preTokenTop = remainTokenTop;
             remainTokenTop = preTop->next;
 
             //如果分析栈和输入串都只剩余#,说明分析成功
@@ -661,15 +663,17 @@ bool Parse::grammarAnalyse(normalNode *normalHead) {
                     //当前输入串栈顶不是终结符
                     parse_file<<"Error.Line at"<<remainTokenTop->line<<", token:"<<remainTokenTop->tokenStr<<" is not terminator."<<endl<<endl;
                     cout<<"Parse Fail!"<<endl;
-                    parseError->content = remainTokenTop->content;
-                    parseError->line = remainTokenTop->line;
+                    parseError->tokenContent = preTokenTop->tokenStr;
+                    parseError->line = preTokenTop->line;
+                    parseError->errorContent = string("Error.Line at ")+to_string(preTokenTop->line)+string(", token:")+preTokenTop->content+string("\nAfter which you are supposed to input token like ")+analysisStkTop->content;
                     throw -1;
                 } else {
                     //在预测分析表中找不到相关产生式
                     parse_file<<"Error.Current token can't be parsed:"<<"Line at "<<remainTokenTop->line<<"  "<<remainTokenTop->tokenStr<<endl<<endl;
                     cout<<"Parse Fail!"<<endl;
-                    parseError->content = remainTokenTop->content;
-                    parseError->line = remainTokenTop->line;
+                    parseError->tokenContent = preTokenTop->content;
+                    parseError->line = preTokenTop->line;
+                    parseError->errorContent = string("Error.Line at ")+to_string(preTokenTop->line)+string(", token:")+preTokenTop->content+string("\nAfter which you are supposed to input token like ")+analysisStkTop->content;
                     throw -1;
                 }
             } else if (terminalSymbols.find(analysisStkTop->content) != terminalSymbols.end()) {            //如果分析栈的栈顶是终结符
@@ -677,18 +681,19 @@ bool Parse::grammarAnalyse(normalNode *normalHead) {
                     //匹配,将此终结符的相关信息通过栈中元素存入树中
                     //然后分析栈弹出
                     analysisStkTop->type = remainTokenTop->type;
-                    analysisStkTop->tokenStr = remainTokenTop->tokenStr;
+                    analysisStkTop->tokenStr = remainTokenTop->content;
                     analysisStkTop->value = remainTokenTop->content;
                     analysisStkTop->line = remainTokenTop->line;
                     analysisStack->pop();
                     //让p指向剩余输入串下一个token,以使下次取出新栈顶
                     preTop = remainTokenTop;
-                    parse_file << "Match :" << remainTokenTop->tokenStr << endl << endl;
+                    parse_file << "匹配 :" << remainTokenTop->tokenStr << endl << endl;
                 } else {
                     parse_file<<"Error. Failed to match:"<<" Line at "<<remainTokenTop->line<<"."<<remainTokenTop->tokenStr<<endl<<endl;
                     cout<<"Parse Fail!"<<endl;
-                    parseError->content = remainTokenTop->content;
-                    parseError->line = remainTokenTop->line;
+                    parseError->tokenContent = preTokenTop->content;
+                    parseError->line = preTokenTop->line;
+                    parseError->errorContent = string("Error.Line at ")+to_string(preTokenTop->line)+string(", token:")+preTokenTop->content+string("\nAfter which you are supposed to input token like ")+analysisStkTop->content;
                     throw -1;
                 }
             }

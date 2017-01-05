@@ -26,7 +26,7 @@ int main(int argc,char *argv[]) {
 
 //    string code = "int i=1;\n"
 //                  "if(i>0){i=i-1;}";
-    string code = "int";
+    string code = "int i;i=i+";
     lexAnalysis.lexAnalyse(code);
 
     if (lexAnalysis.ifHasError()) {
@@ -42,8 +42,8 @@ int main(int argc,char *argv[]) {
         bool isSuccess = parse.grammarAnalyse(normalHead);
         if(isSuccess == false) {
             ParseError *parseError = parse.getParseError();
-            cout<<"there is something wrong happened near line "<<parseError->line<<" :"<<parseError->content<<endl;
-
+            //cout<<"there is something wrong happened near line "<<parseError->line<<" :"<<parseError->content<<endl;
+            cout<<parseError->errorContent<<endl;
             return -1;
         }
 
