@@ -288,7 +288,7 @@ void Parse::saveTreePrivate(treeNode *pTree, ofstream &out) {
 
     for ( i = 0 ; i < pTree->childNum ; i++)
     {
-        saveTree(pTree->children[i],out);
+        saveTreePrivate(pTree->children[i],out);
     }
 
     out << "</" << dealNoneTerminalSymbols(pTree->content) << ">" << endl ;

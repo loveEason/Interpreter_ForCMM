@@ -1,349 +1,2384 @@
 第1步
 当前分析栈:# <program> 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<program> -> <block>
 
 第2步
 当前分析栈:# <block> 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<block> -> <declare_closure> <block_closure>
 
 第3步
 当前分析栈:# <block_closure> <declare_closure> 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<declare_closure> -> <per_declaration> <declare_closure>
 
 第4步
 当前分析栈:# <block_closure> <declare_closure> <per_declaration> 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<per_declaration> -> <declare> <per_declare_closure> ;
 
 第5步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <declare> 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<declare> -> <type> <variable> <initialization>
 
 第6步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> <type> 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<type> -> int
 
 第7步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> int 
-剩余输入串:int ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:int ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :int
 
 第8步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> 
-剩余输入串:ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<variable> -> <identifier> <index>
 
 第9步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> <identifier> 
-剩余输入串:ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<identifier> -> ID
 
 第10步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> ID 
-剩余输入串:ID ; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:ID , ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :ID
 
 第11步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> 
-剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:, ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<index> -> $
 
 第12步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> 
-剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+剩余输入串:, ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<initialization> -> $
 
 第13步
 当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> 
-剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<per_declare_closure> -> $
+剩余输入串:, ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declare_closure> -> , <variable> <initialization> <per_declare_closure>
 
 第14步
-当前分析栈:# <block_closure> <declare_closure> ; 
-剩余输入串:; read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-Match :;
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> , 
+剩余输入串:, ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :,
 
 第15步
-当前分析栈:# <block_closure> <declare_closure> 
-剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<declare_closure> -> $
-
-第16步
-当前分析栈:# <block_closure> 
-剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<block_closure> -> <functions> <block>
-
-第17步
-当前分析栈:# <block> <functions> 
-剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<functions> -> <function> ;
-
-第18步
-当前分析栈:# <block> ; <function> 
-剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<function> -> <read_fun>
-
-第19步
-当前分析栈:# <block> ; <read_fun> 
-剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<read_fun> -> read ( <variable> )
-
-第20步
-当前分析栈:# <block> ; ) <variable> ( read 
-剩余输入串:read ( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-Match :read
-
-第21步
-当前分析栈:# <block> ; ) <variable> ( 
-剩余输入串:( ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
-Match :(
-
-第22步
-当前分析栈:# <block> ; ) <variable> 
-剩余输入串:ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> 
+剩余输入串:ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<variable> -> <identifier> <index>
 
-第23步
-当前分析栈:# <block> ; ) <index> <identifier> 
-剩余输入串:ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+第16步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> <identifier> 
+剩余输入串:ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<identifier> -> ID
 
-第24步
-当前分析栈:# <block> ; ) <index> ID 
-剩余输入串:ID ) ; ID += INT_VALUE ; write ( ID ) ; # 
+第17步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> ID 
+剩余输入串:ID [ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :ID
 
+第18步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> 
+剩余输入串:[ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> [ <factor_type> ]
+
+第19步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] <factor_type> [ 
+剩余输入串:[ INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :[
+
+第20步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] <factor_type> 
+剩余输入串:INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第21步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] <number> 
+剩余输入串:INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第22步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] INT_VALUE 
+剩余输入串:INT_VALUE ] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第23步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] 
+剩余输入串:] ; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :]
+
+第24步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> 
+剩余输入串:; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<initialization> -> $
+
 第25步
-当前分析栈:# <block> ; ) <index> 
-剩余输入串:) ; ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<index> -> $
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> 
+剩余输入串:; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declare_closure> -> $
 
 第26步
-当前分析栈:# <block> ; ) 
-剩余输入串:) ; ID += INT_VALUE ; write ( ID ) ; # 
-Match :)
-
-第27步
-当前分析栈:# <block> ; 
-剩余输入串:; ID += INT_VALUE ; write ( ID ) ; # 
+当前分析栈:# <block_closure> <declare_closure> ; 
+剩余输入串:; real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :;
 
+第27步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> <per_declaration> <declare_closure>
+
 第28步
-当前分析栈:# <block> 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<block> -> <declare_closure> <block_closure>
+当前分析栈:# <block_closure> <declare_closure> <per_declaration> 
+剩余输入串:real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declaration> -> <declare> <per_declare_closure> ;
 
 第29步
-当前分析栈:# <block_closure> <declare_closure> 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<declare_closure> -> $
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <declare> 
+剩余输入串:real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare> -> <type> <variable> <initialization>
 
 第30步
-当前分析栈:# <block_closure> 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<block_closure> -> <assignment> <block>
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> <type> 
+剩余输入串:real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<type> -> real
 
 第31步
-当前分析栈:# <block> <assignment> 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<assignment> -> <variable> <assign> ;
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> real 
+剩余输入串:real ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :real
 
 第32步
-当前分析栈:# <block> ; <assign> <variable> 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <variable> 
+剩余输入串:ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<variable> -> <identifier> <index>
 
 第33步
-当前分析栈:# <block> ; <assign> <index> <identifier> 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> <identifier> 
+剩余输入串:ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<identifier> -> ID
 
 第34步
-当前分析栈:# <block> ; <assign> <index> ID 
-剩余输入串:ID += INT_VALUE ; write ( ID ) ; # 
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> ID 
+剩余输入串:ID [ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :ID
 
 第35步
-当前分析栈:# <block> ; <assign> <index> 
-剩余输入串:+= INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<index> -> $
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> <index> 
+剩余输入串:[ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> [ <factor_type> ]
 
 第36步
-当前分析栈:# <block> ; <assign> 
-剩余输入串:+= INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<assign> -> += <right_value>
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] <factor_type> [ 
+剩余输入串:[ INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :[
 
 第37步
-当前分析栈:# <block> ; <right_value> += 
-剩余输入串:+= INT_VALUE ; write ( ID ) ; # 
-Match :+=
-
-第38步
-当前分析栈:# <block> ; <right_value> 
-剩余输入串:INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<right_value> -> <expression>
-
-第39步
-当前分析栈:# <block> ; <expression> 
-剩余输入串:INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<expression> -> <factor> <term>
-
-第40步
-当前分析栈:# <block> ; <term> <factor> 
-剩余输入串:INT_VALUE ; write ( ID ) ; # 
-推导所用产生式:<factor> -> <factor_type> <factor_recursion>
-
-第41步
-当前分析栈:# <block> ; <term> <factor_recursion> <factor_type> 
-剩余输入串:INT_VALUE ; write ( ID ) ; # 
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] <factor_type> 
+剩余输入串:INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<factor_type> -> <number>
 
-第42步
-当前分析栈:# <block> ; <term> <factor_recursion> <number> 
-剩余输入串:INT_VALUE ; write ( ID ) ; # 
+第38步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] <number> 
+剩余输入串:INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 推导所用产生式:<number> -> INT_VALUE
 
-第43步
-当前分析栈:# <block> ; <term> <factor_recursion> INT_VALUE 
-剩余输入串:INT_VALUE ; write ( ID ) ; # 
+第39步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] INT_VALUE 
+剩余输入串:INT_VALUE ] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :INT_VALUE
 
-第44步
-当前分析栈:# <block> ; <term> <factor_recursion> 
-剩余输入串:; write ( ID ) ; # 
-推导所用产生式:<factor_recursion> -> $
+第40步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> ] 
+剩余输入串:] ; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :]
 
-第45步
-当前分析栈:# <block> ; <term> 
-剩余输入串:; write ( ID ) ; # 
-推导所用产生式:<term> -> $
+第41步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> <initialization> 
+剩余输入串:; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<initialization> -> $
 
-第46步
-当前分析栈:# <block> ; 
-剩余输入串:; write ( ID ) ; # 
+第42步
+当前分析栈:# <block_closure> <declare_closure> ; <per_declare_closure> 
+剩余输入串:; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declare_closure> -> $
+
+第43步
+当前分析栈:# <block_closure> <declare_closure> ; 
+剩余输入串:; read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
 Match :;
 
+第44步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第45步
+当前分析栈:# <block_closure> 
+剩余输入串:read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <functions> <block>
+
+第46步
+当前分析栈:# <block> <functions> 
+剩余输入串:read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<functions> -> <function> ;
+
 第47步
+当前分析栈:# <block> ; <function> 
+剩余输入串:read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<function> -> <read_fun>
+
+第48步
+当前分析栈:# <block> ; <read_fun> 
+剩余输入串:read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<read_fun> -> read ( <variable> )
+
+第49步
+当前分析栈:# <block> ; ) <variable> ( read 
+剩余输入串:read ( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :read
+
+第50步
+当前分析栈:# <block> ; ) <variable> ( 
+剩余输入串:( ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第51步
+当前分析栈:# <block> ; ) <variable> 
+剩余输入串:ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第52步
+当前分析栈:# <block> ; ) <index> <identifier> 
+剩余输入串:ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第53步
+当前分析栈:# <block> ; ) <index> ID 
+剩余输入串:ID ) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第54步
+当前分析栈:# <block> ; ) <index> 
+剩余输入串:) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第55步
+当前分析栈:# <block> ; ) 
+剩余输入串:) ; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第56步
+当前分析栈:# <block> ; 
+剩余输入串:; if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第57步
+当前分析栈:# <block> 
+剩余输入串:if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第58步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第59步
+当前分析栈:# <block_closure> 
+剩余输入串:if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <if_stmt> <block>
+
+第60步
+当前分析栈:# <block> <if_stmt> 
+剩余输入串:if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<if_stmt> -> if <if_block>
+
+第61步
+当前分析栈:# <block> <if_block> if 
+剩余输入串:if ( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :if
+
+第62步
+当前分析栈:# <block> <if_block> 
+剩余输入串:( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<if_block> -> ( <logic_exp> ) <cpd_block> <else>
+
+第63步
+当前分析栈:# <block> <else> <cpd_block> ) <logic_exp> ( 
+剩余输入串:( ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第64步
+当前分析栈:# <block> <else> <cpd_block> ) <logic_exp> 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_exp> -> <expression> <logic_op> <expression>
+
+第65步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <expression> 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第66步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor> 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第67步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <factor_type> 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第68步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <variable> 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第69步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第70步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> ID 
+剩余输入串:ID <= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第71步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> 
+剩余输入串:<= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第72步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> 
+剩余输入串:<= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第73步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> <term> 
+剩余输入串:<= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第74步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <logic_op> 
+剩余输入串:<= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_op> -> <=
+
+第75步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> <= 
+剩余输入串:<= INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :<=
+
+第76步
+当前分析栈:# <block> <else> <cpd_block> ) <expression> 
+剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第77步
+当前分析栈:# <block> <else> <cpd_block> ) <term> <factor> 
+剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第78步
+当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第79步
+当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第80步
+当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第81步
+当前分析栈:# <block> <else> <cpd_block> ) <term> <factor_recursion> 
+剩余输入串:) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第82步
+当前分析栈:# <block> <else> <cpd_block> ) <term> 
+剩余输入串:) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第83步
+当前分析栈:# <block> <else> <cpd_block> ) 
+剩余输入串:) { for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第84步
+当前分析栈:# <block> <else> <cpd_block> 
+剩余输入串:{ for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<cpd_block> -> { <block> }
+
+第85步
+当前分析栈:# <block> <else> } <block> { 
+剩余输入串:{ for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :{
+
+第86步
+当前分析栈:# <block> <else> } <block> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第87步
+当前分析栈:# <block> <else> } <block_closure> <declare_closure> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第88步
+当前分析栈:# <block> <else> } <block_closure> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <for_loop> <block>
+
+第89步
+当前分析栈:# <block> <else> } <block> <for_loop> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<for_loop> -> for <for_block>
+
+第90步
+当前分析栈:# <block> <else> } <block> <for_block> for 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :for
+
+第91步
+当前分析栈:# <block> <else> } <block> <for_block> 
+剩余输入串:( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
+
+第92步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declare_or_assign> ( 
+剩余输入串:( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第93步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declare_or_assign> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_or_assign> -> <per_declaration>
+
+第94步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <per_declaration> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declaration> -> <declare> <per_declare_closure> ;
+
+第95步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <declare> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare> -> <type> <variable> <initialization>
+
+第96步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <variable> <type> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<type> -> int
+
+第97步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <variable> int 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :int
+
+第98步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <variable> 
+剩余输入串:ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第99步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <index> <identifier> 
+剩余输入串:ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第100步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <index> ID 
+剩余输入串:ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第101步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <index> 
+剩余输入串:= INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第102步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> 
+剩余输入串:= INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<initialization> -> = <right_value>
+
+第103步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <right_value> = 
+剩余输入串:= INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第104步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <right_value> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第105步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <expression> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第106步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第107步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第108步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第109步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第110步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第111步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第112步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declare_closure> -> $
+
+第113步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第114步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_exp> -> <expression> <logic_op> <expression>
+
+第115步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <expression> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第116步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第117步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <factor_type> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第118步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <variable> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第119步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第120步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> ID 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第121步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第122步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第123步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第124步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_op> -> <
+
+第125步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> < 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :<
+
+第126步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第127步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第128步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第129步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <variable> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第130步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第131步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <index> ID 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第132步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <index> 
+剩余输入串:; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第133步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> 
+剩余输入串:; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第134步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> 
+剩余输入串:; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第135步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; 
+剩余输入串:; ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第136步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> 
+剩余输入串:ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<inner_assign> -> <variable> <assign>
+
+第137步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <variable> 
+剩余输入串:ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第138步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> <identifier> 
+剩余输入串:ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第139步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> ID 
+剩余输入串:ID = ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第140步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> 
+剩余输入串:= ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第141步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> 
+剩余输入串:= ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assign> -> = <right_value>
+
+第142步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <right_value> = 
+剩余输入串:= ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第143步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <right_value> 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第144步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <expression> 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第145步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor> 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第146步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <factor_type> 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第147步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <variable> 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第148步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第149步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <index> ID 
+剩余输入串:ID + INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第150步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <index> 
+剩余输入串:+ INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第151步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> 
+剩余输入串:+ INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第152步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> 
+剩余输入串:+ INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> + <factor> <term>
+
+第153步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor> + 
+剩余输入串:+ INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :+
+
+第154步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor> 
+剩余输入串:INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第155步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第156步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第157步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第158步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> 
+剩余输入串:) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第159步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> 
+剩余输入串:) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第160步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) 
+剩余输入串:) { ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第161步
+当前分析栈:# <block> <else> } <block> <cpd_block> 
+剩余输入串:{ ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<cpd_block> -> { <block> }
+
+第162步
+当前分析栈:# <block> <else> } <block> } <block> { 
+剩余输入串:{ ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :{
+
+第163步
+当前分析栈:# <block> <else> } <block> } <block> 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第164步
+当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第165步
+当前分析栈:# <block> <else> } <block> } <block_closure> 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <assignment> <block>
+
+第166步
+当前分析栈:# <block> <else> } <block> } <block> <assignment> 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assignment> -> <variable> <assign> ;
+
+第167步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <variable> 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第168步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <index> <identifier> 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第169步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <index> ID 
+剩余输入串:ID [ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第170步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <index> 
+剩余输入串:[ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> [ <factor_type> ]
+
+第171步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <factor_type> [ 
+剩余输入串:[ ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :[
+
+第172步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <factor_type> 
+剩余输入串:ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第173步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <variable> 
+剩余输入串:ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第174步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <index> <identifier> 
+剩余输入串:ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第175步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <index> ID 
+剩余输入串:ID ] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第176步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <index> 
+剩余输入串:] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第177步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] 
+剩余输入串:] = ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :]
+
+第178步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> 
+剩余输入串:= ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assign> -> = <right_value>
+
+第179步
+当前分析栈:# <block> <else> } <block> } <block> ; <right_value> = 
+剩余输入串:= ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第180步
+当前分析栈:# <block> <else> } <block> } <block> ; <right_value> 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第181步
+当前分析栈:# <block> <else> } <block> } <block> ; <expression> 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第182步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor> 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第183步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第184步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <variable> 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第185步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第186步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <index> ID 
+剩余输入串:ID ; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第187步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <index> 
+剩余输入串:; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第188步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> 
+剩余输入串:; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第189步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> 
+剩余输入串:; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第190步
+当前分析栈:# <block> <else> } <block> } <block> ; 
+剩余输入串:; ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第191步
+当前分析栈:# <block> <else> } <block> } <block> 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第192步
+当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第193步
+当前分析栈:# <block> <else> } <block> } <block_closure> 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <assignment> <block>
+
+第194步
+当前分析栈:# <block> <else> } <block> } <block> <assignment> 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assignment> -> <variable> <assign> ;
+
+第195步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <variable> 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第196步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <index> <identifier> 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第197步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <index> ID 
+剩余输入串:ID [ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第198步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> <index> 
+剩余输入串:[ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> [ <factor_type> ]
+
+第199步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <factor_type> [ 
+剩余输入串:[ ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :[
+
+第200步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <factor_type> 
+剩余输入串:ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第201步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <variable> 
+剩余输入串:ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第202步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <index> <identifier> 
+剩余输入串:ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第203步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <index> ID 
+剩余输入串:ID ] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第204步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] <index> 
+剩余输入串:] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第205步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> ] 
+剩余输入串:] = ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :]
+
+第206步
+当前分析栈:# <block> <else> } <block> } <block> ; <assign> 
+剩余输入串:= ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assign> -> = <right_value>
+
+第207步
+当前分析栈:# <block> <else> } <block> } <block> ; <right_value> = 
+剩余输入串:= ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第208步
+当前分析栈:# <block> <else> } <block> } <block> ; <right_value> 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第209步
+当前分析栈:# <block> <else> } <block> } <block> ; <expression> 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第210步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor> 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第211步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第212步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <variable> 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第213步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第214步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <index> ID 
+剩余输入串:ID / INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第215步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <index> 
+剩余输入串:/ INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第216步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> 
+剩余输入串:/ INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> / <factor_type> <factor_recursion>
+
+第217步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <factor_type> / 
+剩余输入串:/ INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :/
+
+第218步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第219步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第220步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第221步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> <factor_recursion> 
+剩余输入串:; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第222步
+当前分析栈:# <block> <else> } <block> } <block> ; <term> 
+剩余输入串:; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第223步
+当前分析栈:# <block> <else> } <block> } <block> ; 
+剩余输入串:; } for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第224步
+当前分析栈:# <block> <else> } <block> } <block> 
+剩余输入串:} for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第225步
+当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
+剩余输入串:} for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第226步
+当前分析栈:# <block> <else> } <block> } <block_closure> 
+剩余输入串:} for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> $
+
+第227步
+当前分析栈:# <block> <else> } <block> } 
+剩余输入串:} for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :}
+
+第228步
+当前分析栈:# <block> <else> } <block> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第229步
+当前分析栈:# <block> <else> } <block_closure> <declare_closure> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第230步
+当前分析栈:# <block> <else> } <block_closure> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <for_loop> <block>
+
+第231步
+当前分析栈:# <block> <else> } <block> <for_loop> 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<for_loop> -> for <for_block>
+
+第232步
+当前分析栈:# <block> <else> } <block> <for_block> for 
+剩余输入串:for ( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :for
+
+第233步
+当前分析栈:# <block> <else> } <block> <for_block> 
+剩余输入串:( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
+
+第234步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declare_or_assign> ( 
+剩余输入串:( int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第235步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <declare_or_assign> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_or_assign> -> <per_declaration>
+
+第236步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> <per_declaration> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declaration> -> <declare> <per_declare_closure> ;
+
+第237步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <declare> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare> -> <type> <variable> <initialization>
+
+第238步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <variable> <type> 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<type> -> int
+
+第239步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <variable> int 
+剩余输入串:int ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :int
+
+第240步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <variable> 
+剩余输入串:ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第241步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <index> <identifier> 
+剩余输入串:ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第242步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <index> ID 
+剩余输入串:ID = INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第243步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> <index> 
+剩余输入串:= INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第244步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <initialization> 
+剩余输入串:= INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<initialization> -> = <right_value>
+
+第245步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <right_value> = 
+剩余输入串:= INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第246步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <right_value> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第247步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <expression> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第248步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第249步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第250步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第251步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第252步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> <factor_recursion> 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第253步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> <term> 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第254步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; <per_declare_closure> 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<per_declare_closure> -> $
+
+第255步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> ; 
+剩余输入串:; ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第256步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <logic_exp> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_exp> -> <expression> <logic_op> <expression>
+
+第257步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <expression> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第258步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第259步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <factor_type> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第260步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <variable> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第261步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第262步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> ID 
+剩余输入串:ID < ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第263步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> <index> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第264步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> <factor_recursion> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第265步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> <term> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第266步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> <logic_op> 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_op> -> <
+
+第267步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> < 
+剩余输入串:< ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :<
+
+第268步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <expression> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第269步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第270步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第271步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <variable> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第272步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第273步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <index> ID 
+剩余输入串:ID ; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第274步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> <index> 
+剩余输入串:; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第275步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> <factor_recursion> 
+剩余输入串:; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第276步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; <term> 
+剩余输入串:; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第277步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> ; 
+剩余输入串:; ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第278步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <inner_assign> 
+剩余输入串:ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<inner_assign> -> <variable> <assign>
+
+第279步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <variable> 
+剩余输入串:ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第280步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> <identifier> 
+剩余输入串:ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第281步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> ID 
+剩余输入串:ID = ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第282步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> <index> 
+剩余输入串:= ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第283步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <assign> 
+剩余输入串:= ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assign> -> = <right_value>
+
+第284步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <right_value> = 
+剩余输入串:= ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第285步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <right_value> 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第286步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <expression> 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第287步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor> 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第288步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <factor_type> 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第289步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <variable> 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第290步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第291步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <index> ID 
+剩余输入串:ID + INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第292步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <index> 
+剩余输入串:+ INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第293步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> 
+剩余输入串:+ INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第294步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> 
+剩余输入串:+ INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> + <factor> <term>
+
+第295步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor> + 
+剩余输入串:+ INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :+
+
+第296步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor> 
+剩余输入串:INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第297步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第298步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第299步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第300步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> <factor_recursion> 
+剩余输入串:) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第301步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) <term> 
+剩余输入串:) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第302步
+当前分析栈:# <block> <else> } <block> <cpd_block> ) 
+剩余输入串:) { write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第303步
+当前分析栈:# <block> <else> } <block> <cpd_block> 
+剩余输入串:{ write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<cpd_block> -> { <block> }
+
+第304步
+当前分析栈:# <block> <else> } <block> } <block> { 
+剩余输入串:{ write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :{
+
+第305步
+当前分析栈:# <block> <else> } <block> } <block> 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第306步
+当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第307步
+当前分析栈:# <block> <else> } <block> } <block_closure> 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <functions> <block>
+
+第308步
+当前分析栈:# <block> <else> } <block> } <block> <functions> 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<functions> -> <function> ;
+
+第309步
+当前分析栈:# <block> <else> } <block> } <block> ; <function> 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<function> -> <write_fun>
+
+第310步
+当前分析栈:# <block> <else> } <block> } <block> ; <write_fun> 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<write_fun> -> write ( <data> )
+
+第311步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <data> ( write 
+剩余输入串:write ( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :write
+
+第312步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <data> ( 
+剩余输入串:( ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第313步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <data> 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<data> -> <expression>
+
+第314步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <expression> 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第315步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor> 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第316步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <factor_type> 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第317步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <variable> 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第318步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第319步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <index> ID 
+剩余输入串:ID [ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第320步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <index> 
+剩余输入串:[ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> [ <factor_type> ]
+
+第321步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <factor_type> [ 
+剩余输入串:[ ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :[
+
+第322步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <factor_type> 
+剩余输入串:ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第323步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <variable> 
+剩余输入串:ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第324步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <index> <identifier> 
+剩余输入串:ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第325步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <index> ID 
+剩余输入串:ID ] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第326步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <index> 
+剩余输入串:] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第327步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] 
+剩余输入串:] ) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :]
+
+第328步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> 
+剩余输入串:) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第329步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> 
+剩余输入串:) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第330步
+当前分析栈:# <block> <else> } <block> } <block> ; ) 
+剩余输入串:) ; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第331步
+当前分析栈:# <block> <else> } <block> } <block> ; 
+剩余输入串:; write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第332步
+当前分析栈:# <block> <else> } <block> } <block> 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第333步
+当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第334步
+当前分析栈:# <block> <else> } <block> } <block_closure> 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <functions> <block>
+
+第335步
+当前分析栈:# <block> <else> } <block> } <block> <functions> 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<functions> -> <function> ;
+
+第336步
+当前分析栈:# <block> <else> } <block> } <block> ; <function> 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<function> -> <write_fun>
+
+第337步
+当前分析栈:# <block> <else> } <block> } <block> ; <write_fun> 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<write_fun> -> write ( <data> )
+
+第338步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <data> ( write 
+剩余输入串:write ( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :write
+
+第339步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <data> ( 
+剩余输入串:( ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第340步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <data> 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<data> -> <expression>
+
+第341步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <expression> 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第342步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor> 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第343步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <factor_type> 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第344步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <variable> 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第345步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第346步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <index> ID 
+剩余输入串:ID [ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第347步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> <index> 
+剩余输入串:[ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> [ <factor_type> ]
+
+第348步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <factor_type> [ 
+剩余输入串:[ ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :[
+
+第349步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <factor_type> 
+剩余输入串:ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第350步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <variable> 
+剩余输入串:ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第351步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <index> <identifier> 
+剩余输入串:ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第352步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <index> ID 
+剩余输入串:ID ] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第353步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] <index> 
+剩余输入串:] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第354步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> ] 
+剩余输入串:] ) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :]
+
+第355步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> <factor_recursion> 
+剩余输入串:) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第356步
+当前分析栈:# <block> <else> } <block> } <block> ; ) <term> 
+剩余输入串:) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第357步
+当前分析栈:# <block> <else> } <block> } <block> ; ) 
+剩余输入串:) ; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第358步
+当前分析栈:# <block> <else> } <block> } <block> ; 
+剩余输入串:; } } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第359步
+当前分析栈:# <block> <else> } <block> } <block> 
+剩余输入串:} } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第360步
+当前分析栈:# <block> <else> } <block> } <block_closure> <declare_closure> 
+剩余输入串:} } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第361步
+当前分析栈:# <block> <else> } <block> } <block_closure> 
+剩余输入串:} } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> $
+
+第362步
+当前分析栈:# <block> <else> } <block> } 
+剩余输入串:} } else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :}
+
+第363步
+当前分析栈:# <block> <else> } <block> 
+剩余输入串:} else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第364步
+当前分析栈:# <block> <else> } <block_closure> <declare_closure> 
+剩余输入串:} else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第365步
+当前分析栈:# <block> <else> } <block_closure> 
+剩余输入串:} else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> $
+
+第366步
+当前分析栈:# <block> <else> } 
+剩余输入串:} else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :}
+
+第367步
+当前分析栈:# <block> <else> 
+剩余输入串:else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<else> -> else <cpd_block>
+
+第368步
+当前分析栈:# <block> <cpd_block> else 
+剩余输入串:else { write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :else
+
+第369步
+当前分析栈:# <block> <cpd_block> 
+剩余输入串:{ write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<cpd_block> -> { <block> }
+
+第370步
+当前分析栈:# <block> } <block> { 
+剩余输入串:{ write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :{
+
+第371步
+当前分析栈:# <block> } <block> 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第372步
+当前分析栈:# <block> } <block_closure> <declare_closure> 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第373步
+当前分析栈:# <block> } <block_closure> 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <functions> <block>
+
+第374步
+当前分析栈:# <block> } <block> <functions> 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<functions> -> <function> ;
+
+第375步
+当前分析栈:# <block> } <block> ; <function> 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<function> -> <write_fun>
+
+第376步
+当前分析栈:# <block> } <block> ; <write_fun> 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<write_fun> -> write ( <data> )
+
+第377步
+当前分析栈:# <block> } <block> ; ) <data> ( write 
+剩余输入串:write ( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :write
+
+第378步
+当前分析栈:# <block> } <block> ; ) <data> ( 
+剩余输入串:( INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第379步
+当前分析栈:# <block> } <block> ; ) <data> 
+剩余输入串:INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<data> -> <expression>
+
+第380步
+当前分析栈:# <block> } <block> ; ) <expression> 
+剩余输入串:INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第381步
+当前分析栈:# <block> } <block> ; ) <term> <factor> 
+剩余输入串:INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第382步
+当前分析栈:# <block> } <block> ; ) <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第383步
+当前分析栈:# <block> } <block> ; ) <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第384步
+当前分析栈:# <block> } <block> ; ) <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第385步
+当前分析栈:# <block> } <block> ; ) <term> <factor_recursion> 
+剩余输入串:) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第386步
+当前分析栈:# <block> } <block> ; ) <term> 
+剩余输入串:) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第387步
+当前分析栈:# <block> } <block> ; ) 
+剩余输入串:) ; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第388步
+当前分析栈:# <block> } <block> ; 
+剩余输入串:; } while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :;
+
+第389步
+当前分析栈:# <block> } <block> 
+剩余输入串:} while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第390步
+当前分析栈:# <block> } <block_closure> <declare_closure> 
+剩余输入串:} while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第391步
+当前分析栈:# <block> } <block_closure> 
+剩余输入串:} while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> $
+
+第392步
+当前分析栈:# <block> } 
+剩余输入串:} while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :}
+
+第393步
+当前分析栈:# <block> 
+剩余输入串:while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第394步
+当前分析栈:# <block_closure> <declare_closure> 
+剩余输入串:while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第395步
+当前分析栈:# <block_closure> 
+剩余输入串:while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <while_loop> <block>
+
+第396步
+当前分析栈:# <block> <while_loop> 
+剩余输入串:while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<while_loop> -> while <while_block>
+
+第397步
+当前分析栈:# <block> <while_block> while 
+剩余输入串:while ( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :while
+
+第398步
+当前分析栈:# <block> <while_block> 
+剩余输入串:( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<while_block> -> ( <logic_exp> ) <cpd_block>
+
+第399步
+当前分析栈:# <block> <cpd_block> ) <logic_exp> ( 
+剩余输入串:( ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :(
+
+第400步
+当前分析栈:# <block> <cpd_block> ) <logic_exp> 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_exp> -> <expression> <logic_op> <expression>
+
+第401步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <expression> 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第402步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor> 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第403步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <factor_type> 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第404步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <variable> 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第405步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第406步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> ID 
+剩余输入串:ID > INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第407步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> <index> 
+剩余输入串:> INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第408步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> <factor_recursion> 
+剩余输入串:> INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第409步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> <term> 
+剩余输入串:> INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第410步
+当前分析栈:# <block> <cpd_block> ) <expression> <logic_op> 
+剩余输入串:> INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<logic_op> -> >
+
+第411步
+当前分析栈:# <block> <cpd_block> ) <expression> > 
+剩余输入串:> INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :>
+
+第412步
+当前分析栈:# <block> <cpd_block> ) <expression> 
+剩余输入串:INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第413步
+当前分析栈:# <block> <cpd_block> ) <term> <factor> 
+剩余输入串:INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第414步
+当前分析栈:# <block> <cpd_block> ) <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第415步
+当前分析栈:# <block> <cpd_block> ) <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第416步
+当前分析栈:# <block> <cpd_block> ) <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第417步
+当前分析栈:# <block> <cpd_block> ) <term> <factor_recursion> 
+剩余输入串:) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第418步
+当前分析栈:# <block> <cpd_block> ) <term> 
+剩余输入串:) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第419步
+当前分析栈:# <block> <cpd_block> ) 
+剩余输入串:) { ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :)
+
+第420步
+当前分析栈:# <block> <cpd_block> 
+剩余输入串:{ ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<cpd_block> -> { <block> }
+
+第421步
+当前分析栈:# <block> } <block> { 
+剩余输入串:{ ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :{
+
+第422步
+当前分析栈:# <block> } <block> 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第423步
+当前分析栈:# <block> } <block_closure> <declare_closure> 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第424步
+当前分析栈:# <block> } <block_closure> 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<block_closure> -> <assignment> <block>
+
+第425步
+当前分析栈:# <block> } <block> <assignment> 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assignment> -> <variable> <assign> ;
+
+第426步
+当前分析栈:# <block> } <block> ; <assign> <variable> 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第427步
+当前分析栈:# <block> } <block> ; <assign> <index> <identifier> 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第428步
+当前分析栈:# <block> } <block> ; <assign> <index> ID 
+剩余输入串:ID = ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第429步
+当前分析栈:# <block> } <block> ; <assign> <index> 
+剩余输入串:= ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第430步
+当前分析栈:# <block> } <block> ; <assign> 
+剩余输入串:= ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<assign> -> = <right_value>
+
+第431步
+当前分析栈:# <block> } <block> ; <right_value> = 
+剩余输入串:= ID - INT_VALUE ; } write ( ID ) ; # 
+Match :=
+
+第432步
+当前分析栈:# <block> } <block> ; <right_value> 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<right_value> -> <expression>
+
+第433步
+当前分析栈:# <block> } <block> ; <expression> 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<expression> -> <factor> <term>
+
+第434步
+当前分析栈:# <block> } <block> ; <term> <factor> 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第435步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <variable>
+
+第436步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <variable> 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<variable> -> <identifier> <index>
+
+第437步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <index> <identifier> 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<identifier> -> ID
+
+第438步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <index> ID 
+剩余输入串:ID - INT_VALUE ; } write ( ID ) ; # 
+Match :ID
+
+第439步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <index> 
+剩余输入串:- INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<index> -> $
+
+第440步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> 
+剩余输入串:- INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第441步
+当前分析栈:# <block> } <block> ; <term> 
+剩余输入串:- INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<term> -> - <factor> <term>
+
+第442步
+当前分析栈:# <block> } <block> ; <term> <factor> - 
+剩余输入串:- INT_VALUE ; } write ( ID ) ; # 
+Match :-
+
+第443步
+当前分析栈:# <block> } <block> ; <term> <factor> 
+剩余输入串:INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor> -> <factor_type> <factor_recursion>
+
+第444步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <factor_type> 
+剩余输入串:INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<factor_type> -> <number>
+
+第445步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> <number> 
+剩余输入串:INT_VALUE ; } write ( ID ) ; # 
+推导所用产生式:<number> -> INT_VALUE
+
+第446步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> INT_VALUE 
+剩余输入串:INT_VALUE ; } write ( ID ) ; # 
+Match :INT_VALUE
+
+第447步
+当前分析栈:# <block> } <block> ; <term> <factor_recursion> 
+剩余输入串:; } write ( ID ) ; # 
+推导所用产生式:<factor_recursion> -> $
+
+第448步
+当前分析栈:# <block> } <block> ; <term> 
+剩余输入串:; } write ( ID ) ; # 
+推导所用产生式:<term> -> $
+
+第449步
+当前分析栈:# <block> } <block> ; 
+剩余输入串:; } write ( ID ) ; # 
+Match :;
+
+第450步
+当前分析栈:# <block> } <block> 
+剩余输入串:} write ( ID ) ; # 
+推导所用产生式:<block> -> <declare_closure> <block_closure>
+
+第451步
+当前分析栈:# <block> } <block_closure> <declare_closure> 
+剩余输入串:} write ( ID ) ; # 
+推导所用产生式:<declare_closure> -> $
+
+第452步
+当前分析栈:# <block> } <block_closure> 
+剩余输入串:} write ( ID ) ; # 
+推导所用产生式:<block_closure> -> $
+
+第453步
+当前分析栈:# <block> } 
+剩余输入串:} write ( ID ) ; # 
+Match :}
+
+第454步
 当前分析栈:# <block> 
 剩余输入串:write ( ID ) ; # 
 推导所用产生式:<block> -> <declare_closure> <block_closure>
 
-第48步
+第455步
 当前分析栈:# <block_closure> <declare_closure> 
 剩余输入串:write ( ID ) ; # 
 推导所用产生式:<declare_closure> -> $
 
-第49步
+第456步
 当前分析栈:# <block_closure> 
 剩余输入串:write ( ID ) ; # 
 推导所用产生式:<block_closure> -> <functions> <block>
 
-第50步
+第457步
 当前分析栈:# <block> <functions> 
 剩余输入串:write ( ID ) ; # 
 推导所用产生式:<functions> -> <function> ;
 
-第51步
+第458步
 当前分析栈:# <block> ; <function> 
 剩余输入串:write ( ID ) ; # 
 推导所用产生式:<function> -> <write_fun>
 
-第52步
+第459步
 当前分析栈:# <block> ; <write_fun> 
 剩余输入串:write ( ID ) ; # 
 推导所用产生式:<write_fun> -> write ( <data> )
 
-第53步
+第460步
 当前分析栈:# <block> ; ) <data> ( write 
 剩余输入串:write ( ID ) ; # 
 Match :write
 
-第54步
+第461步
 当前分析栈:# <block> ; ) <data> ( 
 剩余输入串:( ID ) ; # 
 Match :(
 
-第55步
+第462步
 当前分析栈:# <block> ; ) <data> 
 剩余输入串:ID ) ; # 
 推导所用产生式:<data> -> <expression>
 
-第56步
+第463步
 当前分析栈:# <block> ; ) <expression> 
 剩余输入串:ID ) ; # 
 推导所用产生式:<expression> -> <factor> <term>
 
-第57步
+第464步
 当前分析栈:# <block> ; ) <term> <factor> 
 剩余输入串:ID ) ; # 
 推导所用产生式:<factor> -> <factor_type> <factor_recursion>
 
-第58步
+第465步
 当前分析栈:# <block> ; ) <term> <factor_recursion> <factor_type> 
 剩余输入串:ID ) ; # 
 推导所用产生式:<factor_type> -> <variable>
 
-第59步
+第466步
 当前分析栈:# <block> ; ) <term> <factor_recursion> <variable> 
 剩余输入串:ID ) ; # 
 推导所用产生式:<variable> -> <identifier> <index>
 
-第60步
+第467步
 当前分析栈:# <block> ; ) <term> <factor_recursion> <index> <identifier> 
 剩余输入串:ID ) ; # 
 推导所用产生式:<identifier> -> ID
 
-第61步
+第468步
 当前分析栈:# <block> ; ) <term> <factor_recursion> <index> ID 
 剩余输入串:ID ) ; # 
 Match :ID
 
-第62步
+第469步
 当前分析栈:# <block> ; ) <term> <factor_recursion> <index> 
 剩余输入串:) ; # 
 推导所用产生式:<index> -> $
 
-第63步
+第470步
 当前分析栈:# <block> ; ) <term> <factor_recursion> 
 剩余输入串:) ; # 
 推导所用产生式:<factor_recursion> -> $
 
-第64步
+第471步
 当前分析栈:# <block> ; ) <term> 
 剩余输入串:) ; # 
 推导所用产生式:<term> -> $
 
-第65步
+第472步
 当前分析栈:# <block> ; ) 
 剩余输入串:) ; # 
 Match :)
 
-第66步
+第473步
 当前分析栈:# <block> ; 
 剩余输入串:; # 
 Match :;
 
-第67步
+第474步
 当前分析栈:# <block> 
 剩余输入串:# 
 推导所用产生式:<block> -> <declare_closure> <block_closure>
 
-第68步
+第475步
 当前分析栈:# <block_closure> <declare_closure> 
 剩余输入串:# 
 推导所用产生式:<declare_closure> -> $
 
-第69步
+第476步
 当前分析栈:# <block_closure> 
 剩余输入串:# 
 推导所用产生式:<block_closure> -> $
 
-第70步
+第477步
 当前分析栈:# 
 剩余输入串:# 
 当前程序语法分析成功！
