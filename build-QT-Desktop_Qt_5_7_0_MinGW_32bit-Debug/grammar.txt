@@ -60,8 +60,8 @@
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block>
 <declare_or_assign> -> <per_declaration>
 <declare_or_assign> -> <assignment>
-<declare_or_assign> -> ;
 <logic_exp> -> <expression> <logic_op> <expression>
+<logic_exp> -> $
 <logic_op> -> <
 <logic_op> -> <=
 <logic_op> -> >
@@ -70,6 +70,7 @@
 <logic_op> -> ==
 <inner_assign> -> <self_op> <variable>
 <inner_assign> -> <variable> <assign>
+<inner_assign> -> #
 <while_loop> -> while <while_block>
 <while_block> -> ( <logic_exp> ) <cpd_block>
 <if_stmt> -> if <if_block>

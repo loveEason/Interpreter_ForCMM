@@ -63,6 +63,7 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         nodeNext = node->children[1];
     }
 
+
     treeNode * type = node1->children[0];
     string decType = type->children[0]->content=="int"?INT_DCL:REAL_DCL;  //判断声明的类型
     int typeNum = decType=="INT_DCL"?1:2;
@@ -114,7 +115,7 @@ void CodeGenerator::interpretDcl(treeNode * node) {
         nodeNext = nodeNext->children[3];
     }
 
-    treeNode * node2 = node->children[2];    //node2为<declare_closure>
+    treeNode * node2 = node->children[1];    //node2为<declare_closure>
     if(node2->content==";"){
         return;
     }else if(node2->children[0]->content!="$"){
@@ -300,10 +301,10 @@ void CodeGenerator::interpretLoop(treeNode * node) {
     }else{                                   //当为for循环
         treeNode * forBlock = node->children[1];
         treeNode * decOrAsg = forBlock->children[1];
-        treeNode * condition = forBlock->children[3];
-        treeNode * innerAsg = forBlock->children[5];
-        treeNode * block = forBlock->children[7]->children[1];
-        int jmpBcLine = forBlock->children[7]->children[2]->line;
+        treeNode * condition = forBlock->children[2];
+        treeNode * innerAsg = forBlock->children[4];
+        treeNode * block = forBlock->children[6]->children[1];
+        int jmpBcLine = forBlock->children[6]->children[2]->line;
 
         createCode("IN", "", "", "");
         layer++;
@@ -313,28 +314,18 @@ void CodeGenerator::interpretLoop(treeNode * node) {
             interpretAsg(decOrAsg->children[0]);
         }
 
-        int line = 0;
-        if(condition->children[0]->content!="$"){
-            treeNode * leftExp = condition->children[0];
-            treeNode * logicOp = condition->children[1]->children[0];
-            line = logicOp->line;
-            treeNode * rightExp = condition->children[2];
-            string leftValue = interpretExp(leftExp);
-            string rightValue = interpretExp(rightExp);
-            createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
-        }else{
-            createCode(">", "2", "1", "", 0);
-            line = condition->line;
-        }
+        treeNode * leftExp = condition->children[0];
+        treeNode * logicOp = condition->children[1]->children[0];
+        treeNode * rightExp = condition->children[2];
+        string leftValue = interpretExp(leftExp);
+        string rightValue = interpretExp(rightExp);
+        createCode(logicOp->content, leftValue, rightValue, "", logicOp->line);
 
         int pos = codeList.size();
-        InterCode jmpCode = InterCode(JMP, to_string(pos+layer), "", "", line);
-
+        InterCode jmpCode = InterCode(JMP, to_string(pos+layer), "", "", logicOp->line);
 
         interpretPrg(block);
-        if(innerAsg->children[0]->content!="$"){
-            interpretAsg(innerAsg);
-        }
+        interpretAsg(innerAsg);
         checkTable->removeLayerSimple(layer);
         layer--;
 
@@ -451,21 +442,19 @@ void CodeGenerator::createCode(string op, string second, string third, string fo
     codeList.push_back(code);
 }
 
-void CodeGenerator::printError(string error, int pos){
-    isError = true;
-    cout<<error<<". At line "<<pos<<"."<<endl;
-    char buffer[10];
-    itoa(pos, buffer, 10);
-    string er = error + ". At line " + buffer;
-    errorList.push_back(er);
-}
-
 vector<string> CodeGenerator::getError(){
     return errorList;
 }
 
 bool CodeGenerator::hasError(){
     return isError;
+}
+
+void CodeGenerator::printError(string error, int pos){
+    cout<<error<<". At line "<<pos<<"."<<endl;
+    isError = true;
+    string er = error + ". At line " + to_string(pos);
+    errorList.push_back(er);
 }
 
 string CodeGenerator::calIndex(treeNode * node){

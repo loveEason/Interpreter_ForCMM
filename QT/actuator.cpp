@@ -352,11 +352,16 @@ void Actuator::plus(string first, string second, string third) {
             if (t.type == symbolType::none) {
                 if (isreal) {
                     symbolTable.addNode(symbolType::real, third);
-                    symbolTable.changeNode(third, num);
+
                 } else {
                     symbolTable.addNode(symbolType::integer, third);
-                    symbolTable.changeNode(third, (int)num);
+
                 }
+            }
+            if (isreal) {
+                symbolTable.changeNode(third, num);
+            } else {
+                symbolTable.changeNode(third, (int)num);
             }
             return ;
         }
@@ -375,17 +380,19 @@ void Actuator::plus(string first, string second, string third) {
     }
 
     if (t.type == symbolType::none) {
-        if (isreal)
+        if (isreal) {
             symbolTable.addNode(symbolType::real, third);
-        else
+        }
+        else {
             symbolTable.addNode(symbolType::integer, third);
-        t = symbolTable.findNode(third);
+        }
+    }
+    if (isreal) {
+        symbolTable.changeNode(third, num);
+    } else {
+        symbolTable.changeNode(third, (int)num);
     }
 
-    if (t.type==symbolType::integer)
-        symbolTable.changeNode(third, (int)num);
-    else
-        symbolTable.changeNode(third, num);
 }
 
 void Actuator::minu(string first, string second, string third) {
@@ -526,7 +533,7 @@ void Actuator::read(string first, string second, string third) {
 }
 
 void Actuator::write(string first, string second, string third) {
-    if (isnumber(first)>=0)
+   if (isnumber(first)>=0)
         this->win->addoutput(first+"\n");
     else {
         auto node = symbolTable.findNode(first);
@@ -626,15 +633,15 @@ void Actuator::compare(string first, string second, string third) {
     if (first==">") {
         if (a>b) cmp = true; else cmp = false;
     } else if (first==">=") {
-        if (a-b>1e-6) cmp = true; else cmp = false;
+        if (a-b>=0) cmp = true; else cmp = false;
     } else if (first=="==") {
-        if (a-b<1e-6) cmp = true; else cmp = false;
+        if (abs(a-b)<1e-6) cmp = true; else cmp = false;
     } else if (first=="<") {
         if (a<b) cmp = true; else cmp = false;
     } else if (first=="<=") {
-        if (b-a>1e-6) cmp = true; else cmp = false;
+        if (b-a>=0) cmp = true; else cmp = false;
     } else if (first=="<>") {
-        if (b-a>1e-6 || a-b>1e-6) cmp = true; else cmp = false;
+        if (abs(b-a)<1e-6) cmp = true; else cmp = false;
     } else {
         return;
     }

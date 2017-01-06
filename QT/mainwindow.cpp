@@ -9,7 +9,7 @@
 #include <QTextStream>
 #include <QDesktopServices>
 #include <string.h>
-
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,20 +36,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Tree_clicked()
 {
-//    TreeDialog *parsetree = new TreeDialog(this,tree);
-////    tree->setWindowFlags(Qt::FramelessWindowHint);
-////    tree->setAttribute(Qt::WA_TranslucentBackground,true);
+////    TreeDialog *parsetree = new TreeDialog(this,tree);
+//////    tree->setWindowFlags(Qt::FramelessWindowHint);
+//////    tree->setAttribute(Qt::WA_TranslucentBackground,true);
+////    parsetree->show();
+//    QString fileName = "tree.xml";
+//    QFile *in = new QFile(fileName);
+//    in->open(QIODevice::ReadOnly|QIODevice::Text);
+//    QString xml = QString(in->readAll());
+//    in->close();
+//    TreeDialog *parsetree = new TreeDialog(this,xml);
+//    //    tree->setWindowFlags(Qt::FramelessWindowHint);
+//    //    tree->setAttribute(Qt::WA_TranslucentBackground,true);
 //    parsetree->show();
-    QString fileName = "tree.xml";
-    QFile *in = new QFile(fileName);
-    in->open(QIODevice::ReadOnly|QIODevice::Text);
-    QString xml = QString(in->readAll());
-    in->close();
-    TreeDialog *parsetree = new TreeDialog(this,xml);
-    //    tree->setWindowFlags(Qt::FramelessWindowHint);
-    //    tree->setAttribute(Qt::WA_TranslucentBackground,true);
-    parsetree->show();
-//    QDesktopServices::openUrl(QUrl::fromLocalFile("tree.xml"));
+////    QDesktopServices::openUrl(QUrl::fromLocalFile("tree.xml"));
+///
+    QProcess::execute("explorer tree.xml");
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
@@ -122,7 +124,7 @@ void MainWindow::on_Save_clicked()
 //开始按钮，对代码进行解释
 void MainWindow::on_Start_clicked()
 {
-//    ui->Result->clear();
+    ui->Result->clear();
     ui->Intercode->clear();
     QString text = ui->Input->toPlainText();
     string code = text.toStdString();
@@ -147,7 +149,7 @@ void MainWindow::on_Start_clicked()
         bool isSuccess = parse.grammarAnalyse(normalHead);
         if(isSuccess==false){
             ParseError *parseError = parse.getParseError();
-            addoutput("there is something wrong happened near line"+to_string(parseError->line)+":"+parseError->content);
+            addoutput(parseError->errorContent);
             addoutput("==Finished============================================================\n");
             return;
         }

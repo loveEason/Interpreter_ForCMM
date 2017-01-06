@@ -123,7 +123,7 @@ write
    <datas> : {(,FLOAT_VALUE,ID,INT_VALUE}
  <declare> : {int,real}
 <declare_closure> : {$,int,real}
-<declare_or_assign> : {++,--,;,ID,int,real}
+<declare_or_assign> : {++,--,ID,int,real}
     <else> : {$,else}
 <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
   <factor> : {(,FLOAT_VALUE,ID,INT_VALUE}
@@ -138,8 +138,8 @@ write
  <if_stmt> : {if}
    <index> : {$,[}
 <initialization> : {$,=}
-<inner_assign> : {++,--,ID}
-<logic_exp> : {(,FLOAT_VALUE,ID,INT_VALUE}
+<inner_assign> : {#,++,--,ID}
+<logic_exp> : {$,(,FLOAT_VALUE,ID,INT_VALUE}
 <logic_op> : {<,<=,<>,==,>,>=}
   <number> : {FLOAT_VALUE,INT_VALUE}
 <per_declaration> : {int,real}
@@ -240,8 +240,8 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block> : {(}
 <declare_or_assign> -> <per_declaration> : {int,real}
 <declare_or_assign> -> <assignment> : {++,--,ID}
-<declare_or_assign> -> ; : {;}
 <logic_exp> -> <expression> <logic_op> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
+    <logic_exp> -> $ : {$}
      <logic_op> -> < : {<}
     <logic_op> -> <= : {<=}
      <logic_op> -> > : {>}
@@ -250,6 +250,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
     <logic_op> -> == : {==}
 <inner_assign> -> <self_op> <variable> : {++,--}
 <inner_assign> -> <variable> <assign> : {ID}
+ <inner_assign> -> # : {#}
 <while_loop> -> while <while_block> : {while}
 <while_block> -> ( <logic_exp> ) <cpd_block> : {(}
 <if_stmt> -> if <if_block> : {if}
@@ -278,7 +279,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
              <datas> : {}}
            <declare> : {,,;}
    <declare_closure> : {#,++,--,ID,for,if,read,while,write,}}
- <declare_or_assign> : {(,FLOAT_VALUE,ID,INT_VALUE}
+ <declare_or_assign> : {(,;,FLOAT_VALUE,ID,INT_VALUE}
               <else> : {#,++,--,;,ID,for,if,int,read,real,while,write,}}
         <expression> : {),,,;,<,<=,<>,==,>,>=,}}
             <factor> : {),+,,,-,;,<,<=,<>,==,>,>=,}}
@@ -297,7 +298,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
          <logic_exp> : {),;}
           <logic_op> : {(,FLOAT_VALUE,ID,INT_VALUE}
             <number> : {%,),*,+,,,-,/,;,<,<=,<>,==,>,>=,],}}
-   <per_declaration> : {#,(,++,--,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
+   <per_declaration> : {#,(,++,--,;,FLOAT_VALUE,ID,INT_VALUE,for,if,int,read,real,while,write,}}
 <per_declare_closure> : {;}
            <program> : {#}
           <read_fun> : {;}
@@ -375,8 +376,8 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <for_block> -> ( <declare_or_assign> <logic_exp> ; <inner_assign> ) <cpd_block> : {(}
 <declare_or_assign> -> <per_declaration> : {int,real}
 <declare_or_assign> -> <assignment> : {++,--,ID}
-<declare_or_assign> -> ; : {;}
 <logic_exp> -> <expression> <logic_op> <expression> : {(,FLOAT_VALUE,ID,INT_VALUE}
+    <logic_exp> -> $ : {),;}
      <logic_op> -> < : {<}
     <logic_op> -> <= : {<=}
      <logic_op> -> > : {>}
@@ -385,6 +386,7 @@ FLOAT_VALUE : {FLOAT_VALUE}
     <logic_op> -> == : {==}
 <inner_assign> -> <self_op> <variable> : {++,--}
 <inner_assign> -> <variable> <assign> : {ID}
+ <inner_assign> -> # : {#}
 <while_loop> -> while <while_block> : {while}
 <while_block> -> ( <logic_exp> ) <cpd_block> : {(}
 <if_stmt> -> if <if_block> : {if}
@@ -464,7 +466,6 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <declare_closure> encounters },using deducer:<declare_closure> -> $
 <declare_or_assign> encounters ++,using deducer:<declare_or_assign> -> <assignment>
 <declare_or_assign> encounters --,using deducer:<declare_or_assign> -> <assignment>
-<declare_or_assign> encounters ;,using deducer:<declare_or_assign> -> ;
 <declare_or_assign> encounters ID,using deducer:<declare_or_assign> -> <assignment>
 <declare_or_assign> encounters int,using deducer:<declare_or_assign> -> <per_declaration>
 <declare_or_assign> encounters real,using deducer:<declare_or_assign> -> <per_declaration>
@@ -546,10 +547,13 @@ FLOAT_VALUE : {FLOAT_VALUE}
 <initialization> encounters ,,using deducer:<initialization> -> $
 <initialization> encounters ;,using deducer:<initialization> -> $
 <initialization> encounters =,using deducer:<initialization> -> = <right_value>
+<inner_assign> encounters #,using deducer:<inner_assign> -> #
 <inner_assign> encounters ++,using deducer:<inner_assign> -> <self_op> <variable>
 <inner_assign> encounters --,using deducer:<inner_assign> -> <self_op> <variable>
 <inner_assign> encounters ID,using deducer:<inner_assign> -> <variable> <assign>
 <logic_exp> encounters (,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
+<logic_exp> encounters ),using deducer:<logic_exp> -> $
+<logic_exp> encounters ;,using deducer:<logic_exp> -> $
 <logic_exp> encounters FLOAT_VALUE,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
 <logic_exp> encounters ID,using deducer:<logic_exp> -> <expression> <logic_op> <expression>
 <logic_exp> encounters INT_VALUE,using deducer:<logic_exp> -> <expression> <logic_op> <expression>

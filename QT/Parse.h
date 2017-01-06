@@ -59,7 +59,7 @@ private:
     void addToTree(treeNode *tNode);
     //得到语法树栈的当前根节点
     treeNode *getTopNode();
-    //私有成员函数，由公有saveTree()调用保存语法树到xml文件中
+    //私有成员函数，由公有saveTree()调用，保存语法树到xml文件中
     void saveTreePrivate(treeNode *pTree, ofstream &out);
     //处理文法中的运算符和限界符符号,转换为对应的英文说明
     string dealTerminalSymbols(string oldStr);
